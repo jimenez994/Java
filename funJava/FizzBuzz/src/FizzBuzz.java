@@ -1,4 +1,4 @@
-import java.lang.Math;
+
 public class FizzBuzz {
 	public String fizzBuzz(int number) {
 		if(number % 5 == 0 && number % 3 == 0) {
