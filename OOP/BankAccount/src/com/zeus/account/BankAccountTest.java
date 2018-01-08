@@ -15,7 +15,7 @@ public class BankAccountTest {
 		user2.chekingWithdraw(4232.53);
 		user1.accountTotal();
 		user2.accountTotal();
-		user1.setCheckingBalance(4564.65);
+
 		
 		System.out.println(user1.getAccountNumber());
 		System.out.println(user1.getName());
