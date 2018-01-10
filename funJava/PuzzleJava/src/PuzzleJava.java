@@ -13,10 +13,10 @@ public class PuzzleJava {
 				myArray.add(arr[i]);
 			}
 			num = num + arr[i];
-			System.out.println(" Sum: " + num);	
+			System.out.println(" Sum: " + num);
 		}
 		return myArray;
-		
+
 	}
 	public ArrayList<String> task2(String[] arr) {
 		ArrayList<String> list = new ArrayList<String>(Arrays.asList(arr));
@@ -53,7 +53,7 @@ public class PuzzleJava {
 		}
 		System.out.println(myArray.get(0)+" "+ myArray.get(myArray.size()-1));
 		return myArray;
-		
+
 	}
 	public void task5() {
 		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
@@ -67,9 +67,9 @@ public class PuzzleJava {
 		System.out.println(output);
 	}
 	public void task6() {
+
 		ArrayList<String> list = new ArrayList<String>();
 		for(int a = 1; a <= 10; a++) {
-		
 			char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 			StringBuilder sb = new StringBuilder(5);
 			Random random = new Random();
@@ -81,10 +81,10 @@ public class PuzzleJava {
 			list.add(output);
 		}
 		System.out.println(list);
-		
+
 	}
-	
-	
-	
+
+
+
 
 }
