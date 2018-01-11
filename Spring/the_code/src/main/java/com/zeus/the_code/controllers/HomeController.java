@@ -17,7 +17,7 @@ public class HomeController {
 	}
 	 @RequestMapping("/process")
 	    public String errors(@RequestParam(value="field") String field, RedirectAttributes flash){
-		 if(field.equals("bushido") || field.equals("Bushido")) {
+		 if(field.replaceAll("\\s+$","").toLowerCase().equals("bushido")) {
 			 return "code.jsp";
 		 }else {
 			 flash.addFlashAttribute("errors", "A test errror!");

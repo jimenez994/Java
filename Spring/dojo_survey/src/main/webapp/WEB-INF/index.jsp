@@ -11,7 +11,7 @@
   <h1>Survey</h1>
   <form action="/login" method="post">
 
-      <h4>Your Name: <input type="text" name="name"></h4>
+      <h4>Your Name: <input type="text" name="name" value="Zeus"></h4>
       <h4>Dojo Location:
           <select name="dojolocation">
               <option>Dallas</option>
