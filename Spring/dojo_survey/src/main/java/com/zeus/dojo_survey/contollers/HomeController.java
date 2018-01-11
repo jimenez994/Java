@@ -26,8 +26,16 @@ public class HomeController {
 	  @Controller
 	  public class DashboardController {
 	      @RequestMapping("/dashboard_view")
-	      public String dashboard(Model model) {
-	      // ... any code to process before rendering
+	      
+	      public String dashboard(Model model,HttpSession session) {
+	    	  	System.out.println(session.getAttribute("favlang"));
+	    	  	if (session.getAttribute("favlang").equals("Java")) {
+	    	  		System.out.println(session.getAttribute("favlang"));
+	    	  		
+	    	  		return "java.jsp";
+	    	  		
+	    	  	}
+	    	  
 	        return "dashboard.jsp";
 	      }
 	  }

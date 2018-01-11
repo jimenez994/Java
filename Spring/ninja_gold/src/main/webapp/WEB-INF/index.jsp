@@ -1,20 +1,21 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <link rel="stylesheet" type="text/css" href="css/style.css">
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
   <div class="page">
-      <h1>Ninja Gold <span id="version">2.0</span></h1>
+      <h1>Ninja Gold <span id="version">2.5</span></h1>
       <p>Made with Java</p>
       <h3>Your Gold:
           <span>$</span>
-          <span>{{ request.session.yourGold }}</span>
+          <span>${gold}</span>
       </h3>
       <div class="location">
           <h3>Farm</h3>
@@ -50,18 +51,22 @@
       </div>
       <h3>Activities</h3>
       <div id="activities">
-          {% for x in request.session.activity reversed %}
-              {% if x.lost == False %}
-                  <p class="earn">{{ x.message }}</p>
-
-              {% else %}
-                  <p class="lost">{{ x.message }}</p>
-              {% endif %}
-
-          {% endfor %}
-
-
+      
+      <c:forEach items="${goldlist}" var="gold" varStatus="loop">
+   
+       <c:if test = "${gold.contains('Lost')}" >
+      		<h5 class="lost">${gold}</h5>
+        </c:if>
+        <c:if test = "${gold.contains('Earn')}" >
+      		<h5 class="earn">${gold}</h5>
+        </c:if>
+        
+    
+	</c:forEach>
+	
+	
       </div>
+      <a href="/reset">Reset</a>
   </div>
 
 </body>
