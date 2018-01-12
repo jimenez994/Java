@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.zeus</groupId>
-	<artifactId>books</artifactId>
+	<artifactId>group_languages</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>books</name>
-	<description>books</description>
+	<name>group_languages</name>
+	<description>group_languages</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

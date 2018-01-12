@@ -18,18 +18,18 @@ import com.zeus.books.services.BookService;
 @Controller
 @RequestMapping("/")
 public class BookController {
-    
+
 	private final BookService bookService;
-	
+
 	public BookController(BookService bookService) {
-		this.bookService = bookService;	
+		this.bookService = bookService;
 	}
-	
+
 	@RequestMapping("")
 	public String books(Model model) {
 		List<Book> books = bookService.allBooks();
-        model.addAttribute("books", books);
-        return "index.jsp";
+    model.addAttribute("books", books);
+    return "index.jsp";
     }
 	@RequestMapping("/bla")
 	public String bla(Model model) {
@@ -47,7 +47,7 @@ public class BookController {
 	public String newBook(@ModelAttribute("book")Book book) {
 		return "newBook.jsp";
 	}
-	
+
     @PostMapping("/books/new")
     public String createBook(@Valid @ModelAttribute("book") Book book, BindingResult result) {
         if (result.hasErrors()) {
@@ -65,7 +65,7 @@ public class BookController {
     			return "editBook.jsp";
     		}else {
     			return "redirect:/";
-    		}	
+    		}
     }
     @PostMapping("/books/update/{id}")
     public String updateBook(@PathVariable("id") int id, @Valid @ModelAttribute("book") Book book, BindingResult result) {
@@ -83,6 +83,6 @@ public class BookController {
         bookService.destroyBook(id);
         return "redirect:/";
     }
-	
+
 
 }
