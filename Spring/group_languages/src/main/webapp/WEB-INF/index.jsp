@@ -27,11 +27,11 @@
     <table>
       <c:forEach items="${languages}" var="language" varStatus="loop">
         <tr>
-          <td> <a href="/language/${loop.index}"> <c:out value="${language.name}"/></a></td>
+          <td> <a href="/language/${language.id}"> <c:out value="${language.name}"/></a></td>
           <td><c:out value="${language.creator}"/></td>
           <td><c:out value="${language.currentVersion}"/></td>
-          <td> <a href="/language/delete/${loop.index}">delete</a> </td>
-          <td> <a href="/language/edit/${loop.index}">edit</a> </td>
+          <td> <a href="/language/delete/${language.id}">delete</a> </td>
+          <td> <a href="/language/edit/${language.id}">edit</a> </td>
         </tr>
       </c:forEach>
     </table>

@@ -27,7 +27,7 @@ public class LanguageService {
 	public Crud findLanguageById(Long id) {
 		return groupLanguageRepository.findOne(id);
 	}
-	public void updateLanguag(Crud language) {
+	public void updateLanguage(Crud language) {
 		groupLanguageRepository.save(language);
 	}
 	
