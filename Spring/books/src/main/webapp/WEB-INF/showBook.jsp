@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <h3><c:out value="${book.title}"/></h3>
 <p><c:out value="${book.description}"/></p>
 <p><c:out value="${book.language}"/></p>

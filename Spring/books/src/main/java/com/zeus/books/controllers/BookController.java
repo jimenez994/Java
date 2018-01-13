@@ -1,6 +1,6 @@
 package com.zeus.books.controllers;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.validation.Valid;
 
@@ -27,20 +27,21 @@ public class BookController {
 
 	@RequestMapping("")
 	public String books(Model model) {
-		List<Book> books = bookService.allBooks();
-    model.addAttribute("books", books);
-    return "index.jsp";
+		ArrayList<Book> books = bookService.allBooks();
+		System.out.println(books);
+		model.addAttribute("books",books);
+		return "index.jsp";
     }
+
 	@RequestMapping("/bla")
 	public String bla(Model model) {
-		List<Book> books = bookService.allBooks();
+		ArrayList<Book> books = bookService.allBooks();
         model.addAttribute("books", books);
         return "bla.jsp";
     }
 	@RequestMapping("/{index}")
-	public String findBookByIndex(Model model, @PathVariable("index") int index) {
-		 Book book = bookService.findBookByIndex(index);
-	     model.addAttribute("book", book);
+	public String findBookByIndex(Model model, @PathVariable("index") long index) {
+		model.addAttribute("book", bookService.findBookById(index));
 	     return "showBook.jsp";
     }
 	@RequestMapping("/new")
@@ -58,28 +59,28 @@ public class BookController {
         }
     }
     @RequestMapping("/books/edit/{id}")
-    public String editBook(@PathVariable("id") int id, Model model) {
-    		Book book = bookService.findBookByIndex(id);
-    		if (book != null) {
-    			model.addAttribute("book",book);
-    			return "editBook.jsp";
-    		}else {
-    			return "redirect:/";
-    		}
+    public String editBook(@PathVariable("id") Long id, Model model) {
+        Book book = bookService.findBookById(id);
+        if (book != null){
+            model.addAttribute("book", book);
+            return "editBook.jsp";
+        }else{
+            return "redirect:/books";
+        }
     }
     @PostMapping("/books/update/{id}")
-    public String updateBook(@PathVariable("id") int id, @Valid @ModelAttribute("book") Book book, BindingResult result) {
+    public String updateBook(@PathVariable("id") long id, @Valid @ModelAttribute("book") Book book, BindingResult result) {
         if (result.hasErrors()) {
-        		for(int i=0;i<result.getAllErrors().size();i++) {
-        		}
             return "redirect:/books/edit/{id}";
         }else{
-            bookService.updateBook(id, book);
+            bookService.updateBook(book);
             return "redirect:/";
         }
     }
+    
+ 
     @RequestMapping(value="/books/delete/{id}")
-    public String destroyBook(@PathVariable("id") int id) {
+    public String destroyBook(@PathVariable("id") long id) {
         bookService.destroyBook(id);
         return "redirect:/";
     }
