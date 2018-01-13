@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <form:form moethd="POST" action="/language/new" modelAttribute="language">
+  <form:form method="POST" action="/language/new" modelAttribute="language">
     <form:label path="name">Name
     <form:errors path="name"/>
     <form:input path="name"/></form:label><br>

@@ -1,4 +1,5 @@
-package com.zeus.group_languages.models;
+package com.zeus.lookify.models;
+
 
 import java.util.Date;
 
@@ -8,31 +9,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
-@Entity
 
-public class Crud {
-	public Crud() {
-		
-	}
+@Entity
+public class LookifyModel {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column
-	@Size(min = 2, max = 20)
-	private String name;
 	
 	@Column
-	@Size(min = 2, max = 20)
-	private String creator;
+	@Length(min=5, message="It must be at least 5 characters long")
+	private String title;
+	
+	@Column 
+	@Length(min = 5, message="It must be at least 5 characters long")
+	private String artist;
 	
 	@Column
-	@Size(min = 1)
-	private String currentVersion;
+	@Max(value = 10, message="It must be a number between 1 and 10")
+	@Min(value = 1, message="It must be a number between 1 and 10")
+	private int rating;
 	
-	@Column(updatable=false)
+	@Column
 	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	private Date createdAt;
 	
@@ -48,28 +50,28 @@ public class Crud {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getCreator() {
-		return creator;
+	public String getArtist() {
+		return artist;
 	}
 
-	public void setCreator(String creator) {
-		this.creator = creator;
+	public void setArtist(String artist) {
+		this.artist = artist;
 	}
 
-	public String getCurrentVersion() {
-		return currentVersion;
+	public int getRating() {
+		return rating;
 	}
 
-	public void setCurrentVersion(String currentVersion) {
-		this.currentVersion = currentVersion;
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 	public Date getCreatedAt() {
@@ -92,9 +94,9 @@ public class Crud {
 	protected void onCreate() {
 		this.createdAt = new Date();
 	}
+
 	@PreUpdate
-	protected void onUpdated() {
+	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
-
 }
