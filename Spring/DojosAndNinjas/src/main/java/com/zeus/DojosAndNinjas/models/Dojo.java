@@ -1,7 +1,8 @@
 package com.zeus.DojosAndNinjas.models;
 
-import java.util.ArrayList;
+
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class Dojo {
     private Date createdAt;
     private Date updatedAt;
     @OneToMany(mappedBy="dojo", fetch = FetchType.LAZY)
-    private ArrayList<Ninja> ninjas;
+    private List<Ninja> ninjas;
     
     public Dojo() {
         
@@ -60,11 +61,11 @@ public class Dojo {
 		this.updatedAt = updatedAt;
 	}
 
-	public ArrayList<Ninja> getNinjas() {
+	public List<Ninja> getNinjas() {
 		return ninjas;
 	}
 
-	public void setNinjas(ArrayList<Ninja> ninjas) {
+	public void setNinjas(List<Ninja> ninjas) {
 		this.ninjas = ninjas;
 	}
     

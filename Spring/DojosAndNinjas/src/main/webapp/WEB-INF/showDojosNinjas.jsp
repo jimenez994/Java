@@ -9,15 +9,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <h3>Dashboard</h3>
-  <a href="/dojo/new">Create a New Dojo</a><br>
-  <a href="/ninja/new">Create a New Ninja</a>
+  <h2>Welcome to ${dojo.name}</h2>
+  <table>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Age</th>
+    </tr>
+    <tr>
 
-  <h2>Dojos Created</h2>
-  <c:forEach items="${dojos}" var="dojo">
-    <a href="/dojo/${dojo.id}">${dojo.name}</a><br>
-  </c:forEach>
+    <c:forEach items="${ninjas}" var="ninja">
+      <td>${ninja.firstName}</td>
+      <td>${ninja.lastName}</td>
+      <td>${ninja.age}</td>
 
+    </c:forEach>
+  </tr>
+  </table>
+<a href="/">Dashboard</a>
 
 </body>
 </html>
