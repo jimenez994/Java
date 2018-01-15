@@ -16,7 +16,7 @@ ${people}
 		<form:label path="person">Person:
 			<form:select path="person">
 				<c:forEach items="${people}" var="person">
-					<form:option value="${person.id}">${person.firstName} ${person.lastName}</form:option>
+					<form:option value="${person.id}">${person.firstName} ${person.lastName}></form:option>
 				</c:forEach>
 			</form:select>
 		</form:label>
@@ -25,9 +25,9 @@ ${people}
 			<form:input path="state"></form:input>
 			<form:errors path="state"></form:errors>
 		</form:label>
-		
+
 		<form:input type="date" path="expiration_date"></form:input>
-		
+
 		<input type="submit" value="Create"></input>
 	</form:form>
 
