@@ -8,12 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<h2><a href="/questions">Dashboard</a></h2>
-	
-	
-	
-	
-
+	<h2>What is your question?</h2>
 </body>
 </html>

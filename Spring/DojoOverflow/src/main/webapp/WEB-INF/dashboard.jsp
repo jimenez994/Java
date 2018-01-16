@@ -8,12 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<h2><a href="/questions">Dashboard</a></h2>
-	
-	
-	
-	
-
+ <h2>Questions Dashboard</h2>
+ <a href="/questions/new">New Question</a>
 </body>
 </html>
