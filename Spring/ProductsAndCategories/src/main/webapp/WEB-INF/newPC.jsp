@@ -9,17 +9,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <h2>${product.name}</h2>
-  <h3>Categories:</h3>
-  ${categories}
-  <form:form action="/produc/{id}/new" method="post">
-    <form:label path="category">Add Category:
-      <form:select path="category">
+		<h3><strong>${product.name}</strong></h3>
+		<p>Description: ${product.description}</p>
+		<p>Price: $${product.price}</p>
+		<hr>
+		<p><strong>Categories:</strong></p>
+		<ul>
+			<c:forEach items="${product.categories}" var="category">
+			<li>${category.name}</li>
+			</c:forEach>
+		</ul>
+
+  <form action="/product/${id}" method="post">
+    <label>Add Category:
+      <select name="category">
         <c:forEach items="${categories}" var="category">
-          <form:option value="${category.name}"></form:option>
+          <option value="${category.id}">${category.name}</option>
         </c:forEach>
-      </form:select>
-    </form:label>
-  </form:form>
+      </select>
+    </label><br>
+    <input type="submit" value="Add">
+  </form>
 </body>
 </html>

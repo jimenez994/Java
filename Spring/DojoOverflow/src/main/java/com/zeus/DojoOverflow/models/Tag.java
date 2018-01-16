@@ -1,46 +1,53 @@
-package com.zeus.lookify.models;
-
+package com.zeus.DojoOverflow.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class LookifyModel {
+@Table(name="`tags`")
+public class Tag {
 	@Id
 	@GeneratedValue
 	private Long id;
-
+	
 	@Column
-	@Length(min=5, message="It must be at least 5 characters long")
-	private String title;
-
-	@Column
-	@Length(min = 5, message="It must be at least 5 characters long")
-	private String artist;
-
-	@Column
-	@Max(value = 10, message="It must be a number between 1 and 10")
-	@Min(value = 1, message="It must be a number between 1 and 10")
-	private int rating;
-
+	@Length(min = 1, message="Max of 3 tags separeted by a comma and lowercased")
+	private String subject;
+	
 	@Column
 	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	private Date createdAt;
-
+	
 	@Column
 	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	private Date updatedAt;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "tags_questions",
+			joinColumns = @JoinColumn(name = "tag_id"),
+			inverseJoinColumns = @JoinColumn(name = "question_id")
+			)
+	private List<Question> questions;
+	
+	public Tag() {
+		
+	}
 
 	public Long getId() {
 		return id;
@@ -50,28 +57,12 @@ public class LookifyModel {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getSubject() {
+		return subject;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getArtist() {
-		return artist;
-	}
-
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
-
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 	public Date getCreatedAt() {
@@ -90,13 +81,21 @@ public class LookifyModel {
 		this.updatedAt = updatedAt;
 	}
 
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = new Date();
 	}
-
 	@PreUpdate
-	protected void onUpdate() {
+	protected void onUpdated() {
 		this.updatedAt = new Date();
 	}
+	
+
 }

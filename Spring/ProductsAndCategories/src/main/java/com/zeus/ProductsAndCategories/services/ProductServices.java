@@ -1,6 +1,7 @@
 package com.zeus.ProductsAndCategories.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,18 @@ public class ProductServices {
 		productRepository.save(product);
 	}
 	
-
-	public void addProductToCategory(Long id, Category category) {
-		productRepository.findOne(id).getCategories().add(category);
+	public List<Product> listAvailableProducts(Category category){
+		List<String> names = new ArrayList<String>();
+		List<Product> current = category.getProducts();
+		if(current.isEmpty()) {
+			names.add("");
+		}else {
+			for (Product prod: current) {
+				names.add(prod.getName());
+			}
+		}
+		List<Product> products = productRepository.findByNameNotIn(names);
+		return products;
 	}
-
+	
 }

@@ -1,7 +1,5 @@
 package com.zeus.ProductsAndCategories.controllers;
 
-import java.util.ArrayList;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zeus.ProductsAndCategories.models.Category;
 import com.zeus.ProductsAndCategories.models.Product;
@@ -44,11 +43,18 @@ public class ProductController {
 	}
 	@RequestMapping("/{id}")
 	public String createProductCategory(Model model,@PathVariable("id") Long id) {
-		
-		model.addAttribute("category", categoryServices.getAll());
+		model.addAttribute("categories", categoryServices.listAvailableCategories(productServices.findProduct(id)));
 		model.addAttribute("product", productServices.findProduct(id));
-		
 		return "newPC.jsp";
+	}
+	
+	@PostMapping("/{id}")
+	public String addProductCategory(Model model, @PathVariable("id") Long productId, @RequestParam("category") Long categoryId) {
+		Product product = productServices.findProduct(productId);
+		Category category = categoryServices.findCategory(categoryId);
+		product.getCategories().add(category);
+		productServices.addProduct(product);
+		return "redirect:/";
 	}
 	
 

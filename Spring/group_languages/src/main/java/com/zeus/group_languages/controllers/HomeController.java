@@ -18,19 +18,19 @@ import com.zeus.group_languages.services.LanguageService;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-	
+
 	private final LanguageService  languageService;
 	public HomeController(LanguageService languageService) {
 		this.languageService = languageService;
 	}
-	
+
 	@RequestMapping("")
 	public String index(Model model,@ModelAttribute("language")Crud language) {
 		List<Crud> languages = languageService.allLanguages();
 		model.addAttribute("languages", languages);
 		return "index.jsp";
 	}
-	
+
 	@RequestMapping("/language/{id}")
 	public String Language(@PathVariable("id") Long id, Model model) {
 		Crud language= languageService.findLanguageById(id);
@@ -41,7 +41,7 @@ public class HomeController {
 			return "redirect:/";
 		}
 	}
-	
+
 	@PostMapping("/language/new")
 	public String createLanguage(@Valid @ModelAttribute("language") Crud language, BindingResult result,Model model) {
 		if(result.hasErrors()) {
@@ -53,7 +53,7 @@ public class HomeController {
 			return "redirect:/";
 		}
 	}
-	
+
 	@RequestMapping("/language/edit/{id}")
 	public String editLanguage(@PathVariable("id") Long id, Model model) {
 		Crud language= languageService.findLanguageById(id);
@@ -64,7 +64,7 @@ public class HomeController {
 			return "redirect:/";
 		}
 	}
-	@RequestMapping(value="/language/update/{id}")
+	@PostMapping(value="/language/update/{id}")
 	public String updateLanguage(@PathVariable("id") int id, @Valid @ModelAttribute("language") Crud language, BindingResult result) {
 		if (result.hasErrors()) {
 				return "redirect:/language/edit/{id}";
@@ -78,9 +78,9 @@ public class HomeController {
 		languageService.destroyLanguage(id);
 		return"redirect:/";
 	}
-		
-	
-	
-	
+
+
+
+
 
 }

@@ -1,46 +1,47 @@
-package com.zeus.lookify.models;
-
+package com.zeus.DojoOverflow.models;
 
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-public class LookifyModel {
+@Table(name="answers")
+public class Answer {
 	@Id
 	@GeneratedValue
 	private Long id;
-
+	
 	@Column
-	@Length(min=5, message="It must be at least 5 characters long")
-	private String title;
-
-	@Column
-	@Length(min = 5, message="It must be at least 5 characters long")
-	private String artist;
-
-	@Column
-	@Max(value = 10, message="It must be a number between 1 and 10")
-	@Min(value = 1, message="It must be a number between 1 and 10")
-	private int rating;
-
+	@Length(min=5, message="Must be a least 5 Characters")
+	private String answer;
+	
 	@Column
 	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	private Date createdAt;
-
+	
 	@Column
 	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	private Date updatedAt;
+	
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn(name="question_id")
+	private Question question;
+	
+	public Answer() {
+		
+	}
 
 	public Long getId() {
 		return id;
@@ -50,28 +51,12 @@ public class LookifyModel {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getAnswer() {
+		return answer;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getArtist() {
-		return artist;
-	}
-
-	public void setArtist(String artist) {
-		this.artist = artist;
-	}
-
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	public Date getCreatedAt() {
@@ -90,13 +75,20 @@ public class LookifyModel {
 		this.updatedAt = updatedAt;
 	}
 
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = new Date();
 	}
-
 	@PreUpdate
-	protected void onUpdate() {
+	protected void onUpdated() {
 		this.updatedAt = new Date();
 	}
+	
 }
