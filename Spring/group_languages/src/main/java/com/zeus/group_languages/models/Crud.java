@@ -15,27 +15,27 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Crud {
 	public Crud() {
-		
 	}
+	
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Column
 	@Size(min = 2, max = 20)
 	private String name;
-	
+
 	@Column
 	@Size(min = 2, max = 20)
 	private String creator;
-	
+
 	@Column
 	@Size(min = 1)
 	private String currentVersion;
-	
+
 	@Column(updatable=false)
 	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	private Date createdAt;
-	
+
 	@Column
 	@DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
 	private Date updatedAt;
@@ -87,7 +87,7 @@ public class Crud {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
+
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = new Date();

@@ -9,6 +9,24 @@
 </head>
 <body>
  <h2>Questions Dashboard</h2>
- <a href="/questions/new">New Question</a>
+	<table>
+		<tr>
+			<th>Questions</th>
+			<th>Tags</th>
+		</tr>
+		
+		<c:forEach items="${questions}" var="quest">
+		<tr>
+			<td><a href="/questions/${quest.getId()}">${quest.question} </a> </td>
+			<td>${quest.getTags().get(0).getSubject()}</td>
+		</tr>
+		</c:forEach>	
+	</table><br><br>
+ 
+ 	<a href="/questions/new">New Question</a>
+ 
+ 
+ 
+ 
 </body>
 </html>

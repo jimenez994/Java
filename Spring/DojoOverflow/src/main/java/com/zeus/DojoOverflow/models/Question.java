@@ -15,8 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -27,7 +27,7 @@ public class Question {
 	private Long id;
 	
 	@Column
-	@Length(min=5, message="Your questions must be longer than 5 characters")
+	@Size(min=5, message="Your questions must be longer than 5 characters")
 	private String question;
 	
 	@Column
@@ -49,8 +49,7 @@ public class Question {
 	@OneToMany(mappedBy="question", fetch = FetchType.LAZY)
 	private List<Answer> answers;
 	
-	public Question() {
-		
+	public Question() {	
 	}
 
 	public Long getId() {
