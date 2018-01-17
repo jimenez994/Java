@@ -20,9 +20,12 @@
 			<tr>
 				<th>Answer</th>
 			</tr>
-			<tr>
-				<td>${answers} </td>
-			</tr>
+			<c:forEach items="${answers}" var="answer">
+				<tr>
+					<td>${answer.answer} </td>
+				</tr>
+			</c:forEach>
+
 		</table>
 	</div>
 	<div>

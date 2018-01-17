@@ -37,8 +37,6 @@ public class HomeController {
 	@Autowired
 	private TagServices tagServices;
 	
-	
-	
 	@RequestMapping("")
 	public String index() {
 		return "index.jsp";
@@ -86,7 +84,6 @@ public class HomeController {
 			return "redirect:/questions";
 		}
 	}
-	
 	@RequestMapping("/questions/{id}")
 	public String selectedQuestion(@PathVariable("id") Long id,Model model) {
 		Question quest = questionServices.findQuestion(id);
@@ -105,16 +102,9 @@ public class HomeController {
 			redirectAttributes.addFlashAttribute("error", "Must be a least 5 Characters");
 			return "redirect:/questions/{id}";
 		}else {
-			
-			
-			questionServices.findQuestion(id).getAnswers().add(answer);	
-			answerServices.addAnswer(answer);
-			return "redirect:/questions";
+			Answer ans = new Answer(questionServices.findQuestion(id),answer.getAnswer());
+			answerServices.addAnswer(ans);
+			return "redirect:/questions/{id}";
 		}
-		
-		
 	}
-	
-	
-
 }

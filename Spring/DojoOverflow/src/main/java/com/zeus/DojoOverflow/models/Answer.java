@@ -39,6 +39,11 @@ public class Answer {
 	@JoinColumn(name="question_id")
 	private Question question;
 	
+	public Answer(Question question, String answer) {
+		this.answer = answer;
+		this.question = question;
+	}
+	
 	public Answer() {
 		
 	}
