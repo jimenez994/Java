@@ -18,7 +18,7 @@
 	<div>
 		<table>
 			<tr>
-				<th>Answer</th>
+				<th>Answers</th>
 			</tr>
 			<c:forEach items="${answers}" var="answer">
 				<tr>
