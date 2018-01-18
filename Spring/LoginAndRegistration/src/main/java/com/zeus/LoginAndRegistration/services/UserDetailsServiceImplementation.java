@@ -1,4 +1,4 @@
-package com.zeus.auth.services;
+package com.zeus.LoginAndRegistration.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.zeus.auth.models.Role;
-import com.zeus.auth.models.User;
-import com.zeus.auth.repositories.UserRepository;
+import com.zeus.LoginAndRegistration.models.Role;
+import com.zeus.LoginAndRegistration.models.User;
+import com.zeus.LoginAndRegistration.repositories.UserRepository;
 
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
@@ -24,15 +24,14 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
     // 1
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
         
-//--> *        User user = userRepository.findByEmail(username);
+               User user = userRepository.findByEmail(username);
         
         if(user == null) {
             throw new UsernameNotFoundException("User not found");
         }
         
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthorities(user));
     }
     
     // 2
