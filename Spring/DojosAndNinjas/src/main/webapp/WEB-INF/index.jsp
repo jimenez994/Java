@@ -17,7 +17,7 @@
   <c:forEach items="${dojos}" var="dojo">
     <a href="/dojo/${dojo.id}">${dojo.name}</a><br>
   </c:forEach>
-
-
+  
+  
 </body>
 </html>

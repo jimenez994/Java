@@ -10,7 +10,7 @@ import com.zeus.DojosAndNinjas.repositories.DojoRepository;
 @Service
 public class DojoServices {
 	private DojoRepository dojoRepository;
-	
+
 	public DojoServices(DojoRepository dojoRepository) {
 		this.dojoRepository = dojoRepository;
 	}
@@ -24,6 +24,8 @@ public class DojoServices {
 	public void addDojo(Dojo dojo) {
 		dojoRepository.save(dojo);
 	}
+
+
 	
 
 }

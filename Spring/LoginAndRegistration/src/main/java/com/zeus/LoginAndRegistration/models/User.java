@@ -14,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -25,8 +24,7 @@ public class User {
 	@GeneratedValue
 	private Long id;
 	
-	@Email(message="Please provide a valid email address")
-	@Pattern(regexp="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$", message="Please provide a valid email address")
+	@Email()
 	private String email;
 	
 	@Size(min=1)

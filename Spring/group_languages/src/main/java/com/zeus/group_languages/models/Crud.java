@@ -21,7 +21,7 @@ public class Crud {
 	@GeneratedValue
 	private Long id;
 	@Column
-	@Size(min = 2, max = 20)
+	@Size(min = 2, max = 20 )
 	private String name;
 
 	@Column

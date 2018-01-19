@@ -28,17 +28,17 @@ public class Users {
         this.userValidator = userValidator;
     }
     
-    @RequestMapping("/registration")
-    public String registerForm(@Valid @ModelAttribute("user") User user) {
-        return "registrationPage.jsp";
-    }
-    @PostMapping("/registration")
+//    @RequestMapping("/registration")
+//    public String registerForm(@Valid @ModelAttribute("user") User user) {
+//        return "registrationPage.jsp";
+//    }
+    @PostMapping("/process")
     public String registration(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         // NEW
         userValidator.validate(user, result);
         System.out.println(result);
         if (result.hasErrors()) {
-            return "registrationPage.jsp";
+            return "login.jsp";
         }
         
         userService.saveWithUserRole(user);
@@ -46,7 +46,7 @@ public class Users {
     }
     
     @RequestMapping("/login")
-    public String login(@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model) {
+    public String login(@Valid @ModelAttribute("user") User user,@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model) {
         if(error != null) {
             model.addAttribute("errorMessage", "Invalid Credentials, Please try again.");
         }
