@@ -36,4 +36,11 @@ public class NinjaServices {
         Page<Ninja> ninjas = ninjaRepository.findAll(pageRequest);
         return ninjaRepository.findAll(pageRequest);
     }
+//    public Page<Object[]> ninjasAndDojoPerPage(int pageNumber) {
+//        // get all the ninjas page and sort them in ascending order the last name property
+//        PageRequest pageRequest = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.ASC, "lastName");
+//        Page<Object[]> ninjas = ninjaRepository.joinDojosAndNinjas2(pageRequest);
+//        return ninjaRepository.joinDojosAndNinjas2(pageRequest);
+//    }
+
 }

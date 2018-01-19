@@ -16,14 +16,46 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="books")
 public class Book {
-	public Book() {
-		
-	}
+	
 	
     @Id
     @GeneratedValue
     private Long id;
-    public Long getId() {
+	@Column
+    @Size(min = 5, max = 200)
+    private String title;
+    
+    @Column
+    @Size(min = 5, max = 200)
+    private String description;
+    
+    @Column
+    @Size(min = 3, max = 40)
+    private String language;
+    
+    @Column
+    @Min(100)
+    private int numberOfPages;
+    // This will not allow the createdAt column to be updated after creation
+    @Column(updatable=false)
+    @DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
+    private Date createdAt;
+    @Column
+    @DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
+    private Date updatedAt;
+    public Book() {
+		
+	}
+    @PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
+    
+	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
@@ -65,38 +97,6 @@ public class Book {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	@Column
-    @Size(min = 5, max = 200)
-    private String title;
-    
-    @Column
-    @Size(min = 5, max = 200)
-    private String description;
-    
-    @Column
-    @Size(min = 3, max = 40)
-    private String language;
-    
-    @Column
-    @Min(100)
-    private int numberOfPages;
-    // This will not allow the createdAt column to be updated after creation
-    @Column(updatable=false)
-    @DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
-    private Date createdAt;
-    @Column
-    @DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
-    private Date updatedAt;
-    
-    @PrePersist
-    protected void onCreate(){
-        this.createdAt = new Date();
-    }
-    @PreUpdate
-    protected void onUpdate(){
-        this.updatedAt = new Date();
-    }
 	
 	
 	

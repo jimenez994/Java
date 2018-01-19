@@ -46,6 +46,13 @@ public class DojoController {
 		model.addAttribute("ninjas", ninjas);
 		return "showDojosNinjas.jsp";
 	}
+	@RequestMapping("/pages/")
+	public String dojoNinjas(Model model) {
+		List<Object[]> dojoNinjas = dojoServices.dojosAndNinjas();
+		System.out.println(dojoNinjas);
+		model.addAttribute("dojoNinjas", dojoNinjas);
+		return "ninjasAndDojo.jsp";
+	}
 	
 
 }

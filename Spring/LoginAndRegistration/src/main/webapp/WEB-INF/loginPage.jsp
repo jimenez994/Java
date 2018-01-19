@@ -30,12 +30,12 @@
 	        <input type="submit" value="Login!"/>
 	    </form>
     </div>
-    <dir>
+    <div>
     		<h1>Register!</h1>
-    
+    		<h3>${success}</h3>
 	    <p><form:errors path="user.*"/></p>
 	    
-	    <form:form method="POST" action="/process" modelAttribute="user">
+	    <form:form method="post" action="/process" modelAttribute="user">
 	    		<p>
 	            <form:label path="email">Email:</form:label>
 	            <form:input path="email"/>
@@ -58,6 +58,6 @@
 	        </p>
 	        <input type="submit" value="Register!"/>
 	    </form:form>
-    </dir>
+    </div>
 </body>
 </html>

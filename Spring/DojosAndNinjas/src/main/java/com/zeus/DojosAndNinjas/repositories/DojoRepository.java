@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.zeus.DojosAndNinjas.models.Dojo;
 
-public interface DojoRepository extends CrudRepository<Dojo, Long>{
+public interface DojoRepository extends PagingAndSortingRepository<Dojo, Long>{
 	ArrayList<Dojo> findAll();
     // get all dojos
     @Query("SELECT d FROM Dojo d")

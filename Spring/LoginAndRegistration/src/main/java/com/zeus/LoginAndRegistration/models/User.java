@@ -33,7 +33,7 @@ public class User {
 	@Size(min=1)
 	private String lastName;
 	
-	@Size(min=10)
+	@Size(min=2)
 	private String password;
 	@Transient
 	private String passwordConfirmation;

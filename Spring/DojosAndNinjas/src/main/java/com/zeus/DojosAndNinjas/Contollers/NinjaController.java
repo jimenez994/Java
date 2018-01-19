@@ -56,6 +56,16 @@ public class NinjaController {
 	    model.addAttribute("ninjas", ninjas);
 	    return "ninjas.jsp";
 	}
+//	@RequestMapping("/pages2/{pageNumber}")
+//	public String getNinjasAndDojoPerPage(Model model, @PathVariable("pageNumber") int pageNumber) {
+//	    // we have to subtract 1 because the Pages iterable is 0 indexed. This is for our links to be able to show from 1...pageMax, instead of 0...pageMax class="keyword operator from-rainbow">- 1.
+//	    Page<Object[]> ninjas = ninjaServices.ninjasAndDojoPerPage(pageNumber - 1);
+//	    // total number of pages that we have
+//	    int totalPages = ninjas.getTotalPages();
+//	    model.addAttribute("totalPages", totalPages);
+//	    model.addAttribute("ninjas", ninjas);
+//	    return "ninjasAndDojo.jsp";
+//	}
 
 	
 
