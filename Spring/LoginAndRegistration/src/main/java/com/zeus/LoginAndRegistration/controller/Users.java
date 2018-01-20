@@ -3,6 +3,7 @@ package com.zeus.LoginAndRegistration.controller;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -11,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.zeus.LoginAndRegistration.models.Role;
 import com.zeus.LoginAndRegistration.models.User;
 import com.zeus.LoginAndRegistration.services.UserService;
 import com.zeus.LoginAndRegistration.validator.UserValidator;
@@ -69,10 +72,35 @@ public class Users {
         SimpleDateFormat date= new SimpleDateFormat("EEEE, 'the' d 'of' MMM , yyyy");
         Date createdAt = userService.findByUsername(username).getCreatedAt();
         model.addAttribute("createdAt", date.format(createdAt));
+        List<Role> roles = userService.findByUsername(username).getRoles();
+        
+        if(roles.get(0).getName().equals("ROLE_ADMIN")) {
+        		return "redirect:/admin";
+        }
+       
         model.addAttribute("currentUser", userService.findByUsername(username));
-        
-        
-        
+     
         return "homePage.jsp";
+    }
+    @RequestMapping("/admin")
+    public String adminPage(Principal principal, Model model) {
+    		String username = principal.getName();
+    		model.addAttribute("currentUser", userService.findByUsername(username));
+    		model.addAttribute("users", userService.getAllUsers());
+    		return "adminPage.jsp";
+    }
+    
+    @RequestMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
+    		userService.deleteUser(id);
+    		System.out.println("Delete ********");
+    		return "redirect:/admin";
+    }
+    @RequestMapping("/upgrade/{id}")
+    public String upgradeUser(@PathVariable("id") Long id) {
+    		User user = userService.findUserById(id);
+    		userService.upgradeUser(user);
+		System.out.println("Pugrade ********"+user);
+		return "redirect:/admin";
     }
 }

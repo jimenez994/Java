@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.zeus.LoginAndRegistration.models.Role;
 import com.zeus.LoginAndRegistration.models.User;
 import com.zeus.LoginAndRegistration.repositories.RoleRepository;
 import com.zeus.LoginAndRegistration.repositories.UserRepository;
@@ -19,6 +20,9 @@ public class UserService {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+    public List<User> getAllUsers(){
+    		return userRepository.findAll();
     }
     
     
@@ -37,10 +41,14 @@ public class UserService {
     				return "Sorry that email address is already used";
     			}
     		}
-    				saveWithUserRole(user);
-    				return "You Successfully Register! You can now Login";
+    		if(emails.size() <= 3) {
+    			saveUserWithAdminRole(user);
+    			return "You successfully register ADMIN, you may now login";
+    		}
+    		saveWithUserRole(user);
+    		return "You successfully register! You can now Login";
     }
-     
+   
      // 2 
     public void saveUserWithAdminRole(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -50,9 +58,21 @@ public class UserService {
     
     // 3
     public User findByUsername(String email) {
-    	Object some = userRepository.findByEmail(email);
-    	System.out.println("******************************************");
-    	System.out.println(some);
         return userRepository.findByEmail(email);
+    }
+    
+    public void deleteUser(Long id) {
+    		userRepository.delete(id);
+    }
+    public User findUserById(Long id) {
+    		return userRepository.findOne(id);
+    }
+    public void upgradeUser(User user) {
+    	System.out.println("**************");
+    	
+    		user.getRoles().clear();
+    		user.setRoles(roleRepository.findByName("ROLE_ADMIN"));
+    		userRepository.save(user);
+    		
     }
 }
