@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,57 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <h1>Welcome, <c:out value="${currentUser.firstName}"></c:out></h1>
-    <form id="logoutForm" method="POST" action="/logout">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <input type="submit" value="Logout!" />
-    </form>
-    <p>Here are some of the events in your state:</p>
-    <table>
-    		<tr>
-    			<th>Name</th>
-    			<th>Date</th>
-    			<th>Location</th>
-    			<th>Host</th>
-    			<th>Action/Status</th>
-    		</tr>
-    		<c:forEach items="${eventsAtyourState}" var="anEvent">
-    			<tr>
-    				<td> <a href="/event/${anEvent.id}"> ${anEvent.title}</a></td>
-    				<td>${anEvent.dDate}</td>
-    				<td>${anEvent.location}</td>
-    				<td>${anEvent.getUser().getFirstName()}</td>
-    				<c:if test="${ anEvent.user.id == currentUser.id}">
-    					<td> <a href="/event/edit/${anEvent.id}">Edit</a> / <a href="/event/delete/${anEvent.id}">Delete</a> </td>
-    				</c:if>
-    				
-    			</tr>
-    		</c:forEach>
-    </table>
-    <p>Here are some of the events in other states:</p>
-    <table>
-    		<tr>
-    			<th>Name</th>
-    			<th>Date</th>
-    			<th>Location</th>
-    			<th>State</th>
-    			<th>Host</th>
-    			<th>Action/Status</th>
-    		</tr>
-     	<c:forEach items="${eventsOutOfState}" var="anEvent">
-    		<tr>
-    			<td>${anEvent.title}</td>
-    			<td>${anEvent.dDate}</td>
-    			<td>${anEvent.location}</td>
-    			<td>${anEvent.state}</td>
-    			<td>${anEvent.getUser().getFirstName()}</td>
-    			<td>join</td>
-    			</tr>
-    		</c:forEach>
-    </table>
-    <h3>Create a new event</h3>
-    
-    <form:form method="post" action="create/Event" modelAttribute="newEvent">
+    <h3>Got Party</h3>
+    <p><form:errors path="newEvent"/></p>
+    <form:form method="post" action="/event/edit/${id}" modelAttribute="event">
 			<p>
 	            <form:label path="title">Title:</form:label>
 	            <form:input path="title"/>
@@ -135,11 +86,8 @@
 	        		</form:select>
 	        </p>
 	        <form:hidden path="user" value="${currentUser.id}"/>
-	        <input type="submit" value="Create"/>
+	        <input type="submit" value="Update"/>
     
     </form:form>
-    
-    
-    
 </body>
 </html>

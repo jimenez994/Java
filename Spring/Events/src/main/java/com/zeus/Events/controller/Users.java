@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zeus.Events.models.Event;
+import com.zeus.Events.models.Message;
 import com.zeus.Events.models.Role;
 import com.zeus.Events.models.User;
 import com.zeus.Events.services.EventServices;
+import com.zeus.Events.services.MessageServices;
 import com.zeus.Events.services.UserService;
 import com.zeus.Events.validator.UserValidator;
 
@@ -30,7 +32,7 @@ import com.zeus.Events.validator.UserValidator;
 @Controller
 @RequestMapping("/")
 public class Users {
-	
+
     private UserService userService;
 
     private UserValidator userValidator;
@@ -41,6 +43,9 @@ public class Users {
     }
     @Autowired
     private EventServices eventServices;
+    
+    @Autowired
+    private MessageServices messageServices;
     
     @PostMapping("/process")
     public String registration(@Valid @ModelAttribute("user") User user, BindingResult result, Model model,RedirectAttributes flasM) {
@@ -68,11 +73,13 @@ public class Users {
 		session.setAttribute("date",date.format(now));
         return "loginPage.jsp";
     }
+    
     @RequestMapping(value = {"/", "/home"})
     public String home(Principal principal, Model model,@Valid @ModelAttribute("newEvent")Event event) {
         String username = principal.getName();
         SimpleDateFormat date= new SimpleDateFormat("EEEE, 'the' d 'of' MMM , yyyy");
         Date createdAt = userService.findByUsername(username).getCreatedAt();
+//        Long id = userService.findByUsername(username).getId();
         model.addAttribute("createdAt", date.format(createdAt));
         List<Role> roles = userService.findByUsername(username).getRoles();
         
@@ -90,6 +97,7 @@ public class Users {
         model.addAttribute("currentUser", userService.findByUsername(username));
         return "homePage.jsp";
     }
+    
     @RequestMapping("/admin")
     public String adminPage(Principal principal, Model model) {
     		String username = principal.getName();
@@ -115,15 +123,64 @@ public class Users {
     
 //    Events
     @PostMapping("create/Event")
-    public String addEvent(@Valid @ModelAttribute("newEvent") Event event,BindingResult result, RedirectAttributes result2) {
+    public String addEvent(@Valid @ModelAttribute("newEvent") Event event,BindingResult result, RedirectAttributes modelR) {
     		if(result.hasErrors()) {
-    			result2.addAttribute("errors", result.getAllErrors());
+  			System.out.println(result.getAllErrors());
+//  			modelR.addAttribute("bla", result.getAllErrors());
     			return "redirect:/home";
     		}else {
     			eventServices.addEvent(event);
     			return "redirect:/home";
     		}
     }
+//    render the page to edit your event
+    @RequestMapping("/event/edit/{id}")
+    public String editEvent(@PathVariable("id") Long id, Model model) {
+    		Event event = eventServices.getEvent(id);
+    		if(event != null) {
+    			model.addAttribute("event", event);
+    			return "editEvent.jsp";
+    		}else{
+    			return "redirect:/home";
+    		}
+    }
+    @PostMapping("/event/edit/{id}")
+    public String saveEvent(@PathVariable("id") Long id, @Valid @ModelAttribute("event") Event event, BindingResult result) {
+    		if(result.hasErrors()) {
+    			return "redirect:/event/edit/{id}";
+    		}else {
+    			eventServices.addEvent(event);
+    			return "redirect:/home";
+    		}
+    }
+    @RequestMapping("/event/delete/{id}")
+    public String deleteEvent(@PathVariable("id") Long id) {
+    		eventServices.deleteEvent(id);
+    		return "redirect:/home";
+    	
+    }
+    @RequestMapping("/event/{id}")
+    public String event(Principal principal,@PathVariable("id") Long id, Model model,@Valid @ModelAttribute("newMessage") Message message) {
+    		List<Message> messages = messageServices.getAll();
+        String username = principal.getName();
+    		Long uId = userService.findByUsername(username).getId();
+    		System.out.println(uId+"***********");
+    		Event event = eventServices.getEvent(id);
+    		model.addAttribute("uId", uId);
+    		model.addAttribute("event",event);
+    		return "event.jsp";
+    }
     
+    @PostMapping("/event/{id}/post/message")
+    public String postMessage(@PathVariable("id") Long id,@Valid @ModelAttribute("newMessage") Message message, BindingResult result) {
+    		if(result.hasErrors()) {
+    			System.out.println("sorry you got errors");
+    			return "redirect:/event/{id}";
+    		}else {
+    			messageServices.addMessage(message);
+//    			System.out.println(message.getUser().getId());
+    			return "redirect:/event/{id}";
+    		}
+    }
     
 }
