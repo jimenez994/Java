@@ -2,6 +2,7 @@ package com.zeus.Events.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -71,6 +72,7 @@ public class Users {
     @RequestMapping(value = {"/", "/home"})
     public String home(Principal principal, Model model,@Valid @ModelAttribute("newEvent")Event event) {
         String username = principal.getName();
+        
         SimpleDateFormat date= new SimpleDateFormat("EEEE, 'the' d 'of' MMM , yyyy");
         Date createdAt = userService.findByUsername(username).getCreatedAt();
         model.addAttribute("createdAt", date.format(createdAt));
@@ -79,9 +81,10 @@ public class Users {
         if(roles.get(0).getName().equals("ROLE_ADMIN")) {
         		return "redirect:/admin";
         }
-       
+        List<Event> eventsArea = eventServices.yourStateEvents(userService.findByUsername(username).getState());
+        model.addAttribute("eventsAtyouState", eventsArea);
+        
         model.addAttribute("currentUser", userService.findByUsername(username));
-     
         return "homePage.jsp";
     }
     @RequestMapping("/admin")
@@ -105,4 +108,19 @@ public class Users {
 		System.out.println("Pugrade ********"+user);
 		return "redirect:/admin";
     }
+    
+    
+//    Events
+    @PostMapping("create/Event")
+    public String addEvent(@Valid @ModelAttribute("newEvent") Event event,BindingResult result, RedirectAttributes result2) {
+    		if(result.hasErrors()) {
+    			result2.addAttribute("errors", result.getAllErrors());
+    			return "redirect:/home";
+    		}else {
+    			eventServices.addEvent(event);
+    			return "redirect:/home";
+    		}
+    }
+    
+    
 }

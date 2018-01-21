@@ -31,6 +31,15 @@
     			<td>Juan</td>
     			<td>Join</td>
     		</tr>
+    		<c:forEach items="${eventsAtyouState}" var="anEvent">
+    			<tr>
+    				<td>${anEvent.title}</td>
+    				<td>${anEvent.date}</td>
+    				<td>${anEvent.location}</td>
+    				<td>${anEvent.getUser().getFirstName()}</td>
+    				<td>join</td>
+    			</tr>
+    		</c:forEach>
     </table>
     
     <p>Here are some of the events in other states:</p>
@@ -61,6 +70,14 @@
 			<p>
 	            <form:label path="description">Description:</form:label><br>
 	            <form:textarea path="description"/>
+	        </p>
+	        <p>
+	        		<form:label path="date">Date:</form:label>
+	        		<form:input path="date" type="date"/>
+	        </p>
+	        	<p>
+	            <form:label path="location">Location:</form:label>
+	            <form:input path="location"/>
 	        </p>
 	        <p>
 	        	    <form:label path="state">State:</form:label>
@@ -119,6 +136,7 @@
 	              	<form:option value="WY">Wyoming</form:option>
 	        		</form:select>
 	        </p>
+	        <form:hidden path="user" value="${currentUser.id}"/>
 	        <input type="submit" value="Create"/>
     
     </form:form>

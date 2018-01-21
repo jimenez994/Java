@@ -29,8 +29,7 @@ public class Event {
 	@Size(min=5)
 	private String description;
 	
-	@DateTimeFormat(pattern= "MM/dd/yyyy HH:mm:ss")
-	private Date date;
+	private String date;
 	
 	@Size(min=2)
 	private String location;
@@ -75,13 +74,13 @@ public class Event {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Date getDate() {
+	
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
-	
 	public String getDescription() {
 		return description;
 	}
