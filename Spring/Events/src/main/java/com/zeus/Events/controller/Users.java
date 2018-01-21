@@ -2,7 +2,6 @@ package com.zeus.Events.controller;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -72,7 +71,6 @@ public class Users {
     @RequestMapping(value = {"/", "/home"})
     public String home(Principal principal, Model model,@Valid @ModelAttribute("newEvent")Event event) {
         String username = principal.getName();
-        
         SimpleDateFormat date= new SimpleDateFormat("EEEE, 'the' d 'of' MMM , yyyy");
         Date createdAt = userService.findByUsername(username).getCreatedAt();
         model.addAttribute("createdAt", date.format(createdAt));
@@ -81,8 +79,13 @@ public class Users {
         if(roles.get(0).getName().equals("ROLE_ADMIN")) {
         		return "redirect:/admin";
         }
+//        list of events in your state 
         List<Event> eventsArea = eventServices.yourStateEvents(userService.findByUsername(username).getState());
-        model.addAttribute("eventsAtyouState", eventsArea);
+        model.addAttribute("eventsAtyourState", eventsArea);
+        
+//        list of Events not in you state
+        List<Event> eventsOutOfState = eventServices.eventsNotInState(userService.findByUsername(username).getState());
+        model.addAttribute("eventsOutOfState", eventsOutOfState);
         
         model.addAttribute("currentUser", userService.findByUsername(username));
         return "homePage.jsp";

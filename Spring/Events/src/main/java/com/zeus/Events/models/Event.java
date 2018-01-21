@@ -29,8 +29,11 @@ public class Event {
 	@Size(min=5)
 	private String description;
 	
-	private String date;
-	
+    @DateTimeFormat(pattern= "yyyy-mm-dd")
+    private Date date;
+    
+    private String dDate;
+    
 	@Size(min=2)
 	private String location;
 	
@@ -75,10 +78,11 @@ public class Event {
 		this.title = title;
 	}
 	
-	public String getDate() {
+	
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public String getDescription() {
@@ -123,6 +127,13 @@ public class Event {
 	public void setMessage(List<Message> message) {
 		this.message = message;
 	}
+	public String getdDate() {
+		return dDate;
+	}
+	public void setdDate(String dDate) {
+		this.dDate = dDate;
+	}
+	
     
     
 	

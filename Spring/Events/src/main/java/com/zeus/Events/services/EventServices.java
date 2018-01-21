@@ -26,22 +26,37 @@ public class EventServices {
 	}
 	
 	public List<Event> yourStateEvents(String state){
-		System.out.println("*****************");
-		ArrayList<Event> events = eventRepository.findAll();
-		System.out.println(events.size());
-		
-		for(int i= 0; i <= events.size() -1;i++) {
-			if(!events.get(i).getState().equals(state)) {
-				events.remove(i);
-				System.out.println("************");
+		ArrayList<Event> events = eventRepository.findAll();	
+		ArrayList<Event> eventsList = new ArrayList<Event>();		
+
+		for(int i= 0; i < events.size() ;i++) {
+			if(events.get(i).getState().equals(state)) {
+				System.out.println(events.get(i).getState());
+				eventsList.add(events.get(i));
 			}
 		}
-		return events;
+		System.out.println(eventsList);
+		return eventsList;
 	}
+	public List<Event> eventsNotInState(String state){
+		ArrayList<Event> events = eventRepository.findAll();	
+		ArrayList<Event> eventsList = new ArrayList<Event>();		
+
+		for(int i= 0; i < events.size() ;i++) {
+			if(!events.get(i).getState().equals(state)) {
+				System.out.println(events.get(i).getState());
+				eventsList.add(events.get(i));
+			}
+		}
+		System.out.println(eventsList);
+		return eventsList;
+	}
+	
 	public void addEvent(Event event) {
-//		SimpleDateFormat date = new SimpleDateFormat("EEEE, 'the' d 'of' MMM , yyyy");
-//		String eDate = event.getDate();
-//		event.setDate(date.format(eDate));
+		System.out.println(event.getDate());
+		SimpleDateFormat format = new SimpleDateFormat("MMMM d , yyyy");
+		String sDate = format.format(event.getDate());
+		event.setdDate(sDate);
 		eventRepository.save(event);
 	}
 	public void updateEvent(Event event) {

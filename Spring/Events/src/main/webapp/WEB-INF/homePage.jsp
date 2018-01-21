@@ -24,42 +24,42 @@
     			<th>Host</th>
     			<th>Action/Status</th>
     		</tr>
-    		<tr>
-    			<td>Party</td>
-    			<td>November 30,2018</td>
-    			<td>Mi casa</td>
-    			<td>Juan</td>
-    			<td>Join</td>
-    		</tr>
-    		<c:forEach items="${eventsAtyouState}" var="anEvent">
+    		<c:forEach items="${eventsAtyourState}" var="anEvent">
     			<tr>
     				<td>${anEvent.title}</td>
-    				<td>${anEvent.date}</td>
+    				<td>${anEvent.dDate}</td>
     				<td>${anEvent.location}</td>
     				<td>${anEvent.getUser().getFirstName()}</td>
-    				<td>join</td>
+    				<c:if test="${ anEvent.user.id == currentUser.id}">
+    					<td> <a href="/event/edit/${anEvent.user.id}">Edit</a> / <a href="/event/delete/${anEvent.user.id}">Delete</a> </td>
+    				</c:if>
+    				
     			</tr>
     		</c:forEach>
     </table>
-    
+    ${currentUser.id }
     <p>Here are some of the events in other states:</p>
     <table>
     		<tr>
     			<th>Name</th>
     			<th>Date</th>
     			<th>Location</th>
+    			<th>State</th>
     			<th>Host</th>
     			<th>Action/Status</th>
     		</tr>
+     	<c:forEach items="${eventsOutOfState}" var="anEvent">
     		<tr>
-    			<td>Party</td>
-    			<td>November 30,2018</td>
-    			<td>Mi casa</td>
-    			<td>Juan</td>
-    			<td>Join</td>
-    		</tr>
+    			<td>${anEvent.title}</td>
+    			<td>${anEvent.dDate}</td>
+    			<td>${anEvent.location}</td>
+    			<td>${anEvent.state}</td>
+    			<td>${anEvent.getUser().getFirstName()}</td>
+    			<td>join</td>
+    			</tr>
+    		</c:forEach>
     </table>
-    
+    ${ eventsOutOfState}
     <h3>Create a new event</h3>
     <p><form:errors path="newEvent"/></p>
     <form:form method="post" action="create/Event" modelAttribute="newEvent">
