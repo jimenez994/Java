@@ -154,7 +154,6 @@ public class Users {
     public String joinEvent(@PathVariable("userId") Long userId,@PathVariable("eventId") Long eventId) {
     		JoinUE newJoin = new JoinUE(userService.findUserById(userId),eventServices.getEvent(eventId));
     		joinUEServices.addJoin(newJoin);
-//    		System.out.println(eventServices.getEvent(eventId).getJoinUE().contains(o));
     		return "redirect:/home";
     }
     @PostMapping("/event/edit/{id}")
@@ -176,7 +175,6 @@ public class Users {
     public String event(Principal principal,@PathVariable("id") Long id, Model model,@Valid @ModelAttribute("newMessage") Message message) {
         String username = principal.getName();
     		Long uId = userService.findByUsername(username).getId();
-    		System.out.println(uId+"***********");
     		Event event = eventServices.getEvent(id);
     		List<Message> messages = event.getMessage();
     		model.addAttribute("messages",messages);
@@ -189,13 +187,18 @@ public class Users {
     @PostMapping("/event/{id}/post/message")
     public String postMessage(@PathVariable("id") Long id,@Valid @ModelAttribute("newMessage") Message message, BindingResult result) {
     		if(result.hasErrors()) {
-    			System.out.println("sorry you got errors");
     			return "redirect:/event/{id}";
     		}else {
     			messageServices.addMessage(message);
-//    			System.out.println(message.getUser().getId());
     			return "redirect:/event/{id}";
     		}
+    }
+    @RequestMapping("/even/{id}/cancel")
+    public String cancelJoinEvent(Principal principal,@PathVariable("id") Long id) {
+    		String username = principal.getName();
+		Long uId = userService.findByUsername(username).getId();
+    		
+    		return "redirect:/home";
     }
     
 }

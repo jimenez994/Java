@@ -34,23 +34,25 @@
     						<c:when test="${ anEvent.user.id == currentUser.id}">
     							<td> <a href="/event/edit/${anEvent.id}">Edit</a> / <a href="/event/delete/${anEvent.id}">Delete</a> </td>
     						</c:when>
+    						<c:when test="${empty anEvent.getJoinUE()}">
+    							<td><a href="/${currentUser.id}/joining/${anEvent.id}/process">Join</a> </td>
+    						</c:when>
     						<c:when test="${ anEvent.user.id != currentUser.id}">
+    						
+    							<c:set var="check" value="false"/>
     							<c:forEach items="${anEvent.getJoinUE()}" var="joinA">
-    								<c:choose>
-    									<c:when test="${joinA.user.id == currentUser.id}">
-    										<td>You join this event!!</td>
-    									</c:when>
-    									<c:otherwise>
-        									<td>Youmkl zdfl</td>
-  									</c:otherwise>
-    								</c:choose> 
+    								<c:if test="${joinA.user.id == currentUser.id}">
+    									<c:set var="check" value="true"/>
+    								</c:if>
     							</c:forEach>
+    							
+    							<c:if test="${check.equals('true')}">
+    								<td>Joining <a href="/even/${anEvent.id}/cancel">Cancel</a> </td>
+    							</c:if>
+    							<c:if test="${!check.equals('true')}">
+    								<td><a href="/${currentUser.id}/joining/${anEvent.id}/process">Join</a> </td>
+    							</c:if>
    						 </c:when>
-   						 <c:otherwise>
-        						<td>bla</td>
-  						 </c:otherwise>
-    						
-    						
     					</c:choose>
     			</tr>
     		</c:forEach>
@@ -99,6 +101,7 @@
 	        	    <form:label path="state">State:</form:label>
 	        
 	        		<form:select path="state">
+	        			<form:option value="VA">Virginia</form:option>
 	              	<form:option value="AL">Alabama</form:option>
 	              	<form:option value="AK">Alaska</form:option>
 	              	<form:option value="AZ">Arizona</form:option>
@@ -145,7 +148,7 @@
 	              	<form:option value="TX">Texas</form:option>
 	              	<form:option value="UT">Utah</form:option>
 	              	<form:option value="VT">Vermont</form:option>
-	              	<form:option value="VA">Virginia</form:option>
+	              	
 	              	<form:option value="WA">Washington</form:option>
 	              	<form:option value="WV">West Virginia</form:option>
 	              	<form:option value="WI">Wisconsin</form:option>
