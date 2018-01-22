@@ -23,10 +23,10 @@ public class Event {
 	@GeneratedValue
 	private Long id;
 	
-	@Size(min=5)
+	@Size(min=5, message="Sorry but title must be longer")
 	private String title;
 	
-	@Size(min=5)
+	@Size(min=5, message="You need description")
 	private String description;
 	
     @DateTimeFormat(pattern= "yyyy-mm-dd")
@@ -34,7 +34,7 @@ public class Event {
     
     private String dDate;
     
-	@Size(min=2)
+	@Size(min=2, message="You need location")
 	private String location;
 	
 	@Size(min=1)

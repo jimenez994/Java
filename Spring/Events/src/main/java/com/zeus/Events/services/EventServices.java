@@ -4,9 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zeus.Events.models.Event;
+import com.zeus.Events.models.JoinUE;
+import com.zeus.Events.models.Message;
 import com.zeus.Events.repositories.EventRepository;
 
 @Service
@@ -17,6 +20,15 @@ public class EventServices {
 		this.eventRepository = eventRepository;
 	}
 	
+	 @Autowired
+	    private EventServices eventServices;
+	 
+	 @Autowired
+	    private MessageServices messageServices;
+	    
+	 @Autowired
+	    private JoinUEServices joinUEServices;
+	 
 	public List<Event> getAll(){
 		return eventRepository.findAll();
 	}
@@ -63,6 +75,20 @@ public class EventServices {
 		eventRepository.save(event);
 	}
 	public void deleteEvent(Long id) {
+		List<Message> messages = eventServices.getEvent(id).getMessage();
+		for(int i = 0; i < messages.size(); i++){
+			Message message = messages.get(i);
+			messageServices.deleteMessage(message.getId());
+		}
+		List<JoinUE> joins = eventServices.getEvent(id).getJoinUE();
+		for(int i = 0; i < joins.size(); i++){
+			JoinUE join = joins.get(i);
+			joinUEServices.deleteJoin(join.getId());
+		}
+		
+		System.out.println(eventServices.getEvent(id).getMessage());
+		
+		eventServices.getEvent(id).getJoinUE();
 		eventRepository.delete(id);
 	}
 	

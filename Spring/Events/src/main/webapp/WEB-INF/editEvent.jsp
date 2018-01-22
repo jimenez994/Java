@@ -10,6 +10,12 @@
 </head>
 <body>
     <h3>Got Party</h3>
+    <c:if test="${errors != null}">
+    		 <c:forEach items="${errors}" var="error">
+    		 	<p>${error.defaultMessage}</p>
+    		 
+    		 </c:forEach>
+    </c:if>
     <p><form:errors path="newEvent"/></p>
     <form:form method="post" action="/event/edit/${id}" modelAttribute="event">
 			<p>

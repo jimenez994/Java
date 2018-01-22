@@ -43,11 +43,12 @@
     							<c:forEach items="${anEvent.getJoinUE()}" var="joinA">
     								<c:if test="${joinA.user.id == currentUser.id}">
     									<c:set var="check" value="true"/>
+    									<c:set var="joinId" value="${ joinA.id }" />
     								</c:if>
     							</c:forEach>
     							
     							<c:if test="${check.equals('true')}">
-    								<td>Joining <a href="/even/${anEvent.id}/cancel">Cancel</a> </td>
+    								<td>Joining <a href="/event/${joinId}/cancel">Cancel</a> </td>
     							</c:if>
     							<c:if test="${!check.equals('true')}">
     								<td><a href="/${currentUser.id}/joining/${anEvent.id}/process">Join</a> </td>
@@ -79,7 +80,14 @@
     		</c:forEach>
     </table>
     <h3>Create a new event</h3>
-    
+   
+    <c:if test="${errors != null}">
+    		 <c:forEach items="${errors}" var="error">
+    		 	<p>${error.defaultMessage}</p>
+    		 
+    		 </c:forEach>
+    </c:if>
+    <p><form:errors path="newEvent.*"/></p>
     <form:form method="post" action="create/Event" modelAttribute="newEvent">
 			<p>
 	            <form:label path="title">Title:</form:label>

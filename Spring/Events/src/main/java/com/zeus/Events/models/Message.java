@@ -21,7 +21,7 @@ public class Message {
 	@GeneratedValue
 	private Long id;
 	
-	@Size(min=5)
+	@Size(min=1,message="sorry but connot be empty")
 	private String message;
 	
 	@Column

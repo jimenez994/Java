@@ -32,6 +32,12 @@
 	<div>
 		<h2>Message Wall</h2>
 		<div class="messages">
+			<c:if test="${errors != null}">
+		    		 <c:forEach items="${errors}" var="error">
+		    		 	<p>${error.defaultMessage}</p>
+		    		 
+		    		 </c:forEach>
+		    </c:if>
 			<c:forEach items="${messages}" var="message">
 				<p>${message.getUser().firstName}: ${message.message}</p>
 				<hr>

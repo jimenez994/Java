@@ -80,7 +80,7 @@ public class Users {
     }
     
     @RequestMapping(value = {"/", "/home"})
-    public String home(Principal principal, Model model,@Valid @ModelAttribute("newEvent")Event event) {
+    public String home(Principal principal, Model model,@ModelAttribute("newEvent")Event event) {
         String username = principal.getName();
         SimpleDateFormat date= new SimpleDateFormat("EEEE, 'the' d 'of' MMM , yyyy");
         Date createdAt = userService.findByUsername(username).getCreatedAt();
@@ -131,7 +131,7 @@ public class Users {
     public String addEvent(@Valid @ModelAttribute("newEvent") Event event,BindingResult result, RedirectAttributes modelR) {
     		if(result.hasErrors()) {
   			System.out.println(result.getAllErrors());
-//  			modelR.addAttribute("bla", result.getAllErrors());
+  			modelR.addFlashAttribute("errors", result.getAllErrors());
     			return "redirect:/home";
     		}else {
     			eventServices.addEvent(event);
@@ -149,24 +149,30 @@ public class Users {
     			return "redirect:/home";
     		}
     }
-//    join event
-    @RequestMapping("/{userId}/joining/{eventId}/process")
-    public String joinEvent(@PathVariable("userId") Long userId,@PathVariable("eventId") Long eventId) {
-    		JoinUE newJoin = new JoinUE(userService.findUserById(userId),eventServices.getEvent(eventId));
-    		joinUEServices.addJoin(newJoin);
-    		return "redirect:/home";
-    }
+
     @PostMapping("/event/edit/{id}")
-    public String saveEvent(@PathVariable("id") Long id, @Valid @ModelAttribute("event") Event event, BindingResult result) {
+    public String saveEvent(@PathVariable("id") Long id, @Valid @ModelAttribute("event") Event event, BindingResult result, RedirectAttributes modelR) {
     		if(result.hasErrors()) {
+    			modelR.addFlashAttribute("errors", result.getAllErrors());
     			return "redirect:/event/edit/{id}";
     		}else {
     			eventServices.addEvent(event);
     			return "redirect:/home";
     		}
     }
+//  join event
+	  @RequestMapping("/{userId}/joining/{eventId}/process")
+	  public String joinEvent(@PathVariable("userId") Long userId,@PathVariable("eventId") Long eventId) {
+	  		JoinUE newJoin = new JoinUE(userService.findUserById(userId),eventServices.getEvent(eventId));
+	  		joinUEServices.addJoin(newJoin);
+	  		return "redirect:/home";
+	  }
     @RequestMapping("/event/delete/{id}")
     public String deleteEvent(@PathVariable("id") Long id) {
+    		eventServices.getEvent(id).getMessage();
+    		
+    		eventServices.getEvent(id).getJoinUE();
+    		System.out.println("*********");
     		eventServices.deleteEvent(id);
     		return "redirect:/home";
     	
@@ -185,19 +191,18 @@ public class Users {
     }
     
     @PostMapping("/event/{id}/post/message")
-    public String postMessage(@PathVariable("id") Long id,@Valid @ModelAttribute("newMessage") Message message, BindingResult result) {
+    public String postMessage(@PathVariable("id") Long id,@Valid @ModelAttribute("newMessage") Message message, BindingResult result, RedirectAttributes modelR) {
     		if(result.hasErrors()) {
+    			modelR.addFlashAttribute("errors", result.getAllErrors());
     			return "redirect:/event/{id}";
     		}else {
     			messageServices.addMessage(message);
     			return "redirect:/event/{id}";
     		}
     }
-    @RequestMapping("/even/{id}/cancel")
-    public String cancelJoinEvent(Principal principal,@PathVariable("id") Long id) {
-    		String username = principal.getName();
-		Long uId = userService.findByUsername(username).getId();
-    		
+    @RequestMapping("/event/{id}/cancel")
+    public String cancelJoinEvent(@PathVariable("id") Long id) {
+    		joinUEServices.deleteJoin(id);
     		return "redirect:/home";
     }
     
