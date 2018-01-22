@@ -67,9 +67,7 @@ public class UserService {
     public User findUserById(Long id) {
     		return userRepository.findOne(id);
     }
-    public void upgradeUser(User user) {
-    	System.out.println("**************");
-    	
+    public void upgradeUser(User user) {    	
     		user.getRoles().clear();
     		user.setRoles(roleRepository.findByName("ROLE_ADMIN"));
     		userRepository.save(user);

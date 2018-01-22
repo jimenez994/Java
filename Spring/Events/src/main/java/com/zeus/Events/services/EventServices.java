@@ -43,7 +43,6 @@ public class EventServices {
 
 		for(int i= 0; i < events.size() ;i++) {
 			if(events.get(i).getState().equals(state)) {
-				System.out.println(events.get(i).getState());
 				eventsList.add(events.get(i));
 			}
 		}
@@ -52,11 +51,9 @@ public class EventServices {
 	}
 	public List<Event> eventsNotInState(String state){
 		ArrayList<Event> events = eventRepository.findAll();	
-		ArrayList<Event> eventsList = new ArrayList<Event>();		
-
+		ArrayList<Event> eventsList = new ArrayList<Event>();	
 		for(int i= 0; i < events.size() ;i++) {
 			if(!events.get(i).getState().equals(state)) {
-				System.out.println(events.get(i).getState());
 				eventsList.add(events.get(i));
 			}
 		}
@@ -84,10 +81,7 @@ public class EventServices {
 		for(int i = 0; i < joins.size(); i++){
 			JoinUE join = joins.get(i);
 			joinUEServices.deleteJoin(join.getId());
-		}
-		
-		System.out.println(eventServices.getEvent(id).getMessage());
-		
+		}		
 		eventServices.getEvent(id).getJoinUE();
 		eventRepository.delete(id);
 	}

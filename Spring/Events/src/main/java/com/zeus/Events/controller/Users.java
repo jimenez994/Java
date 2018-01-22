@@ -36,7 +36,7 @@ import com.zeus.Events.validator.UserValidator;
 public class Users {
 
     private UserService userService;
-
+    
     private UserValidator userValidator;
     // NEW
     public Users(UserService userService, UserValidator userValidator) {
@@ -114,14 +114,12 @@ public class Users {
     @RequestMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
     		userService.deleteUser(id);
-    		System.out.println("Delete ********");
     		return "redirect:/admin";
     }
     @RequestMapping("/upgrade/{id}")
     public String upgradeUser(@PathVariable("id") Long id) {
     		User user = userService.findUserById(id);
     		userService.upgradeUser(user);
-		System.out.println("Pugrade ********"+user);
 		return "redirect:/admin";
     }
     
@@ -130,7 +128,6 @@ public class Users {
     @PostMapping("create/Event")
     public String addEvent(@Valid @ModelAttribute("newEvent") Event event,BindingResult result, RedirectAttributes modelR) {
     		if(result.hasErrors()) {
-  			System.out.println(result.getAllErrors());
   			modelR.addFlashAttribute("errors", result.getAllErrors());
     			return "redirect:/home";
     		}else {
@@ -170,9 +167,7 @@ public class Users {
     @RequestMapping("/event/delete/{id}")
     public String deleteEvent(@PathVariable("id") Long id) {
     		eventServices.getEvent(id).getMessage();
-
     		eventServices.getEvent(id).getJoinUE();
-    		System.out.println("*********");
     		eventServices.deleteEvent(id);
     		return "redirect:/home";
     	
