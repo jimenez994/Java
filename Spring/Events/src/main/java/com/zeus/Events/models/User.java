@@ -63,6 +63,9 @@ public class User {
 	private List<Message> message;
 	
 	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	private List<JoinUE> joinUE;
+	
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
 	private List<Event> event;
 	
 	public User() {
@@ -75,6 +78,14 @@ public class User {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
+    
+	
+	public List<JoinUE> getJoinUE() {
+		return joinUE;
+	}
+	public void setJoinUE(List<JoinUE> joinUE) {
+		this.joinUE = joinUE;
+	}
 	public Long getId() {
 		return id;
 	}

@@ -41,7 +41,7 @@ public class UserService {
     				return "Sorry that email address is already used";
     			}
     		}
-    		if(emails.size() <= 1) {
+    		if(emails.size() < 0) {
     			saveUserWithAdminRole(user);
     			return "You successfully register ADMIN, you may now login";
     		}

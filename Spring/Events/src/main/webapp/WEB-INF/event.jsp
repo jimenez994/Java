@@ -7,6 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -15,7 +17,7 @@
 	<h4>Host: ${event.getUser().getFirstName()} ${event.getUser().getLastName()}</h4>
 	<h4>Date: ${event.dDate}</h4>
 	<h4>Date: ${event.location}, ${event.state}</h4>
-	<h4>People who are attending this event 3</h4>
+	<h4>People who are attending this event ${event.getJoinUE().size()}</h4>
 	
 	<table>
 		<tr>
@@ -29,8 +31,11 @@
 	</table>
 	<div>
 		<h2>Message Wall</h2>
-		<div>
-			<p>some message</p>
+		<div class="messages">
+			<c:forEach items="${messages}" var="message">
+				<p>${message.getUser().firstName}: ${message.message}</p>
+				<hr>
+			</c:forEach>
 		</div>
 		<form:form mothod="post" action="/event/${event.id}/post/message" modelAttribute="newMessage">
 			<p>

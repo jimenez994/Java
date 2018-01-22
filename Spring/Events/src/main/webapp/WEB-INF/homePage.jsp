@@ -30,10 +30,28 @@
     				<td>${anEvent.dDate}</td>
     				<td>${anEvent.location}</td>
     				<td>${anEvent.getUser().getFirstName()}</td>
-    				<c:if test="${ anEvent.user.id == currentUser.id}">
-    					<td> <a href="/event/edit/${anEvent.id}">Edit</a> / <a href="/event/delete/${anEvent.id}">Delete</a> </td>
-    				</c:if>
-    				
+    					<c:choose>
+    						<c:when test="${ anEvent.user.id == currentUser.id}">
+    							<td> <a href="/event/edit/${anEvent.id}">Edit</a> / <a href="/event/delete/${anEvent.id}">Delete</a> </td>
+    						</c:when>
+    						<c:when test="${ anEvent.user.id != currentUser.id}">
+    							<c:forEach items="${anEvent.getJoinUE()}" var="joinA">
+    								<c:choose>
+    									<c:when test="${joinA.user.id == currentUser.id}">
+    										<td>You join this event!!</td>
+    									</c:when>
+    									<c:otherwise>
+        									<td>Youmkl zdfl</td>
+  									</c:otherwise>
+    								</c:choose> 
+    							</c:forEach>
+   						 </c:when>
+   						 <c:otherwise>
+        						<td>bla</td>
+  						 </c:otherwise>
+    						
+    						
+    					</c:choose>
     			</tr>
     		</c:forEach>
     </table>

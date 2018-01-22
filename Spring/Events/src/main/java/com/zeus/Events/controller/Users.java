@@ -20,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zeus.Events.models.Event;
+import com.zeus.Events.models.JoinUE;
 import com.zeus.Events.models.Message;
 import com.zeus.Events.models.Role;
 import com.zeus.Events.models.User;
 import com.zeus.Events.services.EventServices;
+import com.zeus.Events.services.JoinUEServices;
 import com.zeus.Events.services.MessageServices;
 import com.zeus.Events.services.UserService;
 import com.zeus.Events.validator.UserValidator;
@@ -46,6 +48,9 @@ public class Users {
     
     @Autowired
     private MessageServices messageServices;
+    
+    @Autowired
+    private JoinUEServices joinUEServices;
     
     @PostMapping("/process")
     public String registration(@Valid @ModelAttribute("user") User user, BindingResult result, Model model,RedirectAttributes flasM) {
@@ -144,6 +149,14 @@ public class Users {
     			return "redirect:/home";
     		}
     }
+//    join event
+    @RequestMapping("/{userId}/joining/{eventId}/process")
+    public String joinEvent(@PathVariable("userId") Long userId,@PathVariable("eventId") Long eventId) {
+    		JoinUE newJoin = new JoinUE(userService.findUserById(userId),eventServices.getEvent(eventId));
+    		joinUEServices.addJoin(newJoin);
+//    		System.out.println(eventServices.getEvent(eventId).getJoinUE().contains(o));
+    		return "redirect:/home";
+    }
     @PostMapping("/event/edit/{id}")
     public String saveEvent(@PathVariable("id") Long id, @Valid @ModelAttribute("event") Event event, BindingResult result) {
     		if(result.hasErrors()) {
@@ -161,13 +174,15 @@ public class Users {
     }
     @RequestMapping("/event/{id}")
     public String event(Principal principal,@PathVariable("id") Long id, Model model,@Valid @ModelAttribute("newMessage") Message message) {
-    		List<Message> messages = messageServices.getAll();
         String username = principal.getName();
     		Long uId = userService.findByUsername(username).getId();
     		System.out.println(uId+"***********");
     		Event event = eventServices.getEvent(id);
+    		List<Message> messages = event.getMessage();
+    		model.addAttribute("messages",messages);
     		model.addAttribute("uId", uId);
     		model.addAttribute("event",event);
+    		
     		return "event.jsp";
     }
     

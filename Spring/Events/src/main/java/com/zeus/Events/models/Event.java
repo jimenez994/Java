@@ -50,6 +50,9 @@ public class Event {
 	@OneToMany(mappedBy="event", fetch = FetchType.LAZY)
 	private List<Message> message;
 	
+	@OneToMany(mappedBy="event", fetch = FetchType.LAZY)
+	private List<JoinUE> joinUE;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
@@ -65,6 +68,13 @@ public class Event {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
+    
+	public List<JoinUE> getJoinUE() {
+		return joinUE;
+	}
+	public void setJoinUE(List<JoinUE> joinUE) {
+		this.joinUE = joinUE;
+	}
 	public Long getId() {
 		return id;
 	}
