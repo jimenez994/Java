@@ -24,10 +24,15 @@
 			<th>Name</th>
 			<th>Location</th>
 		</tr>
-		<tr>
-			<td>john</td>
-			<td>Chicago</td>
-		</tr>
+		
+		<c:forEach items="${event.getJoinUE()}" var="join">
+			<tr>
+				<td>${join.getUser().getFirstName()}</td>
+				<td>${join.getUser().getCity()}</td>
+				
+			</tr>
+		</c:forEach>
+		
 	</table>
 	<div>
 		<h2>Message Wall</h2>

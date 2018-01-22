@@ -170,7 +170,7 @@ public class Users {
     @RequestMapping("/event/delete/{id}")
     public String deleteEvent(@PathVariable("id") Long id) {
     		eventServices.getEvent(id).getMessage();
-    		
+
     		eventServices.getEvent(id).getJoinUE();
     		System.out.println("*********");
     		eventServices.deleteEvent(id);

@@ -75,7 +75,31 @@
     			<td>${anEvent.location}</td>
     			<td>${anEvent.state}</td>
     			<td>${anEvent.getUser().getFirstName()}</td>
-    			<td>join</td>
+    			<c:choose>
+				<c:when test="${ anEvent.user.id == currentUser.id}">
+						<td> <a href="/event/edit/${anEvent.id}">Edit</a> / <a href="/event/delete/${anEvent.id}">Delete</a> </td>
+					</c:when>
+					<c:when test="${empty anEvent.getJoinUE()}">
+						<td><a href="/${currentUser.id}/joining/${anEvent.id}/process">Join</a> </td>
+					</c:when>
+					<c:when test="${ anEvent.user.id != currentUser.id}">
+					
+						<c:set var="check" value="false"/>
+						<c:forEach items="${anEvent.getJoinUE()}" var="joinA">
+							<c:if test="${joinA.user.id == currentUser.id}">
+								<c:set var="check" value="true"/>
+								<c:set var="joinId" value="${ joinA.id }" />
+							</c:if>
+						</c:forEach>
+						
+						<c:if test="${check.equals('true')}">
+							<td>Joining <a href="/event/${joinId}/cancel">Cancel</a> </td>
+						</c:if>
+						<c:if test="${!check.equals('true')}">
+							<td><a href="/${currentUser.id}/joining/${anEvent.id}/process">Join</a> </td>
+						</c:if>
+				 </c:when>
+    			</c:choose>
     			</tr>
     		</c:forEach>
     </table>
