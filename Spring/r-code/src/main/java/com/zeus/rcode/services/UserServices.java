@@ -32,7 +32,7 @@ public class UserServices {
 	}
 
 	public void update(User user){
-		create(user);
+		userRepository.save(user);
 	}
 
 	public ArrayList<User> all(){

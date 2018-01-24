@@ -28,31 +28,50 @@
 		<div>
 			<hr>
 			<c:forEach items="${users}" var="user">
-				<c:choose>
-					<c:when test="${user.id != cUser.id }">
-						<c:set var="check" value="false"/>
-						<c:forEach items="${cUser.getSendRequests()}" var="sendRequest">
-							<c:if test="${sendRequest.id == user.id}">
-								<c:set var="check" value="true"/>
+				<c:set var="recive" value="false"/>
+						<c:forEach items="${cUser.getRecieveRequests()}" var="Request">
+							<c:if test="${Request.id == user.id}">
+								<c:set var="recive" value="true"/>
 								<c:set var="requestId" value="${ sendRequest.id }" />
 							</c:if>
 						</c:forEach>
-						<c:if test="${check.equals('true')}">
-							<form method="post" action="/cancel/${user.id}">
-								<p>${user.firstName}</p>
-								<input type="submit" value="cancel"/>
-								<hr>
-							</form>
-						</c:if>
-						<c:if test="${check.equals('false')}">
-							<form method="post" action="/request/${user.id}">
-								<p>${user.firstName}</p>
-								<input type="submit" value="Request"/>
-								<hr>
-							</form>
-						</c:if>
-					</c:when>
-				</c:choose>
+				<c:if test="${user.id != cUser.id }">
+					<c:choose>
+					
+						
+						<c:when test="${recive == true}">
+							<form method="post" action="">
+									<p>${user.firstName}</p>
+									<input type="submit" value="accept"/>
+									<hr>
+								</form>
+						</c:when>
+						<c:otherwise>
+							<c:set var="check" value="false"/>
+							<c:forEach items="${cUser.getSendRequests()}" var="sendRequest">
+								<c:if test="${sendRequest.id == user.id}">
+									<c:set var="check" value="true"/>
+									<c:set var="requestId" value="${ sendRequest.id }" />
+								</c:if>
+							</c:forEach>
+							<c:if test="${check.equals('true')}">
+								<form method="post" action="/cancel/${user.id}">
+									<p>${user.firstName}</p>
+									<input type="submit" value="cancel"/>
+									<hr>
+								</form>
+							</c:if>
+							<c:if test="${check.equals('false')}">
+								<form method="post" action="/request/${user.id}">
+									<p>${user.firstName}</p>
+									<input type="submit" value="Request"/>
+									<hr>
+								</form>
+							</c:if>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				
 			</c:forEach>
 		</div>
 		

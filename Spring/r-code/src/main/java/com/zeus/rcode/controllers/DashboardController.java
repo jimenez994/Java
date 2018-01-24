@@ -59,7 +59,8 @@ public class DashboardController {
 			User resiver = userServices.findById(id);
 			List<User> requests = resiver.getRecieveRequests();
 			requests.add(user);
-			userServices.create(resiver);
+			resiver.setRecieveRequests(requests);
+			userServices.update(resiver);
 		return "redirect:/dashboard";
 	}
 	@PostMapping("/cancel/{id}")
@@ -69,10 +70,14 @@ public class DashboardController {
 
 		List<User> requests = resiver.getRecieveRequests();
 		System.out.println(requests.size());
+		System.out.println(requests.toString());
+		System.out.println(user.getSendRequests().toString());
 		for(int i = 0; i < requests.size();i++) {
 			if(user.getId() == requests.get(i).getId()) {
 				requests.remove(i);
-				userServices.create(resiver);
+				resiver.setRecieveRequests(requests);
+
+				userServices.update(resiver);
 			}
 		}
 		
