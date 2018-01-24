@@ -13,10 +13,58 @@
 		<link rel="stylesheet" type="text/css" href="/css/style.css">	
 		<script src="/js/main.js"></script>
 	</head>
-
 	<body>
 		<a href="/logout">Logout!</a>
-
-		<h1>Welcome!</h1>
+		<h1>Welcome, ${cUser.firstName}</h1>
+		<form:form methos="post" action="create/quetion" modelAttribute="newQuestion">
+			<p>
+				<form:label path="question">Question:</form:label>
+				<form:input path="question"/>
+			</p>
+				<form:hidden path="user" value="${cUser.id}"/>
+				<input type="submit" value="Post"/>
+		</form:form>
+		
+		<div>
+			<hr>
+			<c:forEach items="${users}" var="user">
+				<c:choose>
+					<c:when test="${user.id != cUser.id }">
+						<c:set var="check" value="false"/>
+						<c:forEach items="${cUser.getSendRequests()}" var="sendRequest">
+							<c:if test="${sendRequest.id == user.id}">
+								<c:set var="check" value="true"/>
+								<c:set var="requestId" value="${ sendRequest.id }" />
+							</c:if>
+						</c:forEach>
+						<c:if test="${check.equals('true')}">
+							<form method="post" action="/cancel/${user.id}">
+								<p>${user.firstName}</p>
+								<input type="submit" value="cancel"/>
+								<hr>
+							</form>
+						</c:if>
+						<c:if test="${check.equals('false')}">
+							<form method="post" action="/request/${user.id}">
+								<p>${user.firstName}</p>
+								<input type="submit" value="Request"/>
+								<hr>
+							</form>
+						</c:if>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+		</div>
+		
+		<div>
+			<button>Ask question</button>
+		</div>
+		
+		<c:forEach items="${questions}" var="question">
+			<h3>${question.question}</h3>
+			<p>${question.getUser().getFirstName()}</p>
+			<hr>
+		</c:forEach>
+		
 	</body>
 </html>

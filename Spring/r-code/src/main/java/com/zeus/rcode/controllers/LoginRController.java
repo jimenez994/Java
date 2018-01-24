@@ -3,6 +3,7 @@ package com.zeus.rcode.controllers;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zeus.rcode.models.User;
+import com.zeus.rcode.services.QuestionServices;
 import com.zeus.rcode.services.UserServices;
 
 @Controller
 public class LoginRController {
+	
+	@Autowired
+	private QuestionServices questionServices;
 
 	private UserServices us;
 
@@ -22,19 +27,8 @@ public class LoginRController {
 		this.us=us;
 	}
 	
-	@RequestMapping("/dashboard")
-	public String dashboard(HttpSession session){
-		if( session.getAttribute("id") != null ){
-			return "dashboard";
-		}else{
-			return "redirect:/";
-		}
-	}
-
 	@PostMapping("/login")
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password,HttpSession session){
-		System.out.println("***********");
-
 		User user = us.findByEmail(email);
 		if(user == null) {
 			 user = us.findByUsername(email);

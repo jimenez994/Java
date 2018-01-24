@@ -65,5 +65,17 @@
 
 			<input type="submit" value="Register!" />
 		</form:form>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</body>
 </html>

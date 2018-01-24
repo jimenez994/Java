@@ -1,10 +1,16 @@
 package com.zeus.rcode.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
@@ -45,16 +51,53 @@ public class User {
 	
 	@DateTimeFormat(pattern="MM:dd:yyyy HH:mm:ss")
 	private Date updatedAt;
+	
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	private List<Question> quetion;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    name = "friendships", 
+    joinColumns = @JoinColumn(name = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "friend_id")
+    )
+    private List<User> friends;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    name = "friendships", 
+    joinColumns = @JoinColumn(name = "friend_id"), 
+    inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> userFriends;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    name = "requests", 
+    joinColumns = @JoinColumn(name = "sender_id"), 
+    inverseJoinColumns = @JoinColumn(name = "reciver_id")
+    )
+    private List<User> sendRequests;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+    name = "requests", 
+    joinColumns = @JoinColumn(name = "reciver_id"), 
+    inverseJoinColumns = @JoinColumn(name = "sender_id")
+    )
+    private List<User> recieveRequests;
 
-	@PrePersist
-	public void onCreate(){this.createdAt = new Date();}
-	@PreUpdate
-	public void onUpdate(){this.updatedAt = new Date();}
+   
 	
 	public User() {
 		this.createdAt = new Date();
 		this.updatedAt = new Date();
 	}
+	@PrePersist
+	public void onCreate(){this.createdAt = new Date();}
+	@PreUpdate
+	public void onUpdate(){this.updatedAt = new Date();}
+	
 	public long getId() {
 		return id;
 	}
@@ -114,6 +157,36 @@ public class User {
 	}
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	public List<Question> getQuetion() {
+		return quetion;
+	}
+	public void setQuetion(List<Question> quetion) {
+		this.quetion = quetion;
+	}
+	public List<User> getFriends() {
+		return friends;
+	}
+	public void setFriends(List<User> friends) {
+		this.friends = friends;
+	}
+	public List<User> getUserFriends() {
+		return userFriends;
+	}
+	public void setUserFriends(List<User> userFriends) {
+		this.userFriends = userFriends;
+	}
+	public List<User> getSendRequests() {
+		return sendRequests;
+	}
+	public void setSendRequests(List<User> sendRequests) {
+		this.sendRequests = sendRequests;
+	}
+	public List<User> getRecieveRequests() {
+		return recieveRequests;
+	}
+	public void setRecieveRequests(List<User> recieveRequests) {
+		this.recieveRequests = recieveRequests;
 	}
 	
 	
