@@ -24,6 +24,9 @@
 				<form:hidden path="user" value="${cUser.id}"/>
 				<input type="submit" value="Post"/>
 		</form:form>
+		<div>
+			<button>Ask question</button>
+		</div>
 		
 		<div>
 			<hr>
@@ -37,10 +40,8 @@
 						</c:forEach>
 				<c:if test="${user.id != cUser.id }">
 					<c:choose>
-					
-						
 						<c:when test="${recive == true}">
-							<form method="post" action="">
+							<form method="post" action="/accept/${user.id}">
 									<p>${user.firstName}</p>
 									<input type="submit" value="accept"/>
 									<hr>
@@ -75,9 +76,6 @@
 			</c:forEach>
 		</div>
 		
-		<div>
-			<button>Ask question</button>
-		</div>
 		
 		<c:forEach items="${questions}" var="question">
 			<h3>${question.question}</h3>

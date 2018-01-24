@@ -1,12 +1,15 @@
 package com.zeus.rcode.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.zeus.rcode.models.User;
 import com.zeus.rcode.repositories.UserRepository;
+
+import antlr.collections.List;
 
 @Service
 public class UserServices {
@@ -33,6 +36,13 @@ public class UserServices {
 
 	public void update(User user){
 		userRepository.save(user);
+	}
+	public ArrayList<User> notFriendsList(Long id){
+		User user = findById(id);
+		Collection friends = user.getFriends();
+		Collection users = userRepository.findAll();
+		users.removeAll(friends);
+		return (ArrayList<User>)users;
 	}
 
 	public ArrayList<User> all(){

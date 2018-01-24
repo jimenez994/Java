@@ -31,7 +31,7 @@ public class DashboardController {
 	@RequestMapping("/dashboard")
 	public String dashboard(HttpSession session,Model model,@ModelAttribute("newQuestion")Question question,@ModelAttribute("request")User request){
 		List<Question> questions = questionServices.getAll();
-		List<User> users = userServices.all();
+		List<User> users = userServices.notFriendsList((long)session.getAttribute("id"));
 		if( session.getAttribute("id") != null ){
 			model.addAttribute("users", users);
 			model.addAttribute("questions", questions);
@@ -55,19 +55,18 @@ public class DashboardController {
 	}
 	@PostMapping("/request/{id}")
 	public String request(@PathVariable("id") Long id,HttpSession session) {
-			User user = userServices.findById((long)session.getAttribute("id"));
-			User resiver = userServices.findById(id);
-			List<User> requests = resiver.getRecieveRequests();
-			requests.add(user);
-			resiver.setRecieveRequests(requests);
-			userServices.update(resiver);
+		User user = userServices.findById((long)session.getAttribute("id"));
+		User resiver = userServices.findById(id);
+		List<User> requests = resiver.getRecieveRequests();
+		requests.add(user);
+		resiver.setRecieveRequests(requests);
+		userServices.update(resiver);
 		return "redirect:/dashboard";
 	}
 	@PostMapping("/cancel/{id}")
 	public String cancelRequest(@PathVariable("id") int id,HttpSession session) {
 		User user = userServices.findById((long)session.getAttribute("id"));
 		User resiver = userServices.findById(id);
-
 		List<User> requests = resiver.getRecieveRequests();
 		System.out.println(requests.size());
 		System.out.println(requests.toString());
@@ -80,11 +79,17 @@ public class DashboardController {
 				userServices.update(resiver);
 			}
 		}
-		
-
-		System.out.println(user.getSendRequests().get(0).getFirstName());
-		
 		return"redirect:/dashboard";
+	}
+	@PostMapping("/accept/{id}")
+	public String acceptFriendRequest(@PathVariable("id") Long id,HttpSession session) {
+		User user = userServices.findById((long)session.getAttribute("id"));
+		User userAccepeted = userServices.findById(id);
+		List<User> friends = userAccepeted.getUserFriends();
+		friends.add(user);
+		userAccepeted.setUserFriends(friends);
+		userServices.update(userAccepeted);
+		return "redirect:/dashboard";
 	}
 
 }
