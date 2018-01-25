@@ -29,5 +29,4 @@ public class QuestionServices {
 	public void deleteQuestion(Long id) {
 		questionRepo.delete(id);
 	}
-
 }

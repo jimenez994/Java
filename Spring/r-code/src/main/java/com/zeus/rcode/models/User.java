@@ -86,7 +86,10 @@ public class User {
     inverseJoinColumns = @JoinColumn(name = "sender_id")
     )
     private List<User> recieveRequests;
-
+    
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	private List<Image> image;
+    
    
 	
 	public User() {
@@ -187,6 +190,12 @@ public class User {
 	}
 	public void setRecieveRequests(List<User> recieveRequests) {
 		this.recieveRequests = recieveRequests;
+	}
+	public List<Image> getImage() {
+		return image;
+	}
+	public void setImage(List<Image> image) {
+		this.image = image;
 	}
 	
 	
