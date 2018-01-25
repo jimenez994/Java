@@ -25,20 +25,11 @@
 				<input type="submit" value="Post"/>
 		</form:form>
 		
-		<form method="POST" action="<c:url value='/upload' />"
-		    enctype="multipart/form-data">
+		<form method="POST" action="/uploadFile" enctype="multipart/form-data">
+			File to upload: <input type="file" name="file">
+			<input type="submit" value="Upload"> Press here to upload the file!
+		</form>	
 		
-		
-		    Please select a file to upload : <input type="file" name="file" />
-		    <input type="submit" value="upload" />
-		
-		</form>
-		
-		${images }<br>
-		<c:forEach items="${images}" var="image">
-			<img  src="data:image/jpg;base64, ${image.getPic()}">
-			${image.getPic()}
-		</c:forEach>
 		
 		<div>
 			<button>Ask question</button>

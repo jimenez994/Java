@@ -7,11 +7,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,8 +19,8 @@ public class Image {
 	@GeneratedValue
 	private long id;
 
-	@Lob
-	private byte[] pic;
+	
+	private String picName;
 	
 	@DateTimeFormat(pattern="MM:dd:yyyy HH:mm:ss")
 	private Date createdAt;
@@ -36,9 +34,9 @@ public class Image {
 	
 	public Image() {
 	}
-	public Image(long id, String name, String type, byte[] pic) {
+	public Image(long id, String name, String picName) {
 		this.id = id;
-		this.pic = pic;
+		this.picName = picName;
 	}
 	@PrePersist
 	public void onCreate(){this.createdAt = new Date();}
@@ -51,14 +49,12 @@ public class Image {
 		this.id = id;
 	}
 	
-	public byte[] getPic() {
-		return pic;
+	
+	public String getPicName() {
+		return picName;
 	}
-	public String getImg() {
-		return pic.toString();
-	}
-	public void setPic(byte[] pic) {
-		this.pic = pic;
+	public void setPicName(String picName) {
+		this.picName = picName;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

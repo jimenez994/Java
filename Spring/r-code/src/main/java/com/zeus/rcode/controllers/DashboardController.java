@@ -1,12 +1,10 @@
 package com.zeus.rcode.controllers;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileOutputStream;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -42,11 +39,9 @@ public class DashboardController {
 	private ImageServices imageServices; 
 	
 	@RequestMapping("/dashboard")
-	public String dashboard(HttpSession session,Model model,@ModelAttribute("newImage")Image image,@ModelAttribute("newQuestion")Question question,@ModelAttribute("request")User request){
+	public String dashboard(HttpSession session,Model model,@ModelAttribute("newQuestion")Question question,@ModelAttribute("request")User request){
 		List<Question> questions = questionServices.getAll();
 		List<Image> images = imageServices.getAll();
-		byte[] imaged = images.get(0).getPic();
-		System.out.println(imaged);
 		List<User> users = userServices.notFriendsList((long)session.getAttribute("id"));
 		if( session.getAttribute("id") != null ){
 			model.addAttribute("images", images);
@@ -112,44 +107,33 @@ public class DashboardController {
 		return "redirect:/dashboard";
 	}
 	
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("file") MultipartFile file) throws IOException{
+	@PostMapping("/uploadFile")
+	public String handleFormUpload(@RequestParam("file") MultipartFile file) {
 		if (!file.isEmpty()) {
-			 BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-			 System.out.println(src.getType());
-//			 File destination = new File("File directory with file name"); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
-//			 ImageIO.write(src, "png", destination);
-			 //Save the id you have used to create the file name in the DB. You can retrieve the image in future with the ID.
-		 
-	}  
-		return "redirect:/dashboard";
-	}
-	
-	
-	
-//	@PostMapping("/add/image")
-//	public String addImage(@Valid @ModelAttribute("newImage") Image image,BindingResult result) {
-//		// get the provided image from the form
-//		MultipartFile Image = image;
-//		if(result.hasErrors()) {
-//			System.out.println("error");
-//			return "redirect:/dashboard";
-//		}else {
-//			System.out.println("1************");
-//			byte[] bytes = image.getPic();
-//	        System.out.println("2************");
-//
-//			byte[] encodeBase64 = Base64.encodeBase64(bytes);
-//			Base64 base64 = new Base64();
-//	        System.out.println("3************"); 
-////	        String base64Encoded = encodeBase64;
-//	        String decodedString = new String(base64.decode(encodeBase64));
-//			
-//	        System.out.println(decodedString);
-//	        image.setPic(encodeBase64);
-//			imageServices.addImage(image);
-//			return "redirect:/dashboard";
-//		}
-//	}
+			try {
+				byte[] bytes = file.getBytes();
+				
+				System.out.println(file.getOriginalFilename());
 
+				// Creating the directory to store file
+				File dir = new File("src/main/resources/images");
+				if (!dir.exists())
+					dir.mkdirs();
+
+				// Create the file on server
+				File serverFile = new File(dir.getAbsolutePath()
+						+ File.separator + file.getOriginalFilename());
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+
+				return "redirect:/dashboard";
+			} catch (Exception e) {
+				return "redirect:/dashboard";
+			}
+		} else {
+			return "redirect:/dashboard";
+		}
+	}	
 }
