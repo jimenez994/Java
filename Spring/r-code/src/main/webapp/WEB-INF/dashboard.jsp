@@ -30,6 +30,8 @@
 			<input type="submit" value="Upload"> Press here to upload the file!
 		</form>	
 		
+		<img src="/images/logo.jpg" alt="logo">
+		
 		
 		<div>
 			<button>Ask question</button>

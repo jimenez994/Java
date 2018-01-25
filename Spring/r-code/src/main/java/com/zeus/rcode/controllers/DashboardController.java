@@ -116,7 +116,7 @@ public class DashboardController {
 				System.out.println(file.getOriginalFilename());
 
 				// Creating the directory to store file
-				File dir = new File("src/main/resources/images");
+				File dir = new File("src/main/resources/static/images");
 				if (!dir.exists())
 					dir.mkdirs();
 
