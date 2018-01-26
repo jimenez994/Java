@@ -20,6 +20,8 @@ public class Question {
 	@GeneratedValue
 	private long id;
 	
+	private String picture;
+	
 	@Size(min=5)
 	private String question;
 	
@@ -32,6 +34,17 @@ public class Question {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	public Question(User user,String question, String picture) {
+		this.user = user;
+		this.question = question;
+		this.picture = picture;
+	}
+	
+	public Question(User user,String question) {
+		this.user = user;
+		this.question = question;
+	}
 
 	@PrePersist
 	public void onCreate(){this.createdAt = new Date();}
@@ -72,6 +85,12 @@ public class Question {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 	
 	

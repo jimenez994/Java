@@ -6,19 +6,16 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zeus.rcode.models.Image;
 import com.zeus.rcode.models.Question;
@@ -39,7 +36,7 @@ public class DashboardController {
 	private ImageServices imageServices; 
 	
 	@RequestMapping("/dashboard")
-	public String dashboard(HttpSession session,Model model,@ModelAttribute("newQuestion")Question question,@ModelAttribute("request")User request){
+	public String dashboard(HttpSession session,Model model,@ModelAttribute("request")User request){
 		List<Question> questions = questionServices.getAll();
 		List<Image> images = imageServices.getAll();
 		List<User> users = userServices.notFriendsList((long)session.getAttribute("id"));
@@ -56,15 +53,51 @@ public class DashboardController {
 	
 //	adding a question 
 	@PostMapping("/create/quetion")
-	public String postQuestion(@Valid @ModelAttribute("newQuestion") Question question, BindingResult result, RedirectAttributes modelR){
-		if(result.hasErrors()) {
-			modelR.addAttribute("errors", result.getAllErrors());
+	public String postQuestion(@RequestParam("file") MultipartFile file,@RequestParam("question") String questionStr,HttpSession session){
+		if (!file.isEmpty() && !questionStr.isEmpty()) {
+			try {
+				byte[] bytes = file.getBytes();
+				
+				System.out.println(file.getOriginalFilename());
+
+				// Creating the directory to store file
+				File dir = new File("src/main/resources/static/images");
+				if (!dir.exists())
+					dir.mkdirs();
+
+				// Create the file on server
+				File serverFile = new File(dir.getAbsolutePath()
+						+ File.separator + file.getOriginalFilename());
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+				
+//						adding this to the detabase
+				User user = userServices.findById((long)session.getAttribute("id"));
+				Question newQuestion = new Question(user,questionStr,file.getOriginalFilename());
+
+				questionServices.addQuestion(newQuestion);
+				user.getQuetion().add(newQuestion);
+				questionServices.addQuestion(newQuestion);
+
+				return "redirect:/dashboard";
+			} catch (Exception e) {
+				return "redirect:/dashboard";
+			}
+		}else if(!questionStr.isEmpty() && file.isEmpty()){
+			User user = userServices.findById((long)session.getAttribute("id"));
+			Question newQuestion = new Question(user,questionStr);
+			questionServices.addQuestion(newQuestion);
+			user.getQuetion().add(newQuestion);
+			questionServices.addQuestion(newQuestion);
+			
 			return "redirect:/dashboard";
 		}else {
-			questionServices.addQuestion(question);
 			return "redirect:/dashboard";
 		}
-	}
+}
+			
 // send friend Request
 	@PostMapping("/request/{id}")
 	public String request(@PathVariable("id") Long id,HttpSession session) {
@@ -108,10 +141,11 @@ public class DashboardController {
 	}
 	
 	@PostMapping("/uploadFile")
-	public String handleFormUpload(@RequestParam("file") MultipartFile file) {
+	public String handleFormUpload(@RequestParam("file") MultipartFile file,HttpSession session) {
 		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();
+				
 				
 				System.out.println(file.getOriginalFilename());
 
@@ -127,6 +161,13 @@ public class DashboardController {
 						new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
+				
+//				adding this to the detabase
+				User user = userServices.findById((long)session.getAttribute("id"));
+				Image newImage = new Image(user,file.getOriginalFilename());
+				imageServices.addImage(newImage);
+				user.getImage().add(newImage);
+				imageServices.addImage(newImage);
 
 				return "redirect:/dashboard";
 			} catch (Exception e) {

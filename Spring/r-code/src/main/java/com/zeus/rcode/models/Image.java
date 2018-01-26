@@ -34,8 +34,8 @@ public class Image {
 	
 	public Image() {
 	}
-	public Image(long id, String name, String picName) {
-		this.id = id;
+	public Image(User user, String picName) {
+		this.user = user;
 		this.picName = picName;
 	}
 	@PrePersist
