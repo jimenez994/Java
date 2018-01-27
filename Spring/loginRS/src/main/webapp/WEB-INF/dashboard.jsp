@@ -15,8 +15,18 @@
 	</head>
 
 	<body>
-		<a href="/logout">Logout!</a>
 
-		<h1>Welcome!</h1>
+		<h2>Welcome to Dojoscriptions ${cUser.firstName}!</h2>
+		<p>Please choose a subscription and start date</p>
+		<form action="/subscribe" method="post">
+			 Due Date: <input type="number" value="26" name="num" min="1" max="31"><br>
+			Package: <select name="pack">
+				<c:forEach items="${packs}" var="pack">
+					<option value="${pack.id}">${pack.name}</option>
+				</c:forEach>
+			</select>
+			 <input type="submit" value="Submit"/>
+		</form>
+		
 	</body>
 </html>

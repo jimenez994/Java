@@ -1,10 +1,17 @@
 package com.zeus.loginRS.models;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
@@ -31,7 +38,7 @@ public class User{
 	@Size(min=8,max=255,message="Password must be between 8-255 characters.")
 	private String password;
 
-	private boolean admin;
+	private int level;
 
 	@Transient
 	@Size(min=8,max=255,message="Password Confirmation must be between 8-255 characters.")	
@@ -42,6 +49,16 @@ public class User{
 	
 	@DateTimeFormat(pattern="MM:dd:yyyy HH:mm:ss")
 	private Date updatedAt;
+	
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Pack> packs;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="pack_id")
+    private Pack pack;
+	
+	@OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private DueDate dueDate;
 
 	@PrePersist
 	public void onCreate(){this.createdAt = new Date();}
@@ -82,14 +99,37 @@ public class User{
 	public void setConfirm(String confirm){
 		this.confirm=confirm;
 	}	
-	public void setAdmin(boolean admin){this.admin=admin;}
 	public String getEmail(){return email;}
 	public String getFirstName(){return firstName;}
 	public String getLastName(){return lastName;}
 	public String getPassword(){return password;}
 	public String getConfirm(){return confirm;}
-	public boolean isAdmin(){return admin;}
 
+	
+	public List<Pack> getPacks() {
+		return packs;
+	}
+	public void setPacks(List<Pack> packs) {
+		this.packs = packs;
+	}
+	public Pack getPack() {
+		return pack;
+	}
+	public void setPack(Pack pack) {
+		this.pack = pack;
+	}
+	public DueDate getDueDate() {
+		return dueDate;
+	}
+	public void setDueDate(DueDate dueDate) {
+		this.dueDate = dueDate;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	public User(){
 		this.createdAt = new Date();
 		this.updatedAt = new Date();

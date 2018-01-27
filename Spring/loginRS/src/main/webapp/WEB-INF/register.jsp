@@ -16,7 +16,9 @@
 
 	<body>
 		<form method="post" action="/login">
+			<p>${error}</p>
 			<p>Email:<input type="text" name="email"></p>
+			<p>${password}</p>
 			<p>Password:<input type="password" name="password"></p>
 
 			<input type="submit" value="Login!">
@@ -25,35 +27,35 @@
 		<form:form action="/register" method="post" modelAttribute="user">
 			<p>
 				<form:label path="email">Email:
-					<form:errors path="email"></form:errors>
+					<form:errors path="email"></form:errors><br>
 					<form:input path="email"></form:input>
 				</form:label>
 			</p>
 
 			<p>
 				<form:label path="firstName">First Name:
-					<form:errors path="firstName"></form:errors>
+					<form:errors path="firstName"></form:errors><br>
 					<form:input path="firstName"></form:input>
 				</form:label>
 			</p>
 
 			<p>
 				<form:label path="lastName">Last Name:
-					<form:errors path="lastName"></form:errors>
+					<form:errors path="lastName"></form:errors><br>
 					<form:input path="lastName"></form:input>
 				</form:label>
 			</p>
 
 			<p>
 				<form:label path="password">Password:
-					<form:errors path="password"></form:errors>
+					<form:errors path="password"></form:errors><br>
 					<form:input type="password" path="password"></form:input>
 				</form:label>
 			</p>
 
 			<p>
 				<form:label path="confirm">Confirm:
-					<form:errors path="confirm"></form:errors>
+					<form:errors path="confirm"></form:errors><br>
 					<form:input type="password" path="confirm"></form:input>
 				</form:label>
 			</p>

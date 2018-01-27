@@ -63,9 +63,16 @@ public class LoginRController {
 			return "registerW";
 		}else{
 			if(us.findByEmail(user.getEmail()) == null && us.findByUsername(user.getUsername()) == null) {
-				us.create(user);
-				session.setAttribute( "id",user.getId() );
-				return "redirect:/";
+				
+				if(user.getPassword().equals(user.getConfirm())) {
+					System.out.println(user.getPassword());
+					us.create(user);
+					session.setAttribute( "id",user.getId() );
+					return "redirect:/";
+				}else {
+					return "redirect:/register";
+				}
+				
 			}else {
 				return "redirect:/register";
 			}

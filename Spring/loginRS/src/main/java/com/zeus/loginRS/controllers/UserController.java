@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zeus.loginRS.models.User;
 import com.zeus.loginRS.services.UserServices;
@@ -24,27 +25,22 @@ public class UserController{
 	@RequestMapping("/dashboard")
 	public String dashboard(HttpSession s){
 		if( s.getAttribute("id") != null ){
-			return "dashboard";
+			if(us.findById((long)s.getAttribute("id")).getLevel()==1) {
+				return "redirect:/adminDashboard";
+			}else if(us.findById((long)s.getAttribute("id")).getPack() != null) {
+				System.out.println("is working*******");
+				return "redirect:/profile";
+			}
+			return "redirect:/selection";
 		}else{
 			return "redirect:/";
 		}
 	}
 
-	@PostMapping("/login")
-	public String login(@RequestParam("email") String email, @RequestParam("password") String password,HttpSession s){
-		User user = us.findByEmail(email);
-		
-		if( user == null ){
-			return "redirect:/";
-		}else{
-			if( us.isMatch( password ,user.getPassword() ) ){
-				s.setAttribute("id",user.getId());
-				return "redirect:/dashboard";
-			}else{
-				return "redirect:/";
-			}
-		}	
-	}
+	
+	
+	
+
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession s){
@@ -53,7 +49,7 @@ public class UserController{
 	}
 
 	@RequestMapping("/register")
-	public String register(@ModelAttribute("user") User user,HttpSession s){
+	public String register(RedirectAttributes flasM,@ModelAttribute("user") User user,HttpSession s){
 		s.setAttribute("id",null);
 		return "register";
 	}
@@ -63,9 +59,12 @@ public class UserController{
 		if(res.hasErrors()){
 			return "register";
 		}else{
-			us.create(user);
-			session.setAttribute( "id",user.getId() );
-			return "redirect:/";
+			if(user.getConfirm().equals(user.getPassword())) {
+				us.create(user);
+				session.setAttribute( "id",user.getId() );
+				return "redirect:/";
+			}
+			return "register";
 		}
 	}
 }

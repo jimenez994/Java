@@ -20,19 +20,25 @@ public class UserServices {
 	
 	public boolean isMatch(String password,String dbPass){
 		if( bcrypt.matches(password,dbPass) ){
+			System.out.println("check********true");
 			return true;
 		}else{
+			System.out.println("check********false");
 			return false;
 		}
 	}
 
 	public void create(User user){
+		System.out.println(all().size());
+		if(all().size() < 1) {
+			user.setLevel(1);
+		}
 		user.setPassword(  bcrypt.encode( user.getPassword() ) );
 		userRepository.save(user);
 	}
 
 	public void update(User user){
-		create(user);
+		userRepository.save(user);
 	}
 
 	public ArrayList<User> all(){
