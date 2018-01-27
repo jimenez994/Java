@@ -116,6 +116,7 @@
 
 		<c:forEach items="${questions}" var="question">
 			<h3>${question.question}</h3>
+			<pre class="prettyprint">${question.question}</pre>
 			<c:if test="${question.picture != null }">
 				<img src="/images/${question.picture}" alt="${question.picture}">
 			</c:if>
@@ -124,7 +125,7 @@
 		</c:forEach>
 
 
-
+		<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 		<script src="/src/js/jquery.min.js"></script>
         <script src="/src/js/popper.min.js"></script>
         <script src="/src/js/bootstrap.min.js"></script>

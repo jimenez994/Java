@@ -18,6 +18,7 @@ public class PackServices {
 		return packRepo.findAll();
 	}
 	public ArrayList<Pack> getAllActive(){
+		System.out.println("John");
 		ArrayList<Pack> all = packRepo.findAll();
 		 ArrayList<Pack> newList = new ArrayList<Pack>();
 		for(int i = 0; i<all.size();i++) {
@@ -49,6 +50,7 @@ public class PackServices {
 		}
 	}
 	public void delete(Long id) {
+		System.out.println("Im Watching you");
 		packRepo.delete(id);
 	}
 	

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -38,6 +39,7 @@ public class Dashboard {
 	
 	@RequestMapping("/selection")
 	public String selection(HttpSession session,Model model) {
+		System.out.println("Zeus");
 		ArrayList<Pack> packs = packServices.getAllActive();
 		
 		User cUser = userServices.findById((long)session.getAttribute("id"));
@@ -48,7 +50,9 @@ public class Dashboard {
 	@PostMapping("/subscribe")
 	public String subscribing(HttpSession session,@RequestParam("num") int dueDate,@RequestParam("pack") long packId) {
 		User cUser = userServices.findById((long)session.getAttribute("id"));
-		
+		if(dueDate==31) {
+		dueDate = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+		}
 		DueDate newDueDate = new DueDate(dueDate,cUser);
 		dueDateServices.addPack(newDueDate);
 		cUser.setPack(packServices.getPack(packId));
@@ -70,10 +74,19 @@ public class Dashboard {
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd");
 		LocalDateTime now = LocalDateTime.now();
+		Date nowDateW = new Date();
 		int nowDate = Integer.parseInt(dtf.format(now).toString());
 		int dueDate = cUser.getDueDate().getDue();
 		
 		if(nowDate >= dueDate) {
+			System.out.println(dueDate);
+			if(dueDate==31) {
+				Calendar c = Calendar.getInstance();
+				c.setTime(nowDateW);
+				c.add(Calendar.MONTH, 1);
+				int last = c.getActualMaximum(Calendar.DATE);
+				dueDate = last;
+				}
 			LocalDate fDate = LocalDate.now().plusMonths(1);
 			Date futureDate = Date.from(fDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 			String patternF = "MMMMMM ";
@@ -85,11 +98,18 @@ public class Dashboard {
 			model.addAttribute("dDate", dDate);
 			
 		}else {
+			if(dueDate==31) {
+				Calendar c = Calendar.getInstance();
+				c.setTime(nowDateW);
+				int last = c.getActualMaximum(Calendar.DATE);
+				dueDate = last;
+				}
 			Date date2 = new Date();
 			String patternNow = "MMMMMM ";
 			SimpleDateFormat simpleDateFormatNow = new SimpleDateFormat(patternNow);
 			String dateNow = simpleDateFormatNow.format(date2);
 			String dDate = dateNow+" "+dueDate;
+			System.out.println("JJ");
 			dueS.setMonth(dDate);
 			dueDateServices.addPack(dueS);
 			model.addAttribute("dDate", dDate);
