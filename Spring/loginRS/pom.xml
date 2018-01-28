@@ -6,7 +6,7 @@
 	<groupId>com.zeus</groupId>
 	<artifactId>loginRS</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>loginRS</name>
 	<description>login and registration</description>
