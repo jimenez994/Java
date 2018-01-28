@@ -20,10 +20,11 @@
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
 		<script src="/js/main.js"></script>
 	</head>
+
 	<body>
     <nav class="navbar navbar-expand-sm bg-dark  navbar-dark ">
     <div class="container">
-      <a href="index.html" class="navbar-brand">R-code</a>
+      <a href="index.html" class="navbar-brand">R-Code</a>
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -39,31 +40,67 @@
             <a href="#create-head-section" class="nav-link">Create</a>
           </li>
           <li class="nav-item">
-            <a href="#share-head-section" class="nav-link">Share</a>
+						<a href="/logout" class="nav-link">Logout</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-
-
-
-		<a href="/logout">Logout!</a>
 		<h1>Welcome, ${cUser.firstName}</h1>
-		<form method="post" action="create/quetion" enctype="multipart/form-data">
-			<p>
-				<label>Question:</label>
-				<input name="question"/>
-				File to upload: <input type="file" name="file">
-				<input type="submit" value="Post"/>
-			</p>
-		</form>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 " style="border:1px solid rgb(91, 48, 160)">
+					<div class="d-flex flex-row-reverse row-hl">
+						<div class="p-4 item-hl">
+							<button class="btn btn-success" data-toggle="modal" data-target="#questionModal">Ask question</button>
+
+							<div id="questionModal" class="modal">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title text-secondary">Create Question</h5> 
+											<button class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<div class="modal-body">
+											<form method="post" action="create/quetion" enctype="multipart/form-data">
+												<div class="form-group">
+													<label for="title" class="text-secondary">Title:</label>
+													<input class="form-control" name="question" placeholder="please  be specific" />
+												</div>
+												<div class="form-group">
+													<label class="text-secondary">Description:</label>
+													<textarea name="description" class="form-control"  rows="3" placeholder="have some description"></textarea>
+												</div>
+												<div class="form-group">
+													<label for="file" class="text-secondary">Only image:(Optional)</label>
+													<input type="file" name="file" class="form-control">
+												</div>
+												<div class="modal-footer">
+													<button class="btn btn-secondary" modal-dismiss="modal">Close</button>
+													<input type="submit" class="btn btn-primary" value="Post Your Question"/>
+												</div>
+											</form>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
 
 
-		<div>
-			<button>Ask question</button>
+				</div>
+				<div class="col-lg-3 d-none d-lg-block" style="border:1px solid rgb(7, 134, 143)">Auto Layout</div>
+			</div>
 		</div>
+		
+
+
+
+
+		
 
 		<div>
 			<hr>

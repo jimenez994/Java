@@ -53,12 +53,6 @@
      <div class="home-inner">
        <div class="container">
          <div class="row">
-           <div class="col-lg-8 d-none d-lg-block">
-           </div>
-           <div class="col-lg-4">
-             <%-- Login Modal Trigger --%>
-            <button class="btn btn-info" data-toggle="modal" data-target="#loginModal">Login</button>
-           </div>
           <div class="col-lg-8 d-none d-lg-block">
             <h1 class="display-4"> <strong>Welcome to R-Code</strong> </h1>
           </div>
@@ -88,9 +82,11 @@
                      <form:input path="confirm" type="password" class="form-control form-control-lg" placeholder="Confirm Password"></form:input>
                    </div>
 
-             			<input type="submit" class="btn btn-outline-light btn-block" value="Register!" />
-             		</form:form>
+             			<input type="submit" class="btn btn-outline-light btn-block" value="Get Started" />
+                 </form:form>
                </div>
+                <p>Already have an account?  <a class="text-dark" data-toggle="modal" data-target="#loginModal">Sign in</a> </p>
+
              </div>
            </div>
          </div>
@@ -98,27 +94,37 @@
      </div>
    </div>
 
-
-		<form method="post" action="/login">
-			<p>Email/username:<input type="text" name="email"></p>
-			<p>Password:<input type="password" name="password"></p>
-
-			<input type="submit" value="Login!">
-		</form>
-
-
-
-
-
-
+  <!-- LOGIN MODAL -->
+  <div class="modal" id="loginModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="text-secondary">Login</h2>
+              </div>
+              <div class="card-body">
+                <form method="post" action="/login">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="email/username" type="text" name="email">
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="password" name="password">
+                  </div>
+                  <div class="card-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input class="btn btn-primary" type="submit" value="Login">
+                  </div>
+                </form>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </header>
-
-
-
-
-
-
-
 
 		<script src="/src/js/jquery.min.js"></script>
         <script src="/src/js/popper.min.js"></script>
