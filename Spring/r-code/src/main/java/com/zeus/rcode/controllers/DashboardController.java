@@ -6,10 +6,12 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +38,7 @@ public class DashboardController {
 	private ImageServices imageServices; 
 	
 	@RequestMapping("/dashboard")
-	public String dashboard(HttpSession session,Model model,@ModelAttribute("request")User request){
+	public String dashboard(HttpSession session,Model model,@ModelAttribute("request")User request,@ModelAttribute("newQuestion") Question question){
 		List<Question> questions = questionServices.getAll();
 		List<Image> images = imageServices.getAll();
 		List<User> users = userServices.notFriendsList((long)session.getAttribute("id"));
@@ -53,8 +55,13 @@ public class DashboardController {
 	
 //	adding a question 
 	@PostMapping("/create/quetion")
-	public String postQuestion(@RequestParam("file") MultipartFile file,@RequestParam("question") String questionStr,HttpSession session){
-		if (!file.isEmpty() && !questionStr.isEmpty()) {
+	public String postQuestion(@RequestParam("file") MultipartFile file,HttpSession session,@Valid @ModelAttribute("newQuestion") Question question,BindingResult result){
+		if(result.hasErrors()) {
+			return "redirect:/dashboard";
+		}{
+			
+		
+		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();
 				
@@ -75,7 +82,9 @@ public class DashboardController {
 				
 //						adding this to the detabase
 				User user = userServices.findById((long)session.getAttribute("id"));
-				Question newQuestion = new Question(user,questionStr,file.getOriginalFilename());
+				Question newQuestion = question;
+				newQuestion.setUser(user);
+				newQuestion.setPicture(file.getOriginalFilename());
 
 				questionServices.addQuestion(newQuestion);
 				user.getQuetion().add(newQuestion);
@@ -85,9 +94,10 @@ public class DashboardController {
 			} catch (Exception e) {
 				return "redirect:/dashboard";
 			}
-		}else if(!questionStr.isEmpty() && file.isEmpty()){
+		}else if(file.isEmpty()){
 			User user = userServices.findById((long)session.getAttribute("id"));
-			Question newQuestion = new Question(user,questionStr);
+			Question newQuestion = question;
+			newQuestion.setUser(user);
 			questionServices.addQuestion(newQuestion);
 			user.getQuetion().add(newQuestion);
 			questionServices.addQuestion(newQuestion);
@@ -95,6 +105,7 @@ public class DashboardController {
 			return "redirect:/dashboard";
 		}else {
 			return "redirect:/dashboard";
+		}
 		}
 }
 			

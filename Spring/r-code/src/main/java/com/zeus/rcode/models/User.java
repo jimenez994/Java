@@ -88,6 +88,10 @@ public class User {
     private List<User> recieveRequests;
     
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Answer> Answers;
+    
+    
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
 	private List<Image> image;
     
    
@@ -196,6 +200,12 @@ public class User {
 	}
 	public void setImage(List<Image> image) {
 		this.image = image;
+	}
+	public List<Answer> getAnswers() {
+		return Answers;
+	}
+	public void setAnswers(List<Answer> answers) {
+		Answers = answers;
 	}
 	
 	

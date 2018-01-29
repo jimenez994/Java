@@ -1,13 +1,16 @@
 package com.zeus.rcode.models;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.Size;
@@ -22,8 +25,13 @@ public class Question {
 	
 	private String picture;
 	
-	@Size(min=5)
-	private String question;
+	@Size(min=5, message="Sorry must be longer")
+	private String title;
+	
+	private String description;
+	
+	@Column(length=10000)
+	private String code;
 	
 	@DateTimeFormat(pattern="MM:dd:yyyy HH:mm:ss")
 	private Date createdAt;
@@ -35,16 +43,21 @@ public class Question {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	public Question(User user,String question, String picture) {
+	@OneToMany(mappedBy="question", fetch = FetchType.LAZY)
+	private List<Answer> answers;
+	
+	
+	public Question(User user,String title,String description,String code , String picture) {
 		this.user = user;
-		this.question = question;
+		this.title = title;
+		this.description = description;
+		this.code = code;
 		this.picture = picture;
+		this.createdAt = new Date();
 	}
 	
-	public Question(User user,String question) {
-		this.user = user;
-		this.question = question;
-	}
+	
+	
 
 	@PrePersist
 	public void onCreate(){this.createdAt = new Date();}
@@ -62,12 +75,31 @@ public class Question {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getQuestion() {
-		return question;
+	
+	public String getTitle() {
+		return title;
 	}
-	public void setQuestion(String question) {
-		this.question = question;
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -91,6 +123,12 @@ public class Question {
 	}
 	public void setPicture(String picture) {
 		this.picture = picture;
+	}
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
 	}
 	
 	

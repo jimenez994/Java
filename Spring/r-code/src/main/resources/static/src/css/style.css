@@ -1,6 +1,5 @@
 body {
-  background: #333;
-  color: #fff; }
+  background-color: white; }
 
 .navbar {
   border-bottom: #008ed6 3px solid;
@@ -9,6 +8,7 @@ body {
 #home-section {
   background: url("../img/p.jpeg") no-repeat;
   background-size: cover;
+  color: #fff;
   background-attachment: fixed;
   min-height: 700px; }
   #home-section .dark-overlay {
@@ -20,3 +20,6 @@ body {
     min-height: 700px; }
   #home-section .home-inner {
     padding-top: 150px; }
+
+.codeS {
+  white-space: pre-wrap; }

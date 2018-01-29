@@ -1,5 +1,7 @@
 package com.zeus.rcode.services;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -15,7 +17,9 @@ public class QuestionServices {
 		this.questionRepo = questionRepo;
 	}
 	public List<Question> getAll(){
-		return questionRepo.findAll();
+		List<Question> list = questionRepo.findAll();
+		Collections.reverse(list);
+		return list;
 	}
 	public Question getQuestion(Long id) {
 		return questionRepo.findOne(id);

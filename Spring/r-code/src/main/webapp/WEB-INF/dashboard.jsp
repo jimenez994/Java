@@ -12,7 +12,8 @@
 	<head>
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/src/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/src/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/src/css/fontawesome-all.min.css">
         <link rel="stylesheet" href="/src/css/bootstrap.css">
         <link rel="stylesheet" href="/src/css/style.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -41,19 +42,21 @@
           </li>
           <li class="nav-item">
 						<a href="/logout" class="nav-link">Logout</a>
-          </li>
+					</li>
+					<li class="nav-item">
+						<a href="/profile" class="nav-link">${cUser.username}</a>
+					</li>
         </ul>
       </div>
     </div>
   </nav>
-		<h1>Welcome, ${cUser.firstName}</h1>
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-9 " style="border:1px solid rgb(91, 48, 160)">
+				<div class="col-lg-9 " >
 					<div class="d-flex flex-row-reverse row-hl">
 						<div class="p-4 item-hl">
 							<button class="btn btn-success" data-toggle="modal" data-target="#questionModal">Ask question</button>
-
+<!-- ask question buttton -->
 							<div id="questionModal" class="modal">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -61,17 +64,22 @@
 											<h5 class="modal-title text-secondary">Create Question</h5> 
 											<button class="close" data-dismiss="modal">&times;</button>
 										</div>
-
+<!-- form to create a new question -->
 										<div class="modal-body">
-											<form method="post" action="create/quetion" enctype="multipart/form-data">
+											<form:form method="post" action="create/quetion" enctype="multipart/form-data" modelAttribute="newQuestion">
 												<div class="form-group">
 													<label for="title" class="text-secondary">Title:</label>
-													<input class="form-control" name="question" placeholder="please  be specific" />
+													<form:input path="title" class="form-control" name="question" placeholder="please  be specific" ></form:input>
 												</div>
 												<div class="form-group">
 													<label class="text-secondary">Description:</label>
-													<textarea name="description" class="form-control"  rows="3" placeholder="have some description"></textarea>
+													<form:textarea path="description" name="description" class="form-control"  rows="3" placeholder="Description goes here"></form:textarea>
 												</div>
+												<div class="form-group">
+													<label class="text-secondary">Code:</label>
+													<form:textarea path="code" name="description" class="form-control"  rows="3" placeholder="Code goes here"></form:textarea>
+												</div>
+												
 												<div class="form-group">
 													<label for="file" class="text-secondary">Only image:(Optional)</label>
 													<input type="file" name="file" class="form-control">
@@ -80,25 +88,44 @@
 													<button class="btn btn-secondary" modal-dismiss="modal">Close</button>
 													<input type="submit" class="btn btn-primary" value="Post Your Question"/>
 												</div>
-											</form>
+											</form:form>
 										</div>
-
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
+<!-- questions wall-->
+					<c:forEach items="${questions}" var="question">
+					<div class="card border-sencondary md-3">
+						<div class="card-header">tags</div>
+						<div class="card-body">
+							<h5 class="card-title "> <a class="text-dark" href="/question/${question.id}">${question.title}</a></h5>
+							<small class="text-primary"> <a href="/user/${question.getUser().getId()}">  ${question.getUser().getUsername()}</a></small>
+							<small class="text-muted">3 mins ago</small>
+						</div>
+					</div><br>
+					</c:forEach>
 
 
 				</div>
-				<div class="col-lg-3 d-none d-lg-block" style="border:1px solid rgb(7, 134, 143)">Auto Layout</div>
+				<div class="col-lg-3 d-none d-lg-block" >
+					Auto Layout
+				</div>
 			</div>
 		</div>
 		
 
 
-
+	<c:forEach items="${questions}" var="question">
+		<h3>${question.title}</h3>
+		<pre class="prettyprint">${question.title}</pre>
+		<c:if test="${question.picture != null }">
+			<img src="/images/${question.picture}" alt="${question.picture}">
+		</c:if>
+		<p>${question.getUser().getFirstName()}</p>
+		<hr>
+	</c:forEach>
 
 		
 
@@ -151,20 +178,12 @@
 		</div>
 
 
-		<c:forEach items="${questions}" var="question">
-			<h3>${question.question}</h3>
-			<pre class="prettyprint">${question.question}</pre>
-			<c:if test="${question.picture != null }">
-				<img src="/images/${question.picture}" alt="${question.picture}">
-			</c:if>
-			<p>${question.getUser().getFirstName()}</p>
-			<hr>
-		</c:forEach>
+	
 
 
 		<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 		<script src="/src/js/jquery.min.js"></script>
-        <script src="/src/js/popper.min.js"></script>
-        <script src="/src/js/bootstrap.min.js"></script>
+		<script src="/src/js/popper.min.js"></script>
+		<script src="/src/js/bootstrap.min.js"></script>
 	</body>
 </html>
