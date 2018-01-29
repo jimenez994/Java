@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,10 +43,12 @@ public class DashboardController {
 		List<Question> questions = questionServices.getAll();
 		List<Image> images = imageServices.getAll();
 		List<User> users = userServices.notFriendsList((long)session.getAttribute("id"));
+		PrettyTime prettyTime = new PrettyTime();
 		if( session.getAttribute("id") != null ){
 			model.addAttribute("images", images);
 			model.addAttribute("users", users);
 			model.addAttribute("questions", questions);
+			model.addAttribute("pTime", prettyTime);
 			model.addAttribute("cUser", userServices.findById((long)session.getAttribute("id")));
 			return "dashboard";
 		}else{
@@ -58,7 +61,7 @@ public class DashboardController {
 	public String postQuestion(@RequestParam("file") MultipartFile file,HttpSession session,@Valid @ModelAttribute("newQuestion") Question question,BindingResult result){
 		if(result.hasErrors()) {
 			return "redirect:/dashboard";
-		}{
+		}else{
 			
 		
 		if (!file.isEmpty()) {
@@ -86,7 +89,6 @@ public class DashboardController {
 				newQuestion.setUser(user);
 				newQuestion.setPicture(file.getOriginalFilename());
 
-				questionServices.addQuestion(newQuestion);
 				user.getQuetion().add(newQuestion);
 				questionServices.addQuestion(newQuestion);
 
@@ -98,7 +100,6 @@ public class DashboardController {
 			User user = userServices.findById((long)session.getAttribute("id"));
 			Question newQuestion = question;
 			newQuestion.setUser(user);
-			questionServices.addQuestion(newQuestion);
 			user.getQuetion().add(newQuestion);
 			questionServices.addQuestion(newQuestion);
 			

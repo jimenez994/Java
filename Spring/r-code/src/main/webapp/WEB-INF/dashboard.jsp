@@ -15,7 +15,8 @@
 		<link rel="stylesheet" href="/src/css/font-awesome.min.css">
 		<link rel="stylesheet" href="/src/css/fontawesome-all.min.css">
         <link rel="stylesheet" href="/src/css/bootstrap.css">
-        <link rel="stylesheet" href="/src/css/style.css">
+		<link rel="stylesheet" href="/src/css/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Index</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -44,7 +45,7 @@
 						<a href="/logout" class="nav-link">Logout</a>
 					</li>
 					<li class="nav-item">
-						<a href="/profile" class="nav-link">${cUser.username}</a>
+						<a href="/user/${cUser.id}" class="nav-link">${cUser.username}</a>
 					</li>
         </ul>
       </div>
@@ -100,9 +101,19 @@
 					<div class="card border-sencondary md-3">
 						<div class="card-header">tags</div>
 						<div class="card-body">
-							<h5 class="card-title "> <a class="text-dark" href="/question/${question.id}">${question.title}</a></h5>
+							<h5 class="card-title ">
+								<c:if test="${question.getPicture() != null}">
+									<i class="fa fa-photo"></i>
+								</c:if>
+								<c:if test="${question.getCode().length() != 0}">
+									<i class="fa fa-code"></i>
+								</c:if>
+ 								<a class="text-dark" href="/question/${question.id}">${question.title}</a>
+							</h5>
+
+
 							<small class="text-primary"> <a href="/user/${question.getUser().getId()}">  ${question.getUser().getUsername()}</a></small>
-							<small class="text-muted">3 mins ago</small>
+							<small class="text-muted">${pTime.format(question.getCreatedAt())}</small>
 						</div>
 					</div><br>
 					</c:forEach>

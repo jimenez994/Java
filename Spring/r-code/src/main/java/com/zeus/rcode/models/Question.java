@@ -30,7 +30,7 @@ public class Question {
 	
 	private String description;
 	
-	@Column(length=10000)
+	@Column(length=5000)
 	private String code;
 	
 	@DateTimeFormat(pattern="MM:dd:yyyy HH:mm:ss")

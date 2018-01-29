@@ -16,6 +16,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Q</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    
     <script src="/js/main.js"></script>
 </head>
 <body>
@@ -49,16 +50,21 @@
 
 
 <!-- question info -->
-    <div class="container">
+    <div class="container mb-5">
         <div class="row">
             <div class="col-lg-9" >
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">${question.title}</h4>
-                        
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-light ">
+                        <h4 class="card-title ">${question.title}</h4>
+                    </div>
+                    <div class="card-body">                        
                         <p class="card-text">${question.description}</p>
                         <div class="bg-light">
-                            <pre class="prettyprint p-3">${question.code}</pre>
+                            <pre class="prettyprint p-3">
+                                <!-- <xmp> -->
+                                    ${question.code}
+                                <!-- </xmp>  -->
+                            </pre>
                         </div>
                     </div>
                     <c:if test="${question.picture != null}">
@@ -66,38 +72,76 @@
                     </c:if>
                     <div class="card-body">
                         <blockquote class="blockquote text-right">
-                             <p class="card-text "> <a  href="/profile/${question.getUser().getId()}"> ${question.getUser().getUsername()}</a></p>
+                             <p class="card-text "> <a  href="/user/${question.getUser().getId()}"> <small>${question.getUser().getUsername()}</small> </a></p>
                         </blockquote>
                        
                     </div>
                      
-                    <div class="card-footer text-muted">
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <div class="card-footer text-right text-muted">
+                        <p class="card-text"><small class="text-muted">Post ${pTime.format(question.getCreatedAt())} </small></p>
                      </div>
                 </div>
-                    <div id="accordion" role="tablist">
-                        <div class="card">
-                            <div class="card-header" role="tab" id="heading">
-                                <h5 class="mb-0">
-                                    <a href="#collapse1" data-parent="#accordion" data-toggle="collapse">
-                                        Answer this question
-                                    </a>
-                                </h5>
-                            </div>
-                    <!-- answer form -->
-                            <div id="collapse1" class="collapse">
-                                <div class="card-body">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis ea iste a doloremque, cumque, debitis eum vel ipsum architecto
-                                    aut, recusandae totam ullam aperiam. Nesciunt expedita officiis animi quam corporis optio inventore facilis
-                                    sint et nulla in, repellat debitis dolor at nisi quo, unde temporibus. Quos nisi nostrum officia, illo.
+
+                <!-- answers cards -->
+                <c:forEach items="${answers}" var="answer">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">${answer.answer}</p>
+                            <c:if test="${answer.getCode().length() != 0}">
+                                <div class="bg-light">
+                                    <pre class="prettyprint p-3">
+                                        ${answer.code.trim()}
+                                    </pre>
                                 </div>
+                            </c:if>
+                        </div>
+                        <blockquote class="blockquote text-right">
+                             <p class="card-text mr-4" > <a  href="/user/${answer.getUser().getId()}"> <small>${answer.getUser().getUsername()}</small> </a></p>
+                        </blockquote>
+                        <div class="card-footer text-right text-muted">
+                             <p class="card-text"> <small> Answered ${pTime.format(answer.getCreatedAt())}</small> </p>   
+                        </div>
+                    </div>
+                </c:forEach>
+            <!-- accordion answer form -->
+                <div id="accordion" role="tablist">
+                    <div class="card">
+                        <div class="card-header" role="tab" id="heading">
+                            <h5 class="mb-0">
+                                <a href="#collapse1" data-parent="#accordion" data-toggle="collapse">
+                                    Answer this question
+                                </a>
+                            </h5>
+                        </div>
+                <!-- answer form -->
+                        <div id="collapse1" class="collapse">
+                            <div class="card-body">
+                                <form:form method="post" action="/question/${question.id}" enctype="multipart/form-data" modelAttribute="newAnswer">
+                                    <div class="form-group">
+                                        <label class="text-secondary">Answer:</label>
+                                        <form:textarea path="answer" name="description" class="form-control" rows="3" placeholder="Description goes here"></form:textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="text-secondary">Code:</label>
+                                        <form:textarea path="code" name="description" class="form-control" rows="3" placeholder="Code goes here"></form:textarea>
+                                    </div>
+                                
+                                    <div class="form-group">
+                                        <label for="file" class="text-secondary">Only image:(Optional)</label>
+                                        <input type="file" name="file" class="form-control">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" class="btn btn-primary" value="Post Your Answer" />
+                                    </div>
+                                </form:form>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
            
             
-            <div class="col-lg-3 d-none d-lg-block">
+            <div class="col-lg-3 d-none d-lg-block ">
                 Auto Layout
             </div>
 
