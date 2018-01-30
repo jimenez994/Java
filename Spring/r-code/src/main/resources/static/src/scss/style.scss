@@ -42,9 +42,33 @@ body{
   width: 128px;
   height: 128px;
 }
-#backP{
-  height: 450px;
-  width: 100%;
+
+#profile-home-section{
+  background: url('../../images/backprofile.jpeg') no-repeat;
+  background-size: cover;
+  color: $font-color;
+  background-attachment: fixed;
+  min-height: 400px;
+
+  .profile-dark-overlay{
+    background-color:$dark-overlay;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    min-height: 400px;
+  }
+
+  .home-inner{
+    padding-top: 20px;
+  }
+}
+#profile-container{
+  margin-top: -80px;
+}
+#profile-rigth-container{
+  margin-top: -80px;
+  
 }
 
 

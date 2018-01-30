@@ -3,6 +3,7 @@ package com.zeus.rcode.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
@@ -31,12 +33,6 @@ public class User {
 	@Email(message="Invalid Email Format! Ex: example@example.com")
 	private String email;
 	
-	@Size(min=1,max=255,message="First Name must be between 1-255 characters.")
-	private String firstName;
-
-	@Size(min=1,max=255,message="Last Name must be between 1-255 characters.")
-	private String lastName;
-
 	@Size(min=8,max=255,message="Password must be between 8-255 characters.")
 	private String password;
 
@@ -94,7 +90,8 @@ public class User {
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
 	private List<Image> image;
     
-   
+    @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    private UserInfo userInfo;
 	
 	public User() {
 		this.createdAt = new Date();
@@ -123,18 +120,7 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -206,6 +192,12 @@ public class User {
 	}
 	public void setAnswers(List<Answer> answers) {
 		Answers = answers;
+	}
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 	
 	

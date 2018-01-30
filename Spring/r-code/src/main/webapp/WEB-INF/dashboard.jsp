@@ -42,11 +42,11 @@
             <a href="#create-head-section" class="nav-link">Create</a>
           </li>
           <li class="nav-item">
-						<a href="/logout" class="nav-link">Logout</a>
-					</li>
-					<li class="nav-item">
-						<a href="/user/${cUser.id}" class="nav-link">${cUser.username}</a>
-					</li>
+				<a href="/logout" class="nav-link">Logout</a>
+			</li>
+			<li class="nav-item">
+				<a href="/user/${cUser.id}" class="nav-link">${cUser.username}</a>
+			</li>
         </ul>
       </div>
     </div>
@@ -134,7 +134,7 @@
 		<c:if test="${question.picture != null }">
 			<img src="/images/${question.picture}" alt="${question.picture}">
 		</c:if>
-		<p>${question.getUser().getFirstName()}</p>
+		<!-- <p>${question.getUser()}</p> -->
 		<hr>
 	</c:forEach>
 
@@ -154,7 +154,7 @@
 					<c:choose>
 						<c:when test="${recive == true}">
 							<form method="post" action="/accept/${user.id}">
-									<p>${user.firstName}</p>
+									<!-- <p>${user}</p> -->
 									<input type="submit" value="accept"/>
 									<hr>
 								</form>
@@ -169,14 +169,14 @@
 							</c:forEach>
 							<c:if test="${check.equals('true')}">
 								<form method="post" action="/cancel/${user.id}">
-									<p>${user.firstName}</p>
+									<!-- <p>${user}</p> -->
 									<input type="submit" value="cancel"/>
 									<hr>
 								</form>
 							</c:if>
 							<c:if test="${check.equals('false')}">
 								<form method="post" action="/request/${user.id}">
-									<p>${user.firstName}</p>
+									<!-- <p>${user}</p> -->
 									<input type="submit" value="Request"/>
 									<hr>
 								</form>

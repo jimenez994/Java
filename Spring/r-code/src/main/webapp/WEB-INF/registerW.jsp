@@ -71,12 +71,6 @@
                      <form:input path="username" class="form-control form-control-lg" placeholder="username"></form:input>
                    </div>
                    <div class="form-group">
-                     <form:input path="firstName" class="form-control form-control-lg" placeholder="First Name"></form:input>
-                   </div>
-                   <div class="form-group">
-                     <form:input path="lastName" class="form-control form-control-lg" placeholder="Last Name"></form:input>
-                   </div>
-                   <div class="form-group">
                      <form:input path="password" type="password" class="form-control form-control-lg" placeholder="Password"></form:input>
                    </div>
                    <div class="form-group">
