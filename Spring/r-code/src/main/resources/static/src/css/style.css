@@ -23,3 +23,12 @@ body {
 
 .codeS {
   white-space: pre-wrap; }
+
+#pImg {
+  margin-top: -70px;
+  width: 128px;
+  height: 128px; }
+
+#backP {
+  height: 450px;
+  width: 100%; }
