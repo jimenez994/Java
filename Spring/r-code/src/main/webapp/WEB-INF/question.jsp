@@ -29,10 +29,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="#home-section" class="nav-link">Home</a>
+                        <a href="/dashboard" class="nav-link">Questions</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#explore-head-section" class="nav-link">Explore</a>
+                        <a href="/home" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
                         <a href="#create-head-section" class="nav-link">Create</a>
@@ -80,7 +80,7 @@
                     <div class="card-footer text-right text-muted">
                         <p class="card-text"><small class="text-muted">Post ${pTime.format(question.getCreatedAt())} </small></p>
                      </div>
-                </div>
+                </div><br>
 
                 <!-- answers cards -->
                 <c:forEach items="${answers}" var="answer">
@@ -94,6 +94,9 @@
                                     </pre>
                                 </div>
                             </c:if>
+                            <c:if test="${answer.picture != null}">
+                                <img class="card-img-bottom card-img-top img-fluid" src="/images/${answer.picture}" alt="${answer.picture}">
+                            </c:if>
                         </div>
                         <blockquote class="blockquote text-right">
                              <p class="card-text mr-4" > <a  href="/user/${answer.getUser().getId()}"> <small>${answer.getUser().getUsername()}</small> </a></p>
@@ -101,7 +104,7 @@
                         <div class="card-footer text-right text-muted">
                              <p class="card-text"> <small> Answered ${pTime.format(answer.getCreatedAt())}</small> </p>   
                         </div>
-                    </div>
+                    </div><br>
                 </c:forEach>
             <!-- accordion answer form -->
                 <div id="accordion" role="tablist">

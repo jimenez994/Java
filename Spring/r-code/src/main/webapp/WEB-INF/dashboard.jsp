@@ -33,10 +33,10 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a href="#home-section" class="nav-link">Home</a>
+            <a href="/dashboard" class="nav-link">Questions</a>
           </li>
           <li class="nav-item">
-            <a href="#explore-head-section" class="nav-link">Explore</a>
+            <a href="/home" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
             <a href="#create-head-section" class="nav-link">Create</a>
