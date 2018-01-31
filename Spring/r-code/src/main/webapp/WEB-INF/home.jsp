@@ -22,7 +22,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
 		<script src="/js/main.js"></script>
 	</head>
-<body>
+<body class="bg-light">
     <nav class="navbar navbar-expand-sm bg-dark  navbar-dark ">
         <div class="container">
             <a href="index.html" class="navbar-brand">R-Code</a>
@@ -50,7 +50,54 @@
             </div>
         </div>
     </nav>
-this is my home
+    <div class="container ">
+        <div class="row">
+            <div class="col-lg-2 d-none d-lg-block">
+                some other stuff may go here
+            </div>
+            <div class="col-sm-9 col-m-9 col-lg-7  ">
+                <div class="card">
+                    <div class="card-body" id="headingS1">
+                        <h5 class="mb-0">
+                            <div href="#collapse1" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" class="">
+                                <i class="fa fa-pencil-square-o"></i> Share an image or idea
+                            </div>
+                        </h5>
+                    </div>
+                    <form:form method="post" action="/home/post" enctype="multipart/form-data" modelAttribute="newPost">
+	                    <div id="collapse1" class="collapse">
+	                        <div class="card-body">
+	                            <div class="form-group">
+                                     <form:textarea path="message" class="form-control" rows="4" placeholder="Write something here"></form:textarea>
+                                 </div>
+                                 
+                            </div>
+                           
+                        </div>
+                        <div class="card">
+                            <img class="card-img" id="preview" >
+                        </div>
+	                    <div class="card  bg-light">
+                            <div>
+                                <input id="files" style="visibility:hidden;" name="file" type="file">
+                            </div>
+                            <div class="d-flex  row-hl ">
+                                <label for="files" class="btn item-hl ml-3 mb-3 btn-info"> <i class="fa fa-camera"></i> Image </label> 
+                                <input type="submit" class="btn ml-auto mr-3 mb-3 item-hl btn-secondary " value="Post" />
+                            </div>
+                      	</div>
+                    </form:form>
+                </div>
+                <div class="card">
+                    some cards
+                </div>
+            </div>
+            <div class="col-sm-3 d-none d-sm-block">
+                <p>other stuff goes here</p>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -68,6 +115,7 @@ this is my home
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <script src="/src/js/jquery.min.js"></script>
     <script src="/src/js/popper.min.js"></script>
+    <script type="text/javascript" src="/src/js/myMain.js"></script>
     <script src="/src/js/bootstrap.min.js"></script>
 </body>
 </html>

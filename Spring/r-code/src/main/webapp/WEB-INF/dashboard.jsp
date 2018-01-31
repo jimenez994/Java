@@ -121,76 +121,68 @@
 
 				</div>
 				<div class="col-lg-3 d-none d-lg-block" >
-					Auto Layout
+					<div>
+						<hr>
+						<c:forEach items="${users}" var="user">
+							<c:set var="recive" value="false" />
+							<c:forEach items="${cUser.getRecieveRequests()}" var="Request">
+								<c:if test="${Request.id == user.id}">
+									<c:set var="recive" value="true" />
+									<c:set var="requestId" value="${ sendRequest.id }" />
+								</c:if>
+							</c:forEach>
+							<c:if test="${user.id != cUser.id }">
+								<c:choose>
+									<c:when test="${recive == true}">
+										<form method="post" action="/accept/${user.id}">
+											<!-- <p>${user}</p> -->
+											<div class="card">
+												<p class="card-header">
+													<a href="/profile/${user.id}"> ${user.username} </a>
+													<input type="submit" value="Accept" />
+												</p>
+											</div>
+										</form>
+									</c:when>
+									<c:otherwise>
+										<c:set var="check" value="false" />
+										<c:forEach items="${cUser.getSendRequests()}" var="sendRequest">
+											<c:if test="${sendRequest.id == user.id}">
+												<c:set var="check" value="true" />
+												<c:set var="requestId" value="${ sendRequest.id }" />
+											</c:if>
+										</c:forEach>
+										<c:if test="${check.equals('true')}">
+											<form method="post" action="/cancel/${user.id}">
+												<!-- <p>${user}</p> -->
+												<div class="card">
+													<p class="card-header">
+													<a href="/profile/${user.id}"> ${user.username} </a>
+													<input type="submit" value="Cancel" />
+													</p>
+												</div>
+											</form>
+										</c:if>
+										<c:if test="${check.equals('false')}">
+											<form method="post" action="/request/${user.id}">
+												<div class="card">
+													<p class="card-header">
+														<a href="/profile/${user.id}"> ${user.username} </a>
+														<input type="submit" value="Request" />
+													</p>
+												</div>
+											</form>
+										</c:if>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+					
+						</c:forEach>
+					</div>
 				</div>
 			</div>
 		</div>
 		
-
-
-	<c:forEach items="${questions}" var="question">
-		<h3>${question.title}</h3>
-		<pre class="prettyprint">${question.title}</pre>
-		<c:if test="${question.picture != null }">
-			<img src="/images/${question.picture}" alt="${question.picture}">
-		</c:if>
-		<!-- <p>${question.getUser()}</p> -->
-		<hr>
-	</c:forEach>
-
-		
-
-		<div>
-			<hr>
-			<c:forEach items="${users}" var="user">
-				<c:set var="recive" value="false"/>
-						<c:forEach items="${cUser.getRecieveRequests()}" var="Request">
-							<c:if test="${Request.id == user.id}">
-								<c:set var="recive" value="true"/>
-								<c:set var="requestId" value="${ sendRequest.id }" />
-							</c:if>
-						</c:forEach>
-				<c:if test="${user.id != cUser.id }">
-					<c:choose>
-						<c:when test="${recive == true}">
-							<form method="post" action="/accept/${user.id}">
-									<!-- <p>${user}</p> -->
-									<input type="submit" value="accept"/>
-									<hr>
-								</form>
-						</c:when>
-						<c:otherwise>
-							<c:set var="check" value="false"/>
-							<c:forEach items="${cUser.getSendRequests()}" var="sendRequest">
-								<c:if test="${sendRequest.id == user.id}">
-									<c:set var="check" value="true"/>
-									<c:set var="requestId" value="${ sendRequest.id }" />
-								</c:if>
-							</c:forEach>
-							<c:if test="${check.equals('true')}">
-								<form method="post" action="/cancel/${user.id}">
-									<!-- <p>${user}</p> -->
-									<input type="submit" value="cancel"/>
-									<hr>
-								</form>
-							</c:if>
-							<c:if test="${check.equals('false')}">
-								<form method="post" action="/request/${user.id}">
-									<!-- <p>${user}</p> -->
-									<input type="submit" value="Request"/>
-									<hr>
-								</form>
-							</c:if>
-						</c:otherwise>
-					</c:choose>
-				</c:if>
-
-			</c:forEach>
-		</div>
-
-
-	
-
 
 		<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 		<script src="/src/js/jquery.min.js"></script>
