@@ -3,12 +3,14 @@ package com.zeus.rcode.controllers;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +32,17 @@ public class HomeController {
 	@Autowired
 	private PostServices postServices;
 	
+	 
 	
 	@RequestMapping("")
-	public String home(@ModelAttribute("newPost") Post post) {
+	public String home(@ModelAttribute("newPost") Post post,Model model,HttpSession session) {
+		User user = userServices.findById((long)session.getAttribute("id"));
+		List<Post> allPosts= postServices.getAll();
+		
+//		List<Object[]> posts = postServices.getAllFriendsPost(user.getId());
+//		System.out.println(posts);
+		model.addAttribute("posts", allPosts);
+		model.addAttribute("cUser", user);
 		return "home";
 	}
 	@PostMapping("/post")

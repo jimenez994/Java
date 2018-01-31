@@ -36,12 +36,21 @@ body{
    white-space: pre-wrap;
 
 }
+#homeid .row{
+
+  .smallUserImgHome{
+  width: 50px;
+  height: 50px;
+}
+}
+
 
 #pImg{
   margin-top: -70px;
   width: 128px;
   height: 128px;
 }
+
 
 #profile-home-section{
   background: url('../../images/backprofile.jpeg') no-repeat;

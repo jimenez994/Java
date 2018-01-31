@@ -35,6 +35,10 @@ public class PostServices {
 	public void deletePost(Long id) {
 		postRepository.delete(id);
 	}
+//	public List<Object[]> getAllFriendsPost(Long id){
+//		return postRepository.findAllFriendsPost(id);
+//	}
+	
 	
 	
 	

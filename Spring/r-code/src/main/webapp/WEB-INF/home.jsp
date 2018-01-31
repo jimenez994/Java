@@ -50,7 +50,7 @@
             </div>
         </div>
     </nav>
-    <div class="container ">
+    <div class="container " id="homeid">
         <div class="row">
             <div class="col-lg-2 d-none d-lg-block">
                 some other stuff may go here
@@ -82,15 +82,25 @@
                                 <input id="files" style="visibility:hidden;" name="file" type="file">
                             </div>
                             <div class="d-flex  row-hl ">
-                                <label for="files" class="btn item-hl ml-3 mb-3 btn-info"> <i class="fa fa-camera"></i> Image </label> 
+                                <div>
+                                    <label for="files" class="btn item-hl ml-3 mb-3 btn-info"> <i class="fa fa-camera"></i> Image </label> 
+
+                                </div>
                                 <input type="submit" class="btn ml-auto mr-3 mb-3 item-hl btn-secondary " value="Post" />
                             </div>
                       	</div>
                     </form:form>
                 </div>
-                <div class="card">
-                    some cards
-                </div>
+                <c:forEach items="${posts}" var="post">
+                    <div class="card mb-2">
+                        <p class="m-1">
+                            <img src="/images/${post.getUser().getUserInfo().getProfileImg()}" alt="${cUser.getUserInfo().getProfileImg()}" class="img-fluid smallUserImgHome rounded-circle mb-3">
+                            <a href="/profile"> ${post.getUser().getUserInfo().getFirstName()} </a> </p>
+                        <p class="card-text m-3">${post.getMessage()}</p>
+
+                    </div>
+                </c:forEach>
+                
             </div>
             <div class="col-sm-3 d-none d-sm-block">
                 <p>other stuff goes here</p>
