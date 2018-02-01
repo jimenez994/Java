@@ -92,12 +92,23 @@
                     </form:form>
                 </div>
                 <c:forEach items="${posts}" var="post">
-                    <div class="card mb-2">
-                        <p class="m-1">
-                            <img src="/images/${post.getUser().getUserInfo().getProfileImg()}" alt="${cUser.getUserInfo().getProfileImg()}" class="img-fluid smallUserImgHome rounded-circle mb-3">
-                            <a href="/profile"> ${post.getUser().getUserInfo().getFirstName()} </a> </p>
-                        <p class="card-text m-3">${post.getMessage()}</p>
-
+                    <div class="card mb-2 text-top">
+                        <div class="d-flex row-hl">
+                            <img id="smallUserImgHome" src="/images/${post.getUser().getUserInfo().getProfileImg()}" alt="${cUser.getUserInfo().getProfileImg()}" class="img-fluid item-hl mt-1 rounded-circle mt-2 ml-2">                        
+                            <div class="item-hl ml-2 mt-1">
+                                <p id="postSmallText"><a class="text-dark" href="/profile"> ${post.getUser().getUserInfo().getFirstName()} </a> </p>
+                                <p id="postSmallname"> <small> <a class="text-secondary" href="/profile"> ${post.getUser().getUserInfo().getHeadline()}</a> </small> </p>
+                                <p > <small class="text-secondary">${pTime.format(post.getCreatedAt())}  </small> </p>
+                            </div>
+                            
+                        </div>
+                        <p class="card-text mr-3 ml-3 mb-3">${post.getMessage()}</p>
+                        <c:if test="${post.getPicture() != null}">
+                            <img class="card-img-bottom card-img-top img-fluid" src="/images/${post.getPicture()}" alt="${post.getPicture()}">
+                        </c:if>
+                        <div class="card-footer text-muted">
+                            share
+                        </div>
                     </div>
                 </c:forEach>
                 

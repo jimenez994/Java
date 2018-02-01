@@ -36,13 +36,21 @@ body{
    white-space: pre-wrap;
 
 }
-#homeid .row{
 
-  .smallUserImgHome{
-  width: 50px;
-  height: 50px;
+
+#smallUserImgHome{
+width: 50px;
+height: 50px;
+display: inline-block;
+
 }
+#postSmallText{
+  margin-bottom: 0rem;
 }
+#postSmallname{
+  margin-bottom: 0rem;
+}
+
 
 
 #pImg{

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,11 +39,14 @@ public class HomeController {
 	public String home(@ModelAttribute("newPost") Post post,Model model,HttpSession session) {
 		User user = userServices.findById((long)session.getAttribute("id"));
 		List<Post> allPosts= postServices.getAll();
+		PrettyTime prettyTime = new PrettyTime();
+
 		
 //		List<Object[]> posts = postServices.getAllFriendsPost(user.getId());
 //		System.out.println(posts);
 		model.addAttribute("posts", allPosts);
 		model.addAttribute("cUser", user);
+		model.addAttribute("pTime", prettyTime);
 		return "home";
 	}
 	@PostMapping("/post")

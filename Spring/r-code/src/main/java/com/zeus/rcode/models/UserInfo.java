@@ -22,7 +22,7 @@ public class UserInfo {
 	
 	private String lastName;
 	
-	private String profileImg;
+	private String profileImg = "dragonBall.jpg";
 	
 	private String backgroudImg;
 	

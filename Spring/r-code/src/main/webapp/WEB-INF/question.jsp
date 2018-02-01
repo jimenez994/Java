@@ -54,28 +54,28 @@
         <div class="row">
             <div class="col-lg-9" >
                 <div class="card border-primary">
-                    <div class="card-header bg-primary text-light ">
-                        <h4 class="card-title ">${question.title}</h4>
-                    </div>
-                    <div class="card-body">                        
+                    <div class="card-body">  
+                        <h4 class="card-title ">${question.title}</h4>                    
                         <p class="card-text">${question.description}</p>
-                        <div class="bg-light">
-                            <pre class="prettyprint p-3">
-                                <!-- <xmp> -->
-                                    ${question.code}
-                                <!-- </xmp>  -->
-                            </pre>
-                        </div>
+                        <c:if test="${question.code.length() != 0}">
+                            <div class="bg-light">
+                                <pre class="prettyprint p-3">
+                                    <!-- <xmp> -->
+                                        ${question.code}
+                                    <!-- </xmp>  -->
+                                </pre>
+                            </div>
+                        </c:if>
+                        
                     </div>
                     <c:if test="${question.picture != null}">
                         <img class="card-img-bottom card-img-top img-fluid" src="/images/${question.picture}" alt="${question.picture}">
                     </c:if>
-                    <div class="card-body">
-                        <blockquote class="blockquote text-right">
-                             <p class="card-text "> <a  href="/user/${question.getUser().getId()}"> <small>${question.getUser().getUsername()}</small> </a></p>
-                        </blockquote>
-                       
-                    </div>
+                    
+                    <blockquote class="blockquote mr-3 text-right">
+                            <p class="card-text "> <a  href="/user/${question.getUser().getId()}"> <small>${question.getUser().getUsername()}</small> </a></p>
+                    </blockquote>
+                  
                      
                     <div class="card-footer text-right text-muted">
                         <p class="card-text"><small class="text-muted">Post ${pTime.format(question.getCreatedAt())} </small></p>

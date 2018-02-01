@@ -24,6 +24,17 @@ body {
 .codeS {
   white-space: pre-wrap; }
 
+#smallUserImgHome {
+  width: 50px;
+  height: 50px;
+  display: inline-block; }
+
+#postSmallText {
+  margin-bottom: 0rem; }
+
+#postSmallname {
+  margin-bottom: 0rem; }
+
 #pImg {
   margin-top: -70px;
   width: 128px;
