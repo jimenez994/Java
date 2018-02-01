@@ -3,6 +3,7 @@ package com.zeus.rcode.controllers;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -40,11 +41,10 @@ public class HomeController {
 		User user = userServices.findById((long)session.getAttribute("id"));
 		List<Post> allPosts= postServices.getAll();
 		PrettyTime prettyTime = new PrettyTime();
-
 		
-//		List<Object[]> posts = postServices.getAllFriendsPost(user.getId());
-//		System.out.println(posts);
-		model.addAttribute("posts", allPosts);
+		ArrayList<Post> posts = postServices.getAllFriendsPost(user.getId());
+		System.out.println(posts);
+		model.addAttribute("posts", posts);
 		model.addAttribute("cUser", user);
 		model.addAttribute("pTime", prettyTime);
 		return "home";
