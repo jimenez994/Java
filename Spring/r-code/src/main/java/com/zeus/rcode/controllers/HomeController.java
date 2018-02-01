@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -43,8 +44,9 @@ public class HomeController {
 		PrettyTime prettyTime = new PrettyTime();
 		
 		ArrayList<Post> posts = postServices.getAllFriendsPost(user.getId());
+		List<Post> postsND = new ArrayList<>(new LinkedHashSet<>(posts));  
 		System.out.println(posts);
-		model.addAttribute("posts", posts);
+		model.addAttribute("posts", postsND);
 		model.addAttribute("cUser", user);
 		model.addAttribute("pTime", prettyTime);
 		return "home";

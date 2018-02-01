@@ -48,26 +48,26 @@
             </div>
         </div>
     </nav>
-
 <!-- headline and backgroud Image -->
-    <header id="profile-home-section"  >
-        <div  class="profile-dark-overlay">
-            <div class="home-inner">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8  d-lg-block">
-                            <h1 class="display-4 mt-5">
-                                ${cUser.getUserInfo().getHeadline()}
-                            </h1>
-                        </div>
+<header id="profile-home-section">
+    <div class="profile-dark-overlay">
+        <div class="home-inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8  d-lg-block">
+                        <h1 class="display-4 mt-5">
+                            ${user.getUserInfo().getHeadline()}
+                        </h1>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
 
-    <div  class="container " id="middle-container-p">
+
+<div  class="container " id="middle-container-p">
         <div class="row">
            
             <div class="col-lg-9 mb-5">
@@ -75,10 +75,10 @@
                 <div class="card" id="profile-container">
                     <div class="row text-center">
                         <div  class="card-body">
-                            <img id="pImg" src="/images/${cUser.getUserInfo().getProfileImg()}" alt="${cUser.getUserInfo().getProfileImg()}" class="img-fluid rounded-circle mb-3">
-                            <h3>${cUser.getUserInfo().getFirstName()} ${cUser.getUserInfo().getLastName()}</h3>
-                            <h5 class="text-muted">${cUser.getUserInfo().getHeadline()}</h5>
-                            <p>${cUser.getUserInfo().getCity()},${cUser.getUserInfo().getState()}</p>
+                            <img id="pImg" src="/images/${user.getUserInfo().getProfileImg()}" alt="${user.getUserInfo().getProfileImg()}" class="img-fluid rounded-circle mb-3">
+                            <h3>${user.getUserInfo().getFirstName()} ${user.getUserInfo().getLastName()}</h3>
+                            <h5 class="text-muted">${user.getUserInfo().getHeadline()}</h5>
+                            <p>${user.getUserInfo().getCity()},${user.getUserInfo().getState()}</p>
                             <div class="d-flex flex-row justify-content-center">
                                 <div class="p-4">
                                     <a href="#">
@@ -109,7 +109,7 @@
                         </div>
                         <div id="collapse1" class="collapse " >
                             <div class="card-body">
-                                    ${cUser.getUserInfo().getSummary()}
+                                    ${user.getUserInfo().getSummary()}
                             </div>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
                                             <a class="text-dark" href="/question/${question.id}">${question.title}</a>
                                         </h5>
                             
-                                        <small class="text-muted">You posted ${pTime.format(question.getCreatedAt())}</small>
+                                        <small class="text-muted">Posted ${pTime.format(question.getCreatedAt())}</small>
                                     </div>
                                 </div>
                                 <br>
@@ -174,84 +174,9 @@
             <div class="col-lg-3 d-none d-lg-block">
                 <div class="card text-center" id="profile-rigth-container">
                     <div class="card-header ">
-                        <button class="btn btn-info" data-toggle="modal" data-target="#edit-profileModal"> <i class="fa fa-edit"></i> Update Profile</button>
+                        <h4>some cool stuff may go here</h4>
                     </div>
-                    <div class="modal" id="edit-profileModal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">  
-                                    <h5 class="text-secondary">Profile Info</h5>
-                                </div>
-                                <div class="modal-body text-left">
-                                    <form:form method="post" action="/user/update/profile" enctype="multipart/form-data" modelAttribute="updateUserInfo">
-                                        <!-- profile image may go here  -->
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <label for="" class="text-secondary">First Name:</label>
-                                                    <form:input path="firstName" class="form-control"></form:input>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="" class="text-secondary">Last Name:</label>
-                                                    <form:input path="lastName" class="form-control"></form:input>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="text-secondary">Headline:</label>
-                                            <form:textarea path="headline" class="form-control" rows="3"></form:textarea>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label class="text-secondary">Current Position:</label>
-                                            <input  class="form-control" ></input>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="text-secondary">Education:</label>
-                                            <input class="form-control"></input>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <label for="" class="text-secondary">Country:</label>
-                                                    <form:input path="country" class="form-control"></form:input>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="" class="text-secondary">ZIP Code:</label>
-                                                    <form:input path="zipCode" class="form-control"></form:input>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <label for="" class="text-secondary">State:</label>
-                                                    <form:input path="state" class="form-control"></form:input>
-                                                </div>
-                                                <div class="col">
-                                                    <label for="" class="text-secondary">City:</label>
-                                                    <form:input path="city" class="form-control"></form:input>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="text-secondary">Summary:</label>
-                                            <form:textarea path="summary" class="form-control" rows="3"></form:textarea>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="file" class="text-secondary">Profile Image</label>
-                                            <input type="file" name="file" class="form-control">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-secondary" modal-dismiss="modal">Close</button>
-                                            <input type="submit" class="btn btn-primary" value="Update Profile" />
-                                        </div>
-                                    </form:form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
 
 
                     
@@ -265,8 +190,12 @@
         </div>
     </div>
 
-                
-                
+
+
+
+
+
+
 
 
 

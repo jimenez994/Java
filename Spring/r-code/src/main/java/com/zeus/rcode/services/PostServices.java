@@ -37,7 +37,6 @@ public class PostServices {
 		postRepository.delete(id);
 	}
 	public ArrayList<Post> getAllFriendsPost(Long id){
-		System.out.println(id+"*******id");
 		return postRepository.findAllFriendsPost(id,id);
 	}
 	

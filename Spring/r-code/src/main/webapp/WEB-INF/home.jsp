@@ -92,12 +92,19 @@
                     </form:form>
                 </div>
                 <c:forEach items="${posts}" var="post">
-                    <div class="card mb-2 text-top">
+                    <div class="card mb-2 text-top" >
                         <div class="d-flex row-hl">
                             <img id="smallUserImgHome" src="/images/${post.getUser().getUserInfo().getProfileImg()}" alt="${cUser.getUserInfo().getProfileImg()}" class="img-fluid item-hl mt-1 rounded-circle mt-2 ml-2">                        
                             <div class="item-hl ml-2 mt-1">
-                                <p id="postSmallText"><a class="text-dark" href="/profile"> ${post.getUser().getUserInfo().getFirstName()} </a> </p>
-                                <p id="postSmallname"> <small> <a class="text-secondary" href="/profile"> ${post.getUser().getUserInfo().getHeadline()}</a> </small> </p>
+                                <c:if test="${post.getUser().getId() == cUser.id}">
+                                    <p id="postSmallText"><a class="text-dark" href="/user/${post.getUser().getId()}"> ${post.getUser().getUserInfo().getFirstName()} </a> </p>
+                                    <p id="postSmallname"> <small> <a class="text-secondary" href="/user/${post.getUser().getId()}"> ${post.getUser().getUserInfo().getHeadline()}</a> </small> </p>                                </c:if>
+                                <c:if test="${post.getUser().getId() != cUser.id}">
+                                    <p id="postSmallText"><a class="text-dark" href="/profile/${post.getUser().getId()}"> ${post.getUser().getUserInfo().getFirstName()} </a> </p>
+                                    <p id="postSmallname"> <small> <a class="text-secondary" href="/profile/${post.getUser().getId()}"> ${post.getUser().getUserInfo().getHeadline()}</a> </small> </p>
+                                </c:if>
+
+                                
                                 <p > <small class="text-secondary">${pTime.format(post.getCreatedAt())}  </small> </p>
                             </div>
                             
@@ -107,7 +114,18 @@
                             <img class="card-img-bottom card-img-top img-fluid" src="/images/${post.getPicture()}" alt="${post.getPicture()}">
                         </c:if>
                         <div class="card-footer text-muted">
-                            share
+                            <small class="mr-2"><a href="#" class="text-secondary" ><i class="fa fa-thumbs-o-up"></i> like </a></small>
+                            <small class="mr-2"> <a href="#collapseComment${post.getId()}" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" class="text-secondary"> <i class="fa fa-comment-o"></i> comment </a></small>
+                            <small><a href="#" class="text-secondary"> <i class="fa fa-share"></i> share </a></small>  
+                        </div>
+                        <div id="collapseComment${post.getId()}" class="collapse">
+	                        <div class="card-body">
+	                            <div class="form-group">
+                                    <p>something</p>
+                                </div>
+                                 
+                            </div>
+                           
                         </div>
                     </div>
                 </c:forEach>

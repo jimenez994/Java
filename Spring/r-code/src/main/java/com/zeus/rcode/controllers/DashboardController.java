@@ -143,12 +143,28 @@ public class DashboardController {
 //	accept friend request
 	@PostMapping("/accept/{id}")
 	public String acceptFriendRequest(@PathVariable("id") Long id,HttpSession session) {
-		User user = userServices.findById((long)session.getAttribute("id"));
-		User userAccepeted = userServices.findById(id);
-		List<User> friends = userAccepeted.getUserFriends();
-		friends.add(user);
-		userAccepeted.setUserFriends(friends);
-		userServices.update(userAccepeted);
+//		current user
+		User currentUser = userServices.findById((long)session.getAttribute("id"));
+//		other user
+		User otherUser = userServices.findById(id);
+//		get list of friends of the other user
+		List<User> otherUserfriends = otherUser.getUserFriends();
+//		list of your friends
+		List<User> originalFriends = currentUser.getUserFriends();
+		
+		System.out.println("*********-1");
+		
+		otherUserfriends.add(currentUser);
+		otherUser.setUserFriends(otherUserfriends);
+		userServices.update(otherUser);
+		
+		System.out.println("*********-2");
+		
+		originalFriends.add(otherUser);
+		currentUser.setUserFriends(originalFriends);
+		userServices.update(currentUser);
+		
+		System.out.println("*********-3");
 		return "redirect:/dashboard";
 	}
 	

@@ -44,27 +44,25 @@ public class QuestionController {
 	private AnswerServices answerServices;
 	
 	@RequestMapping("/{id}")
-	public String showQuestion(Model model,@PathVariable("id") Long id,@ModelAttribute("newAnswer") Answer answer) {
+	public String showQuestion(Model model,HttpSession session,@PathVariable("id") Long id,@ModelAttribute("newAnswer") Answer answer) {
 		Question question = questionServices.getQuestion(id);
 		List<Answer> answerList = question.getAnswers();
 		Date datec = question.getCreatedAt();
-		
+		User cUser = userServices.findById((long)session.getAttribute("id"));
 		PrettyTime prettyTime = new PrettyTime();
 		String time = prettyTime.format(datec);
-//		System.out.println(question.getPicture().length());
 		model.addAttribute("answers", answerList);
 		model.addAttribute("question", question);
 		model.addAttribute("pTime", prettyTime);
+		model.addAttribute("cUser", cUser);
 		return "question";
 	}
 	@PostMapping("/{idQ}")
 	public String addAnswer(@Valid @ModelAttribute("newAnswer") Answer answer, BindingResult result, @RequestParam("file") MultipartFile file, HttpSession session,Model model,@PathVariable("idQ") Long idP) {
 		User user = userServices.findById((long)session.getAttribute("id"));
-//		Answer newAnswer = new Answer(text);
 		Answer newAnswer = answer;
 		Question question = questionServices.getQuestion(idP);
 		if(result.hasErrors()) {
-			System.out.println("******1");
 			return "redirect:/question/{idQ}";
 		}else {
 			if(!file.isEmpty()) {
@@ -101,10 +99,8 @@ public class QuestionController {
 				newAnswer.setUser(user);
 				newAnswer.setQuestion(question);
 				answerServices.addAnswer(newAnswer);
-				System.out.println("******3");
 				return "redirect:/question/{idQ}";
 			}else {
-				System.out.println("******4");
 				return "redirect:/question/{idQ}";
 			}
 		}

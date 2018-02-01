@@ -73,7 +73,12 @@
                     </c:if>
                     
                     <blockquote class="blockquote mr-3 text-right">
+                        <c:if test="${question.getUser().getId() == cUser.id}">
                             <p class="card-text "> <a  href="/user/${question.getUser().getId()}"> <small>${question.getUser().getUsername()}</small> </a></p>
+                        </c:if>
+                        <c:if test="${question.getUser().getId() != cUser.id}">
+                            <p class="card-text "> <a  href="/profile/${question.getUser().getId()}"> <small>${question.getUser().getUsername()}</small> </a></p>
+                        </c:if>
                     </blockquote>
                   
                      
@@ -99,7 +104,13 @@
                             </c:if>
                         </div>
                         <blockquote class="blockquote text-right">
-                             <p class="card-text mr-4" > <a  href="/user/${answer.getUser().getId()}"> <small>${answer.getUser().getUsername()}</small> </a></p>
+                            <c:if test="${answer.getUser().getId() == cUser.id}">
+                                <p class="card-text mr-4" > <a  href="/user/${answer.getUser().getId()}"> <small>${answer.getUser().getUsername()}</small> </a></p>
+                            </c:if>
+                            <c:if test="${answer.getUser().getId() != cUser.id}">
+                                <p class="card-text mr-4" > <a  href="/profile/${answer.getUser().getId()}"> <small>${answer.getUser().getUsername()}</small> </a></p>
+                            </c:if>
+                             
                         </blockquote>
                         <div class="card-footer text-right text-muted">
                              <p class="card-text"> <small> Answered ${pTime.format(answer.getCreatedAt())}</small> </p>   

@@ -111,8 +111,12 @@
  								<a class="text-dark" href="/question/${question.id}">${question.title}</a>
 							</h5>
 
-
-							<small class="text-primary"> <a href="/user/${question.getUser().getId()}">  ${question.getUser().getUsername()}</a></small>
+							<c:if test="${question.getUser().getId() == cUser.id}">
+								<small class="text-primary"> <a href="/user/${question.getUser().getId()}">  ${question.getUser().getUsername()}</a></small>
+							</c:if>
+							<c:if test="${question.getUser().getId() != cUser.id}">
+								<small class="text-primary"> <a href="/profile/${question.getUser().getId()}">  ${question.getUser().getUsername()}</a></small>
+							</c:if>
 							<small class="text-muted">${pTime.format(question.getCreatedAt())}</small>
 						</div>
 					</div><br>
