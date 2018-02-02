@@ -39,7 +39,7 @@ public class Post {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="post", fetch = FetchType.LAZY)
 	private List<Comment> comments;
 	
 	@PrePersist

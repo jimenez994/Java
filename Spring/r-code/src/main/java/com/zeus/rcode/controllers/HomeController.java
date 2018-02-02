@@ -47,7 +47,10 @@ public class HomeController {
 		PrettyTime prettyTime = new PrettyTime();
 		ArrayList<Post> posts = postServices.getAllFriendsPost(user.getId());
 		List<Post> postsND = new ArrayList<>(new LinkedHashSet<>(posts));  
-		System.out.println(posts);
+		if(postsND.isEmpty()) {
+			postsND = user.getPosts();
+		}
+		System.out.println(postsND);
 		model.addAttribute("posts", postsND);
 		model.addAttribute("cUser", user);
 		model.addAttribute("pTime", prettyTime);
@@ -115,9 +118,9 @@ public class HomeController {
 				comment.setUser(cUser);
 				comment.setPost(cPost);
 				comment.setPicture(file.getOriginalFilename());
-				
-				cUser.getComments().add(comment);
-				commentServices.addComment(comment);
+				Comment newComment = comment;
+				cUser.getComments().add(newComment);
+				commentServices.addComment(newComment);
 				
 				
 				
@@ -128,8 +131,10 @@ public class HomeController {
 		}else if(file.isEmpty() && !comment.getComment().equals("")) {
 			comment.setUser(cUser);
 			comment.setPost(cPost);
-			cUser.getComments().add(comment);
-			commentServices.addComment(comment);
+			System.out.println(cPost.getId() +"****** this is the current post");	
+			Comment newComment = comment;
+			cUser.getComments().add(newComment);
+			commentServices.addComment(newComment);
 			return "redirect:/home";
 		}
 		return "redirect:/home";

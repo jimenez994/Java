@@ -113,29 +113,36 @@
                         <c:if test="${post.getPicture() != null}">
                             <img class="card-img-bottom card-img-top img-fluid" src="/images/${post.getPicture()}" alt="${post.getPicture()}">
                         </c:if>
+                        <small class="text-muted ml-2"> 5 Like * <a href="#collapseComments${post.getId()}" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" class="text-muted">${post.getComments().size()} Comment </a></small>
+                        
+                        <c:forEach items="${post.comments}" var="comment">
+                            <small>${comment.comment}</small>
+                        </c:forEach>
+
                         <div class="card-footer text-muted">
                             <small class="mr-2"><a href="#" class="text-secondary" ><i class="fa fa-thumbs-o-up"></i> like </a></small>
-                            <small class="mr-2"> <a href="#collapseComment${post.getId()}" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" class="text-secondary"> <i class="fa fa-comment-o"></i> comment </a></small>
+                            <small class="mr-2"> <a href="#collapseCommentForm${post.getId()}" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" class="text-secondary"> <i class="fa fa-comment-o"></i> comment </a></small>
                             <small><a href="#" class="text-secondary"> <i class="fa fa-share"></i> share </a></small>  
                         </div>
                       
-                        <div id="collapseComment${post.getId()}" class="collapse">
+                        <div id="collapseCommentForm${post.getId()}" class="collapse">
                             
                             <div class=" mr-2 ml-2">
-                                
                                 <form:form action="/home/addComment/${post.getId()}" method="post" enctype="multipart/form-data" modelAttribute="newComment">
 
+                                <div class="card">
+                                        
+                                        <img class="card-img" id="prev">
+                                    </div>
                                     <form:input path="comment" type="text" id="name" class="form-control form-control-sm" placeholder="Add a comment..."></form:input>
 
                                     <div class="d-flex flex-row justify-content-between row-hl mt-2 ">
-                                        <label for="filesC" class="btn text-info"> <i class="fa fa-camera"></i> </label> 
-                                        <input id="filesC" style="visibility:hidden;" name="file2" type="file">
+                                        <label for="fil" class="btn text-info"> <i class="fa fa-camera"></i> </label> 
+                                        <input id="fil" style="visibility:hidden;" name="file2" type="file">
                                         <small><input id="smallCommentBtn" class="text-rigth btn btn-info" type="submit" value="Post"></small> 
                                     </div>
 
-                                    <div class="card">
-                                        <img class="card-img" id="prev">
-                                    </div>
+                                    
                                 </form:form>
                             </div>
                                  
@@ -162,7 +169,21 @@
 
 
 
-
+    <!-- <script>
+    window.onload = function () {
+            var files = document.querySelectorAll("input[type=file]");
+            
+            files[1].addEventListener("change", function (e) {
+                if (this.files && this.files[1]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById("${post.getId()}").setAttribute("src", e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[1]);
+                }
+            });
+        }
+    </script> -->
 
 
 
