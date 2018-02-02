@@ -81,7 +81,7 @@
                             <div>
                                 <input id="files" style="visibility:hidden;" name="file" type="file">
                             </div>
-                            <div class="d-flex  row-hl ">
+                            <div class="d-flex row-hl ">
                                 <div>
                                     <label for="files" class="btn item-hl ml-3 mb-3 btn-info"> <i class="fa fa-camera"></i> Image </label> 
 
@@ -118,13 +118,28 @@
                             <small class="mr-2"> <a href="#collapseComment${post.getId()}" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" class="text-secondary"> <i class="fa fa-comment-o"></i> comment </a></small>
                             <small><a href="#" class="text-secondary"> <i class="fa fa-share"></i> share </a></small>  
                         </div>
+                      
                         <div id="collapseComment${post.getId()}" class="collapse">
-	                        <div class="card-body">
-	                            <div class="form-group">
-                                    <p>something</p>
-                                </div>
-                                 
+                            
+                            <div class=" mr-2 ml-2">
+                                
+                                <form:form action="/home/addComment/${post.getId()}" method="post" enctype="multipart/form-data" modelAttribute="newComment">
+
+                                    <form:input path="comment" type="text" id="name" class="form-control form-control-sm" placeholder="Add a comment..."></form:input>
+
+                                    <div class="d-flex flex-row justify-content-between row-hl mt-2 ">
+                                        <label for="filesC" class="btn text-info"> <i class="fa fa-camera"></i> </label> 
+                                        <input id="filesC" style="visibility:hidden;" name="file2" type="file">
+                                        <small><input id="smallCommentBtn" class="text-rigth btn btn-info" type="submit" value="Post"></small> 
+                                    </div>
+
+                                    <div class="card">
+                                        <img class="card-img" id="prev">
+                                    </div>
+                                </form:form>
                             </div>
+                                 
+                            
                            
                         </div>
                     </div>
@@ -154,6 +169,8 @@
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
     <script src="/src/js/jquery.min.js"></script>
     <script src="/src/js/popper.min.js"></script>
+    <script type="text/javascript" src="/src/js/commentPreImg.js"></script>
+
     <script type="text/javascript" src="/src/js/myMain.js"></script>
     <script src="/src/js/bootstrap.min.js"></script>
 </body>

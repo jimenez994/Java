@@ -157,9 +157,7 @@
                             
                         </div>
                         <div id="menu1" class="container tab-pane fade">
-                            <br>
-                            <h3>Menu 1</h3>
-                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            
                         </div>
                         <div id="menu2" class="container tab-pane fade">
                             <br>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.zeus.rcode.models.Post;
 import com.zeus.rcode.models.Question;
 import com.zeus.rcode.models.User;
 import com.zeus.rcode.models.UserInfo;
@@ -45,7 +46,7 @@ public class ProfileController {
 		User cUser = userServices.findById((long)session.getAttribute("id"));
 		UserInfo cUserInfo = cUser.getUserInfo();
 		PrettyTime prettyTime = new PrettyTime();
-
+		List<Post> posts = cUser.getPosts();
 		List<Question> questions = questionServices.getUsersQuestions(cUser);
 		
 		if(cUser.getUserInfo() != null) {
@@ -54,7 +55,7 @@ public class ProfileController {
 			model.addAttribute("updateUserInfo",new UserInfo());
 		}
 		model.addAttribute("pTime", prettyTime);
-
+		model.addAttribute("posts", posts);
 		model.addAttribute("questions", questions);
 		model.addAttribute("cUser", cUser);
 		return "profile";

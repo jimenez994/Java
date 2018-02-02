@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zeus.relationships.models.License;
@@ -11,11 +12,9 @@ import com.zeus.relationships.repositories.LicenseRepository;
 
 @Service
 public class LicenseService {
-	private LicenseRepository licenseRepository;
 	
-	public LicenseService(LicenseRepository licenseRepository) {
-		this.licenseRepository = licenseRepository;
-	}
+	@Autowired
+	private LicenseRepository licenseRepository;
 	
 	public ArrayList<License> getAll(){
 		return licenseRepository.findAll();

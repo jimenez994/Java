@@ -22,6 +22,7 @@ public class Person {
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
+    
     @OneToOne(mappedBy="person", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private License license;
     

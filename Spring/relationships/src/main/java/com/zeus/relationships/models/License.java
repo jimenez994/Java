@@ -29,11 +29,14 @@ public class License {
     @Column(updatable=false)
     private Date createdAt;
     private Date updatedAt;
+    
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="person_id")
+    
     private Person person;
-    public License() {
-        
+    
+    public License() {  
+    	
     }
 	public Long getId() {
 		return id;
