@@ -143,7 +143,7 @@
 											<div class="card">
 												<p class="card-header">
 													<a href="/profile/${user.id}"> ${user.username} </a>
-													<input class="btn btn-success" type="submit" value="Accept" />
+													<input type="submit" value="Accept" />
 												</p>
 											</div>
 										</form>
@@ -162,7 +162,7 @@
 												<div class="card">
 													<p class="card-header">
 													<a href="/profile/${user.id}"> ${user.username} </a>
-													<input class="btn btn-secondary" type="submit" value="Cancel" />
+													<input type="submit" value="Cancel" />
 													</p>
 												</div>
 											</form>
