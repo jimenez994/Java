@@ -18,10 +18,27 @@ public class PersonForToStringSample {
 		System.out.println(person);
 
 	}
-
+// check
 	@Override
 	public String toString() {
-		return "PersonForToStringSample [firstName=" + firstName + ", lastName=" + lastName + ", id=" + id + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("PersonForToStringSample [");
+		if (firstName != null) {
+			builder.append("firstName=");
+			builder.append(firstName);
+			builder.append(", ");
+		}
+		if (lastName != null) {
+			builder.append("lastName=");
+			builder.append(lastName);
+			builder.append(", ");
+		}
+		if (id != null) {
+			builder.append("id=");
+			builder.append(id);
+		}
+		builder.append("]");
+		return builder.toString();
 	}
 
 	
