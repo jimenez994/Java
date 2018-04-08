@@ -6,3 +6,4 @@ public interface ColorI extends Transparency {
 	void setCode(String code); 
 
 }
+//
