@@ -1,15 +1,19 @@
 package com.zeus.flashCards.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 public class User {
@@ -30,6 +34,12 @@ public class User {
 	
 	@DateTimeFormat(pattern="MM:dd:yyyy HH:mm:ss")
 	private Date createdAt;
+	
+	@OneToMany(mappedBy="user", fetch= FetchType.LAZY)
+	private List<Deck> decks;
+	
+	@OneToMany(mappedBy="user", fetch =FetchType.LAZY)
+	private List<Card> card;
 	
 	public User() {
 		this.createdAt = new Date();
@@ -75,6 +85,19 @@ public class User {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+	public List<Card> getCard() {
+		return card;
+	}
+	public void setCard(List<Card> card) {
+		this.card = card;
+	}
+	public List<Deck> getDecks() {
+		return decks;
+	}
+	public void setDecks(List<Deck> decks) {
+		this.decks = decks;
+	}
+	
 	
 	
 
