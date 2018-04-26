@@ -12,6 +12,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
@@ -20,6 +21,9 @@ public class User {
 	@Id
 	@GeneratedValue
 	private long id;
+	
+	@Email(message="Invalid Email Format! Ex: example@example.com")
+	private String email;
 	
 	@Size(min=2)
 	private String username;
@@ -96,6 +100,12 @@ public class User {
 	}
 	public void setDecks(List<Deck> decks) {
 		this.decks = decks;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
