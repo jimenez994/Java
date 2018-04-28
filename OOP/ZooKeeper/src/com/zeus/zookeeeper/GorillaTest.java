@@ -9,7 +9,7 @@ public class GorillaTest {
 		g.climb();
 		g.eatBananas();
 		g.displayEnergy();
-
+		System.out.println("bla");
 	}
 
 }
