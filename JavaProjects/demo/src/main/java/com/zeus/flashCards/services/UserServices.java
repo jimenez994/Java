@@ -29,20 +29,27 @@ public class UserServices {
 	}
 
 	public String create(User user){
-		user.setPassword(  bcrypt.encode( user.getPassword() ) );
-		userRepo.save(user);
-		return "You created a new User";
+		System.out.println(user.getEmail());
+		if (userRepo.findByEmail(user.getEmail()) != null) {
+			return "Email is already taken";
+		}else if (userRepo.findByUsername(user.getUsername()) != null) {
+			return "Username is already in use";
+		}else {
+			user.setPassword(  bcrypt.encode( user.getPassword() ) );
+			userRepo.save(user);
+			return "You created a new User";
+		}
 	}
 
 	public void update(User user){
 		userRepo.save(user);
 	}
 	public ArrayList<User> all(){
-		return (ArrayList<User>)userRepo.findAll();
+		return userRepo.findAll();
 	}
 
 	public User findById(long id){
-		return (User) userRepo.findOne(id);
+		return userRepo.findOne(id);
 	}
 
 	public void destroy(User user){
