@@ -2,6 +2,7 @@ package com.zeus.flashCards.services;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import com.zeus.flashCards.repositories.UserRepository;
 @Service
 public class UserServices {
 	
+	@Autowired 
 	private UserRepository userRepo;	
 	private BCryptPasswordEncoder bcrypt;
 	
@@ -26,9 +28,10 @@ public class UserServices {
 		}
 	}
 
-	public void create(User user){
+	public String create(User user){
 		user.setPassword(  bcrypt.encode( user.getPassword() ) );
 		userRepo.save(user);
+		return "You created a new User";
 	}
 
 	public void update(User user){
