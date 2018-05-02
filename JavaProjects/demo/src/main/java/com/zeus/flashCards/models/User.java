@@ -15,9 +15,9 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
 public class User {
+	
 	@Id
 	@GeneratedValue
 	private long id;
