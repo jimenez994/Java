@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- Root element -->
+<UserProfile>
+    <FirstName>Jonathan</FirstName>
+    <LastName>Jimenez</LastName>
+    <Password>test12345</Password>
+    <Email>test@test.com</Email>
+    <Photo location="servername/filename"/>
+
+</UserProfile>

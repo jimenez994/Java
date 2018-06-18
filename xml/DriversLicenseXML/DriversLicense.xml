@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- this holds lincense imformation -->
+<DriversLincense status="suspended">
+
+    <Number>12345</Number>
+    <FirstName>Jonathan</FirstName>
+    <LastName>Jimenez &amp; Anturiano</LastName>
+    <DateOfBirth>09/nov/1994</DateOfBirth>
+    <VihicleType>Car</VihicleType>
+    <DateOfIssue>11/june/2012</DateOfIssue>
+    <!-- For Citizens it is 4 years and for visa holder it is the visa expiration date -->
+    <ExpirationDate>11/june/2020</ExpirationDate>
+    <Photo location="servername/filename"/>
+
+    <!-- nesting elments -->
+    <Address>
+        <street>some st</street>
+        <city> Falls bla</city>
+        <state> Virginia </state>
+        <country> USA </country>
+        <zipcode> 23455 </zipcode>
+    </Address>
+
+    <![CDATA[
+        Anything in here will be ignore
+        <!-- For Citizens it is 4 years and for visa holder it is the visa expiration date -->
+        <ExpirationDate>11/june/2020</ExpirationDate>
+    ]]>
+
+</DriversLincense>
