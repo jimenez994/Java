@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/Patient" xmlns:tns="http://www.example.org/Patient" elementFormDefault="qualified">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.Zues.org/Patient" xmlns:tns="http://www.Zues.org/Patient" elementFormDefault="qualified">
+
+	<!-- Root element -->
+	<element name="Patient" type="tns:Patient"/>
+	
+	<!-- XML Schema how the xml file will look like -->
+	<complexType name="Patient" >
+		<!-- Sequence tells in order the attributes has to be -->
+		<sequence>
+			<element name="name" type="string"/>
+			<element name="age" type="int"/>
+			<element name="email" type="string"/>
+			<element name="gender" type="string"/>
+			<element name="phone" type="string"/>			
+		</sequence>
+	</complexType>
 </schema>

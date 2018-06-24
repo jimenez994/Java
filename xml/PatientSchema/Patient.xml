@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Patient xmlns:tns="http://www.Zues.org/Patient" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.Zues.org/Patient Patient.xsd ">
+  <tns:name>Jonathan</tns:name>
+  <tns:age>33</tns:age>
+  <tns:email>j.jimenez.994@hotmail.com</tns:email>
+  <tns:gender>M</tns:gender>
+  <tns:phone>7035991082</tns:phone>
+</tns:Patient>

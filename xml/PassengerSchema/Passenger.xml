@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Passenger xmlns:tns="http://www.Zeus.org/Passager" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.Zeus.org/Passager Passenger.xsd ">
+  <tns:name>Jonathan</tns:name>
+  <tns:dob>1994-11-09</tns:dob>
+  <tns:seatNumber>23</tns:seatNumber>
+  <tns:gender>M</tns:gender>
+</tns:Passenger>
