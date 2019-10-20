@@ -2,10 +2,10 @@ public class Animal {
   String name;
   enum AnimalType{DOG,CAT,BIRD}
 
-  AnimalType type;
+  AnimalType AnimalT;
 
   Animal type() {
-    System.out.println(this.type);
+    System.out.println(AnimalT);
     return this;
   }
   Animal name(){
@@ -13,7 +13,5 @@ public class Animal {
     // return this.Animal;
     return this;
   };
-  Animal(String name){
-    this.name = name;  
-  };
+  
 }
