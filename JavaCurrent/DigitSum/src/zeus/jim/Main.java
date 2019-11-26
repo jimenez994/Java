@@ -5,6 +5,10 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
         System.out.println(digitSum(125));
+
+        int someNum = Integer.parseInt("10");
+        someNum += 20;
+        System.out.println(someNum);
     }
     public static int digitSum(int number){
         if(number >= 10){
@@ -20,4 +24,6 @@ public class Main {
             return -1;
         }
     };
+
+
 }
