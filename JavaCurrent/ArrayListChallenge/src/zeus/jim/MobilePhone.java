@@ -11,26 +11,73 @@ public class MobilePhone {
         this.name = name;
     }
 
-    public Contact add(String name, String phone){
-        Contact newContact = new Contact(name,phone);
-        contacts.add(newContact);
-        System.out.println(newContact.getName() +" has been added");
-        return newContact;
+    public void add(String name, String phone){
+        if(name.isEmpty() || phone.isEmpty()){
+            System.out.println("Either name or phone number was empty");
+        }else{
+            Contact newContact = new Contact(name,phone);
+            contacts.add(newContact);
+            System.out.println(newContact.getName() +" has been added");            
+        }
     }
 
-    public void listContacs(){
-
+    public void listContacts(){
+        int count = 1;
+        for (Contact contact: contacts) {
+            System.out.println("---------- "+(count++)+" ----------");
+            System.out.println("Name: " + contact.getName());
+            System.out.println("Phone: " + contact.getNumber());
+            System.out.println("---------------------------");
+        }
     }
 
     public boolean searchByPhone(String phone){
         for (Contact contact: contacts) {
             if(contact.getNumber().equals(phone)){
-                System.out.println("Phone number found");
+                System.out.println("Contact found");
+                System.out.println("*******************");
+                System.out.println("Name: " +contact.getName());
+                System.out.println("Phone: " +contact.getNumber());
+                System.out.println("*******************");
                 return true;
             }
         }
-        System.out.println("Phone number not found");
+        System.out.println("Contact not found");
         return false;
+    }
+    public boolean searchByName(String name){
+        for (Contact contact: contacts) {
+            if(contact.getName().equals(name)){
+                System.out.println("Contact found");
+                System.out.println("*******************");
+                System.out.println("Name: " +contact.getName());
+                System.out.println("Phone: " +contact.getNumber());
+                System.out.println("*******************");
+                return true;
+            }
+        }
+        System.out.println("Contact not found");
+        return false;
+    }
+
+    public void updateContact(int position, String name, String phone){
+        Contact original = contacts.get(position);
+        if(!original.getName().isEmpty()){
+            if(!name.isEmpty() && !phone.isEmpty()){
+                original.setName(name);
+                original.setNumber(phone);
+                System.out.println(name+ "Has been updated");
+            }else{
+                System.out.println("Name or Phone cannot be empty");
+            }
+        }else{
+            System.out.println("Something went wrong");
+        }
+    }
+
+    public void removeContact(int index){
+        contacts.remove(index);
+        System.out.println("Contact removed");
     }
 
     public ArrayList<Contact> getContacts() {
