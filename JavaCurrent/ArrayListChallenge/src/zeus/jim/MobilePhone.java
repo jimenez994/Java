@@ -12,12 +12,16 @@ public class MobilePhone {
     }
 
     public void add(String name, String phone){
-        if(name.isEmpty() || phone.isEmpty()){
-            System.out.println("Either name or phone number was empty");
+        if(searchByName(name)){
+            System.out.println("Contact already exists");
         }else{
-            Contact newContact = new Contact(name,phone);
-            contacts.add(newContact);
-            System.out.println(newContact.getName() +" has been added");            
+            if(name.isEmpty() || phone.isEmpty()){
+                System.out.println("Either name or phone number was empty");
+            }else{
+                Contact newContact = new Contact(name,phone);
+                contacts.add(newContact);
+                System.out.println(newContact.getName() +" has been added");
+            }
         }
     }
 
