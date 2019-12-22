@@ -10,5 +10,6 @@ public class Main {
         System.out.println(burger.getPrice());
 
         DeluxBurger dekuxBurge = new DeluxBurger("premium", "meat", 8.99);
+        dekuxBurge.addTomato();
     }
 }
