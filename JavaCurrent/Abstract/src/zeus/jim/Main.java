@@ -11,6 +11,18 @@ public class Main {
             list.addItem(new Node(word));
         }
         list.traverse(list.getRoot());
-//        list.
+        System.out.println("--------------");
+        list.removeItem(new Node("Bolivia"));
+        list.traverse(list.getRoot());
+
+        System.out.println("===================================");
+        SearchTree tree = new SearchTree(null);
+        tree.traverse(tree.getRoot());
+        String otherString = " gt vbf sd hbt wre gbvds asw ads ght hnt er q w re bvd hrtyg ";
+        String[] otherData = otherString.split(" ");
+        for (String s:otherData) {
+            tree.addItem(new Node(s));
+        }
+        tree.traverse(tree.getRoot());
     }
 }

@@ -65,15 +65,20 @@ public class MyLinkedList implements NodeList {
                 if(currentItem == this.root){
                     this.root = currentItem.next();
                 }else{
-
+                    currentItem.previous().setNext(currentItem.next());
+                    if(currentItem.next() != null){
+                        currentItem.next().setPrevious(currentItem.previous());
+                    }
                 }
+                return true;
+            }else if(comparison < 0){
+                currentItem = currentItem.next();
+            }else{
+//                item is not on the list
+                return false;
             }
         }
-        item.previous().setNext(item.next());
-        item.next().setPrevious(item.previous());
-        item.setPrevious(null);
-        item.setNext(null);
-        item = null;
+        //reach the end
         return false;
     }
 
