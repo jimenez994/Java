@@ -1,7 +1,7 @@
 package zeus.jim;
 
 public class SearchTree implements NodeList {
-    private ListItem root = null;
+    private ListItem root;
 
     public SearchTree(ListItem root) {
         this.root = root;

@@ -12,7 +12,10 @@ public class Main {
         }
         list.traverse(list.getRoot());
         System.out.println("--------------");
-        list.removeItem(new Node("Bolivia"));
+        boolean status = list.removeItem(new Node("Bolivia"));
+        System.out.println(status);
+        boolean status1 = list.addItem(new Node("Panama"));
+        System.out.println(status1);
         list.traverse(list.getRoot());
 
         System.out.println("===================================");

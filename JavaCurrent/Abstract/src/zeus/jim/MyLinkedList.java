@@ -1,7 +1,7 @@
 package zeus.jim;
 
 public class MyLinkedList implements NodeList {
-    private ListItem root = null;
+    private ListItem root;
 
     public MyLinkedList(ListItem root) {
         this.root = root;
