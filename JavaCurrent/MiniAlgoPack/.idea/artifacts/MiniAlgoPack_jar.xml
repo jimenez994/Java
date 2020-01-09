@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MiniAlgoPack:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MiniAlgoPack_jar</output-path>
+    <root id="archive" name="MiniAlgoPack.jar">
+      <element id="module-output" name="MiniAlgoPack" />
+    </root>
+  </artifact>
+</component>

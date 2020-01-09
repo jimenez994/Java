@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="MiniAlgoPack">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../MiniAlgoPack/out/artifacts/MiniAlgoPack_jar/MiniAlgoPack.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
