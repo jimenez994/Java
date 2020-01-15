@@ -6,5 +6,7 @@ public class Main {
 	Theater theater = new Theater("Annandale", 12,10);
 
 	theater.getSeats();
+
+
     }
 }
