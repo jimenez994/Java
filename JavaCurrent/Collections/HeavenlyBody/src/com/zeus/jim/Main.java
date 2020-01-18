@@ -11,24 +11,24 @@ public class Main {
     private static Set<HeavenlyBody> planets = new HashSet<>();
 
     public static void main(String[] args) {
-        HeavenlyBody temp = new HeavenlyBody("Mercury", 88);
+        HeavenlyBody temp = new HeavenlyBody("Mercury", 88, HeavenlyBody.BodyType.PLANET);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 
-        temp = new HeavenlyBody("Venus", 225);
+        temp = new HeavenlyBody("Venus", 225, HeavenlyBody.BodyType.PLANET);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 
-        temp = new HeavenlyBody("Earth", 365);
+        temp = new HeavenlyBody("Earth", 365, HeavenlyBody.BodyType.PLANET);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 //      Currently temp still holds earth
 //        moon is being added to earth here
-        HeavenlyBody tempMoon = new HeavenlyBody("Moon", 27);
+        HeavenlyBody tempMoon = new HeavenlyBody("Moon", 27, HeavenlyBody.BodyType.MOON);
         solarSystem.put(temp.getName(), temp);
-        temp.addMoon(tempMoon);
+        temp.addSatellite(tempMoon);
 
-        temp = new HeavenlyBody("Earth", 35);
+        temp = new HeavenlyBody("Earth", 35, HeavenlyBody.BodyType.PLANET);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 
