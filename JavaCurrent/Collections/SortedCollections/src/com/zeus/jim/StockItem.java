@@ -1,14 +1,18 @@
 package com.zeus.jim;
 
+import java.util.Map;
+
 public class StockItem implements Comparable<StockItem> {
     private final String name;
     private double price;
     private int quantity;
+    private int reserved;
 
     public StockItem(String name, double price) {
         this.name = name;
         this.price = price;
         this.quantity = 0;
+        this.reserved = 0;
     }
 
     public StockItem(String name, double price, int quantity) {
@@ -32,13 +36,31 @@ public class StockItem implements Comparable<StockItem> {
         }
     }
 
+    public int quantityReserved() {
+        return reserved;
+    }
+
     public int quantityInStock() {
         return quantity;
     }
 
+    public void adjustReservedItems(int quantity){
+        if(quantity > 0 && (quantity + reserved) <= this.quantity){
+            this.reserved += quantity;
+            System.out.println(quantity + "  " + this.name + " added" );
+        }
+    }
+
+    public void adjustUnReservedItems(int quantity){
+        if(quantity > 0 && this.reserved >= quantity){
+            this.reserved -= quantity;
+            System.out.println(quantity + "  " + this.name + " remove" );
+        }
+    }
+
     public void adjustStock(int quantity) {
         int newQuantity = this.quantity + quantity;
-        if(newQuantity >= 0){
+        if (newQuantity >= 0) {
             this.quantity = newQuantity;
         }
     }
@@ -62,7 +84,7 @@ public class StockItem implements Comparable<StockItem> {
 
     @Override
     public int compareTo(StockItem o) {
-
+//        System.out.println("Calling compare method");
         if(o == this){
             return 0;
         }
@@ -74,6 +96,6 @@ public class StockItem implements Comparable<StockItem> {
 
     @Override
     public String toString() {
-        return "StockItem: " + "name='" + name + ", price=" + price + ", quantity=" + quantity;
+        return "StockItem -> " + "name: " + name + ", price: " + price + ", quantity: " + quantity;
     }
 }
