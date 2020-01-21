@@ -1,7 +1,6 @@
 package com.zeus.jim;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,18 +19,18 @@ public class StockList {
             StockItem inStock = list.getOrDefault(item.getName(), item);
 //            if there already stocks on this item, adjust the quantity
             if (inStock != item){
-                item.adjustStock(inStock.quantityInStock());
+                item.adjustStock(inStock.availableQuantity());
             }
 
             list.put(item.getName(), item);
-            return item.quantityInStock();
+            return item.availableQuantity();
         }
         return 0;
     }
 
     public int sellStock(String item, int quantity){
         StockItem inStockItem = list.getOrDefault(item, null);
-        if((inStockItem != null) && (inStockItem.quantityInStock() > quantity) && (quantity > 0)){
+        if((inStockItem != null) && (inStockItem.availableQuantity() > quantity) && (quantity > 0)){
             inStockItem.adjustStock(-quantity);
             return quantity;
         }
@@ -40,7 +39,7 @@ public class StockList {
 
     public int reserveStock(String item, int quantity){
         StockItem inStockItem = list.getOrDefault(item, null);
-        if((inStockItem != null) && (inStockItem.quantityInStock() >= (quantity + inStockItem.quantityReserved()) && (quantity > 0))){
+        if((inStockItem != null) && (inStockItem.availableQuantity() >= (quantity + inStockItem.quantityReserved()) && (quantity > 0))){
             inStockItem.adjustReservedItems(quantity);
             return quantity;
         }else{
@@ -83,9 +82,9 @@ public class StockList {
         for (Map.Entry<String, StockItem> item : this.list.entrySet()){
             StockItem stockItem = item.getValue();
 
-            double itemValue = stockItem.getPrice() * stockItem.quantityInStock();
+            double itemValue = stockItem.getPrice() * stockItem.availableQuantity();
 
-            s = s + stockItem + ", There are " + stockItem.quantityInStock() + " in stock. Value of items: ";
+            s = s + stockItem + ", There are " + stockItem.availableQuantity() + " in stock. Value of items: ";
 //            %.2f makes the decimal number to two decimal place
             s = s + String.format("%.2f", itemValue)  + "\n";
             totalCost += itemValue;

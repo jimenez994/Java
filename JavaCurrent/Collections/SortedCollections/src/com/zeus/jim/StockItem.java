@@ -1,24 +1,22 @@
 package com.zeus.jim;
 
-import java.util.Map;
-
 public class StockItem implements Comparable<StockItem> {
     private final String name;
     private double price;
-    private int quantity;
+    private int quantityInStock;
     private int reserved;
 
     public StockItem(String name, double price) {
         this.name = name;
         this.price = price;
-        this.quantity = 0;
+        this.quantityInStock = 0;
         this.reserved = 0;
     }
 
-    public StockItem(String name, double price, int quantity) {
+    public StockItem(String name, double price, int quantityInStock) {
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
+        this.quantityInStock = quantityInStock;
     }
 
     public String getName() {
@@ -40,12 +38,12 @@ public class StockItem implements Comparable<StockItem> {
         return reserved;
     }
 
-    public int quantityInStock() {
-        return quantity;
+    public int availableQuantity() {
+        return quantityInStock - reserved;
     }
 
     public void adjustReservedItems(int quantity){
-        if(quantity > 0 && (quantity + reserved) <= this.quantity){
+        if(quantity > 0 && (quantity + reserved) <= this.quantityInStock){
             this.reserved += quantity;
             System.out.println(quantity + "  " + this.name + " added" );
         }
@@ -59,9 +57,9 @@ public class StockItem implements Comparable<StockItem> {
     }
 
     public void adjustStock(int quantity) {
-        int newQuantity = this.quantity + quantity;
+        int newQuantity = this.quantityInStock + quantity;
         if (newQuantity >= 0) {
-            this.quantity = newQuantity;
+            this.quantityInStock = newQuantity;
         }
     }
 
@@ -96,6 +94,6 @@ public class StockItem implements Comparable<StockItem> {
 
     @Override
     public String toString() {
-        return "StockItem -> " + "name: " + name + ", price: " + price + ", quantity: " + quantity;
+        return "StockItem -> " + "name: " + name + ", price: " + price + ", quantity: " + quantityInStock;
     }
 }

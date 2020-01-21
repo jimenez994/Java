@@ -40,6 +40,11 @@ public class Basket {
         return 0;
     }
 
+    public Map<StockItem, Integer> clear(){
+        this.list.clear();
+        return this.list;
+    }
+
     public Map<StockItem, Integer> getList(){
         return Collections.unmodifiableMap(list);
     }

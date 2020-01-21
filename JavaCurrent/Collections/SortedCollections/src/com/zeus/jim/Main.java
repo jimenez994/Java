@@ -46,8 +46,11 @@ public class Main {
         reserveStock(jonsBasket, "bed", 4);
         System.out.println(jonsBasket);
 
+        unReserveStock(jonsBasket, "car", 3);
+
         payBasket(jonsBasket);
         System.out.println(jonsBasket);
+
 
         System.out.println(stockList);
 
@@ -86,6 +89,8 @@ public class Main {
             for (Map.Entry<StockItem, Integer> item: basket.getList().entrySet()) {
                 sellStock(basket, item.getKey().getName(), item.getValue());
             }
+            basket.clear();
+//            System.out.println("You paid " + basket.);
         }
 
     }
