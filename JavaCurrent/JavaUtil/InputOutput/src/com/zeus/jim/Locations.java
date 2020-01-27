@@ -1,11 +1,11 @@
 package com.zeus.jim;
 
+import jdk.jshell.execution.LoaderDelegate;
+
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Locations implements Map<Integer, Location> {
     private static Map<Integer, Location> locations = new HashMap<Integer, Location>();
@@ -43,6 +43,26 @@ public class Locations implements Map<Integer, Location> {
     }
 
     static {
+        Scanner scanner = null;
+        try{
+            scanner = new Scanner(new FileReader("locations.txt"));
+            scanner.useDelimiter(",");
+            while(scanner.hasNextLine()){
+                int loc = scanner.nextInt();
+                scanner.skip(scanner.delimiter());
+                String description = scanner.nextLine();
+                System.out.println("Importing: " + loc + " , " + description);
+                Map<String, Integer> tempExit = new HashMap<>();
+                locations.put(loc, new Location(loc, description, tempExit));
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            if(scanner != null){
+                scanner.close();
+            }
+        }
 
 //        Map<String, Integer> tempExists = new HashMap<>();
 //        locations.put(0, new Location(0, "You are sitting in front of a computer learning Java", tempExists));
