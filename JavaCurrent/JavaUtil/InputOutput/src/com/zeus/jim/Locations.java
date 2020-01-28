@@ -43,6 +43,7 @@ public class Locations implements Map<Integer, Location> {
     }
 
     static {
+// still triny to understant this
         Scanner scanner = null;
         try{
             scanner = new Scanner(new FileReader("locations.txt"));
@@ -55,7 +56,6 @@ public class Locations implements Map<Integer, Location> {
                 Map<String, Integer> tempExit = new HashMap<>();
                 locations.put(loc, new Location(loc, description, tempExit));
             }
-
         }catch (IOException e){
             e.printStackTrace();
         }finally {
