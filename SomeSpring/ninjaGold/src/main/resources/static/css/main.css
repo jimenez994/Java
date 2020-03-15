@@ -1,0 +1,303 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap");
+*{
+  /* border: solid 2px black; */
+}
+body,
+html {
+  height: cal(100% - 2em);
+  margin: 0;
+  font-family: "Montserrat";
+}
+
+main {
+  background: rgb(2, 0, 36);
+  background: -moz-linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 3, 7, 1) 0%,
+    rgba(15, 116, 219, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 3, 7, 1) 0%,
+    rgba(15, 116, 219, 1) 100%
+  );
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 3, 7, 1) 0%,
+    rgba(15, 116, 219, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#0f74db",GradientType=1);
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  text-align: center;
+  padding: 1em 0em;
+}
+
+.btn-findG {
+  display: none;
+}
+
+.flex-btn{
+  background-color: transparent;
+  width:100%;
+  color: white;
+  border-radius: 6px;
+  border-style: none;
+}
+.flex-btn h2 {
+  font-size: x-large;
+}
+
+#subtitle-act {
+  display: none;
+}
+
+h2 {
+  color: white;
+}
+
+#coins {
+  display: inline-block;
+  width: 170px;
+  padding-right: 4px;
+  color: gold;
+  background-color: white;
+  width: 300px;
+  text-align: right;
+  border-radius: 5px;
+}
+
+.location {
+  color: white;
+  margin: 1em 1.25em;
+  border-radius: 6px;
+
+}
+.ln-loc {
+  display: none;
+}
+
+form p {
+  /* display: none; */
+  font-size: small;
+}
+form h2 {
+  margin-bottom: auto;
+}
+
+#farm {
+  background: rgb(2, 0, 36);
+  background: -moz-linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(210, 8, 168, 1) 0%,
+    rgba(252, 110, 46, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(210, 8, 168, 1) 0%,
+    rgba(252, 110, 46, 1) 100%
+  );
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(210, 8, 168, 1) 0%,
+    rgba(252, 110, 46, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#fc6e2e",GradientType=1);
+}
+
+#cave {
+  background: rgb(2, 0, 36);
+  background: -moz-linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(189, 30, 237, 1) 0%,
+    rgba(0, 214, 201, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(189, 30, 237, 1) 0%,
+    rgba(0, 214, 201, 1) 100%
+  );
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(189, 30, 237, 1) 0%,
+    rgba(0, 214, 201, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00d6c9",GradientType=1);
+}
+
+#house {
+  background: rgb(2, 0, 36);
+  background: -moz-linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 120, 186, 1) 0%,
+    rgba(40, 210, 48, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 120, 186, 1) 0%,
+    rgba(40, 210, 48, 1) 100%
+  );
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 120, 186, 1) 0%,
+    rgba(40, 210, 48, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#28d230",GradientType=1);
+}
+
+#casino {
+  background: rgb(2, 0, 36);
+  background: -moz-linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(236, 66, 25, 1) 0%,
+    rgba(252, 199, 49, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(236, 66, 25, 1) 0%,
+    rgba(252, 199, 49, 1) 100%
+  );
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(236, 66, 25, 1) 0%,
+    rgba(252, 199, 49, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#fcc731",GradientType=1);
+}
+
+#activity {
+  overflow: scroll;
+  background-color: white;
+  border-radius: 6px;
+  height: 125px;
+  margin: 1em 1.25em;
+  color: #585a5c;
+  font-size: small;
+  text-align: left;
+}
+.lossCoins {
+  color: red;
+  font-weight: bold;
+}
+
+.gainCoins {
+  color: green;
+  font-weight: bold;
+}
+
+.btn-reset a{
+  text-decoration: none;
+  color: black;
+}
+
+@media only screen and (min-width: 768px) {
+  main {
+    margin: 1em auto;
+    text-align: left;
+    margin: 1em;
+    padding: 2em;
+    border-radius: 6px;
+  }
+
+  .places {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* grid-template-rows: 1.5fr ; */
+    grid-gap: 10px;
+    height: 1.5fr;
+  }
+  .flex-btn {
+    display: none;
+  }
+
+  .ln-loc {
+    display: block;
+  }
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main right right'
+    'menu footer footer footer footer footer';
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+
+  .location {
+    display: inline;
+    text-align: center;
+    margin: 0em;
+    padding: 5px;
+    /* height: 120%; */
+  }
+  .location h2 {
+    font-size: 1.8em;
+    margin-top: 1em;
+  }
+  .location p {
+    margin: 1.5em;
+  }
+  #activity {
+    margin: 1em 0em;
+  }
+  .btn-findG {
+    color: white;
+    font-weight: bold;
+    font-size: .8em;
+    display: inline-block;
+    border: 0ch;
+    margin-bottom: 1.5em;
+    width: 80%;
+    height: 3em;
+    border-radius: 6px;
+    background: rgb(2, 0, 36);
+    background: -moz-linear-gradient(
+      45deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(240, 0, 88, 1) 0%,
+      rgba(0, 35, 78, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+      45deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(240, 0, 88, 1) 0%,
+      rgba(0, 35, 78, 1) 100%
+    );
+    background: linear-gradient(
+      45deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(240, 0, 88, 1) 0%,
+      rgba(0, 35, 78, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00234e",GradientType=1);
+  }
+  #subtitle-act {
+    display: block;
+    color: white;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  main {
+    width: 1200px;
+    margin: 1em auto;
+  }
+}
